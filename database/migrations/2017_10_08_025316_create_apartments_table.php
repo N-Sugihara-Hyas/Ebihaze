@@ -16,15 +16,16 @@ class CreateApartmentsTable extends Migration
         Schema::create('apartments', function (Blueprint $table) {
             $table->increments('id');
 	        $table->string('name');
-	        $table->string('address');
+	        $table->string('address')->nullable();
 	        $table->boolean('contact')->comment('0:不可, 1:可');
-	        $table->string('control')->comment('管理形態');
-	        $table->string('construction')->comment('構造');
-	        $table->string('pet')->comment('ペット');
-	        $table->string('facilities')->comment('付帯設備');
-	        $table->string('completion_date')->comment('竣工年月');
-	        $table->integer('total_units')->comment('総戸数');
-	        $table->text('introduction')->comment('マンション紹介テキスト');
+	        $table->string('control')->nullable()->comment('管理形態');
+	        $table->string('construction')->nullable()->comment('構造');
+	        $table->string('pet')->nullable()->comment('ペット');
+	        $table->string('facilities')->nullable()->comment('付帯設備');
+	        $table->string('completion_date')->nullable()->comment('竣工年月');
+	        $table->string('insurance')->nullable()->comment('保険情報');
+	        $table->integer('total_units')->nullable()->comment('総戸数');
+	        $table->text('introduction')->nullable()->comment('マンション紹介テキスト');
 	        $table->boolean('official')->comment('0:非公式, 1:公式');
 	        $table->boolean('public')->comment('0:リストに出さない, 1:リストに出す');
             $table->timestamps();
