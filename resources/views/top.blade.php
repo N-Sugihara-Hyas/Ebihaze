@@ -1,21 +1,13 @@
-@extends('layouts.app')
+@extends('layouts.globalmenu')
 
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
-
-                <div class="panel-body">
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    You are logged in!
-                </div>
+        <div class="top">
+            <div class="top__main-figure">
+                <figure>
+                    <img width="115" height="122" src="{{ asset('img/logo.png') }}" alt="">
+                </figure>
             </div>
         </div>
     </div>
