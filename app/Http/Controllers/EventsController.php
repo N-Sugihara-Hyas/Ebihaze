@@ -8,14 +8,14 @@ class EventController extends Controller
 {
 	public function list()
 	{
-		return view('event.list');
+		return view('events.list');
 	}
 	public function add()
 	{
-		return view('event.add');
+		return view('events.add');
 	}
 	public function detail($id)
 	{
-		return view('event.detail');
+		return view('events.detail');
 	}
 }
