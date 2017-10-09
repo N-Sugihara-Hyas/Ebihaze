@@ -19,12 +19,15 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+// UsersRoute
+Route::get('/users/list', 'UsersController@list')->name('users-list');
+
 // EventsRoute
-Route::get('/events/list', 'EventsController@list')->name('event-list');
-Route::get('/events/add', 'EventsController@add')->name('event-add');
+Route::get('/events/list', 'EventsController@list')->name('events-list');
+Route::get('/events/add', 'EventsController@add')->name('events-add');
 Route::get('/events/detail/{event}', 'EventsController@detail');
 
 // TradersRoute
-Route::get('/traders/list', 'TradersController@list')->name('trader-list');
-Route::get('/traders/add', 'TradersController@add')->name('trader-add');
+Route::get('/traders/list', 'TradersController@list')->name('traders-list');
+Route::get('/traders/add', 'TradersController@add')->name('traders-add');
 Route::get('/traders/detail/{trader}', 'TradersController@detail');
