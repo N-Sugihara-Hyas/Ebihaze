@@ -27,16 +27,48 @@ p {
 /*
 * EventPage
 */
-.event-list .event-list__item {
-  background: white;
-  display: block;
-  padding: 10px;
-  margin-bottom: 10px;
-  height: 100px;
-}
 #event-form h1 {
   font-size: 12px;
   text-align: center;
+}
+.event-list__item {
+  height: 100px;
+}
+.event-item-container {
+  clear: both;
+  overflow: hidden;
+}
+.event-item-container .event-item-thumb {
+  width: 88px;
+  height: 88px;
+  float: left;
+}
+.event-item-container .event-item-main {
+  padding-left: 10px;
+  float: left;
+}
+.event-item-container .event-item-main .event-item-main__header {
+  clear: both;
+  overflow: hidden;
+}
+.event-item-container .event-item-main .event-item-main__header .event-item-main__title {
+  width: 210px;
+  line-height: 1.2em;
+  font-size: larger;
+  font-weight: bold;
+  float: left;
+}
+.event-item-container .event-item-main .event-item-main__header .event-item-main__title small {
+  font-weight: normal;
+}
+.event-item-container .event-item-main .event-item-main__header .event-item-main__icon {
+  width: 50px;
+  height: 50px;
+  float: right;
+}
+.event-item-container .event-item-main .event-item-main__footer {
+  font-size: smaller;
+  text-align: right;
 }
 .event-form {
   width: 320px;
@@ -93,43 +125,94 @@ p {
   padding-bottom: 15px;
 }
 /*
+* TraderPage
+*/
+.trader-item-container {
+  clear: both;
+  overflow: hidden;
+}
+.trader-item-container .trader-item-title {
+  float: left;
+  width: 240px;
+  padding: 20px;
+}
+.trader-item-container .trader-item-rank {
+  float: left;
+  width: 50px;
+  padding: 20px 5px;
+  display: table;
+}
+.trader-item-container .trader-item-rank .trader-item-rank__fav {
+  font-size: 18px;
+  color: #FF4081;
+  display: table-cell;
+  text-align: center;
+}
+.trader-item-container .trader-item-rank .trader-item-rank__score {
+  display: table-cell;
+  text-align: center;
+}
+.trader-item-container .trader-item-icon {
+  float: right;
+  padding: 5px;
+  width: 60px;
+}
+.trader-detail .trader-detail__header--top {
+  height: 60px;
+  position: relative;
+}
+.trader-detail .trader-detail__mv {
+  position: absolute;
+  width: 100%;
+  height: 120px;
+  text-align: center;
+}
+.trader-detail .trader-detail__header--bottom {
+  background: white;
+  height: 90px;
+}
+.trader-detail table.trader-detail__rank {
+  width: 100%;
+  background: white;
+  padding: 15px 90px 15px 15px;
+  text-align: center;
+}
+.trader-detail table.trader-detail__rank th {
+  font-size: 18px;
+  color: #FF4081;
+}
+.trader-detail table.trader-detail__rank td {
+  font-size: smaller;
+}
+.trader-detail .trader-detail__body {
+  background: white;
+  width: 100%;
+  padding: 15px;
+  display: table;
+}
+.trader-detail .trader-detail__body h2 {
+  font-size: 18px;
+  text-align: center;
+}
+.trader-detail .trader-detail__body dl.trader-detail__content {
+  display: table-row;
+}
+.trader-detail .trader-detail__body dl.trader-detail__content dt {
+  padding: 10px 5px;
+  display: table-cell;
+}
+.trader-detail .trader-detail__body dl.trader-detail__content dd {
+  padding: 10px 5px;
+  display: table-cell;
+}
+/*
 * Modules
 */
-.c-item-container {
-  clear: both;
-  overflow: hidden;
-}
-.c-item-container .c-item-thumb {
-  width: 88px;
-  height: 88px;
-  float: left;
-}
-.c-item-container .c-item-main {
-  padding-left: 10px;
-  float: left;
-}
-.c-item-container .c-item-main .c-item-main__header {
-  clear: both;
-  overflow: hidden;
-}
-.c-item-container .c-item-main .c-item-main__header .c-item-main__title {
-  width: 210px;
-  line-height: 1.2em;
-  font-size: larger;
-  font-weight: bold;
-  float: left;
-}
-.c-item-container .c-item-main .c-item-main__header .c-item-main__title small {
-  font-weight: normal;
-}
-.c-item-container .c-item-main .c-item-main__header .c-item-main__icon {
-  width: 50px;
-  height: 50px;
-  float: right;
-}
-.c-item-container .c-item-main .c-item-main__footer {
-  font-size: smaller;
-  text-align: right;
+.c-list .c-list__item {
+  background: white;
+  display: block;
+  padding: 10px;
+  margin-bottom: 10px;
 }
 .c-btn-area__large {
   width: 100%;

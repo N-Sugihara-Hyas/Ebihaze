@@ -4,18 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class EventsController extends Controller
+class TradersController extends Controller
 {
 	public function list()
 	{
-		return view('events.list');
+		return view('traders.list');
 	}
 	public function add()
 	{
-		return view('events.add');
+		return view('traders.add');
 	}
 	public function detail($id)
 	{
-		return view('events.detail');
+		return view('traders.detail');
 	}
 }

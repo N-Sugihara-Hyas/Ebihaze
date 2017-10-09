@@ -2,35 +2,27 @@
 
 @section('content')
 <div class="container">
-    <ul class="event-list">
+    <ul class="trader-list c-list">
         @foreach([0,1,2,3,4,5] as $list)
-        <li class="event-list__item">
-            <div class="c-item-container">
-                <section class="c-item-thumb">
-                    <figure>
-                        <img src="{{asset('img/thumb.png')}}" alt="">
-                    </figure>
+        <li class="trader-list__item c-list__item">
+            <div class="trader-item-container">
+                <section class="trader-item-title">
+                    <p>
+                        山本ビル管理サービス
+                    </p>
                 </section>
-                <section class="c-item-main">
-                    <div class="c-item-main__header">
-                        <p class="c-item-main__title">
-                            エントランス掃除<br>
-                            <small>&nbsp;業者名/業者名</small>
-                        </p>
-                        <figure class="c-item-main__icon">
-                            <img src="{{asset('img/icon.png')}}" alt="">
-                        </figure>
-                    </div>
-                    <div class="c-item-main__detail">
-                        <p>
-                            5月15日 10:00〜
-                        </p>
-                    </div>
-                    <div class="c-item-main__footer">
-                        <p>
-                            2017年4月10日 12:35更新
-                        </p>
-                    </div>
+                <section class="trader-item-rank">
+                    <span class="trader-item-rank__fav">
+                        ★
+                    </span>
+                    <span class="trader-item-rank__score">
+                        4.3
+                    </span>
+                </section>
+                <section class="trader-item-icon">
+                    <figure>
+                        <img width="100%" src="{{asset('img/icon.png')}}" alt="">
+                    </figure>
                 </section>
             </div>
         </li>
