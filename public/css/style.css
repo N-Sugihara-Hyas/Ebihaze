@@ -5,6 +5,15 @@ body {
   color: #636b6f;
   background-color: #FFF9EB;
 }
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+p {
+  padding: 0;
+  margin: 0;
+}
 .top {
   height: 667px;
   position: relative;
@@ -14,4 +23,137 @@ body {
   text-align: center;
   position: absolute;
   top: 25%;
+}
+/*
+* EventPage
+*/
+.event-list .event-list__item {
+  background: white;
+  display: block;
+  padding: 10px;
+  margin-bottom: 10px;
+  height: 100px;
+}
+#event-form h1 {
+  font-size: 12px;
+  text-align: center;
+}
+.event-form {
+  width: 320px;
+  height: 30px;
+  display: table;
+  border-bottom: 1px solid #004B6D;
+}
+.event-form .event-form__title {
+  display: table-cell;
+}
+.event-form .event-form__input {
+  display: table-cell;
+}
+.event-form .event-form__input input {
+  width: 100%;
+  background-color: transparent;
+  border: none;
+}
+.event-detail .event-detail__header {
+  padding-bottom: 15px;
+}
+.event-detail .event-detail__header .event-detail__title {
+  font-size: 18px;
+  text-align: center;
+}
+.event-detail .event-detail__header .event-detail__notes {
+  font-size: smaller;
+  text-align: right;
+}
+.event-detail .event-detail__body {
+  padding: 15px 0;
+}
+.event-detail .event-detail__body .event-detail__schedule {
+  padding: 0 30px;
+  margin: 10px 0;
+}
+.event-detail .event-detail__body .event-detail__suppliers {
+  padding: 0 30px;
+  margin: 10px 0;
+}
+.event-detail .event-detail__body .event-detail__parties {
+  padding: 0 30px;
+  margin: 10px 0;
+}
+.event-detail .event-detail__body .event-detail__message {
+  padding: 0 30px;
+  margin: 10px 0;
+}
+.event-detail .event-detail__body .event-detail__picture {
+  margin-top: 30px;
+}
+.event-detail .event-detail__footer {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+/*
+* Modules
+*/
+.c-item-container {
+  clear: both;
+  overflow: hidden;
+}
+.c-item-container .c-item-thumb {
+  width: 88px;
+  height: 88px;
+  float: left;
+}
+.c-item-container .c-item-main {
+  padding-left: 10px;
+  float: left;
+}
+.c-item-container .c-item-main .c-item-main__header {
+  clear: both;
+  overflow: hidden;
+}
+.c-item-container .c-item-main .c-item-main__header .c-item-main__title {
+  width: 210px;
+  line-height: 1.2em;
+  font-size: larger;
+  font-weight: bold;
+  float: left;
+}
+.c-item-container .c-item-main .c-item-main__header .c-item-main__title small {
+  font-weight: normal;
+}
+.c-item-container .c-item-main .c-item-main__header .c-item-main__icon {
+  width: 50px;
+  height: 50px;
+  float: right;
+}
+.c-item-container .c-item-main .c-item-main__footer {
+  font-size: smaller;
+  text-align: right;
+}
+.c-btn-area__large {
+  width: 100%;
+  text-align: center;
+}
+.c-btn {
+  border: 1px solid #2377D9;
+  border-radius: 5px;
+  padding: 16px 0;
+  margin: 15px;
+}
+.c-btn--large {
+  width: 270px;
+  height: 50px;
+}
+.c-btn--small {
+  width: 150px;
+  height: 50px;
+}
+.c-btn--blue {
+  background-color: #2377D9;
+  color: white;
+}
+.c-btn--white {
+  background-color: white;
+  color: #2377D9;
 }
