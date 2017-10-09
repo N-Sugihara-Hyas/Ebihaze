@@ -21,6 +21,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 // UsersRoute
 Route::get('/users/list', 'UsersController@list')->name('users-list');
+Route::get('/users/invite/form', 'UsersController@inviteForm')->name('users-invite-form');
+Route::get('/users/invite/complete', 'UsersController@inviteComplete')->name('users-invite-complete');
 
 // EventsRoute
 Route::get('/events/list', 'EventsController@list')->name('events-list');

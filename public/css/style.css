@@ -206,6 +206,57 @@ p {
   display: table-cell;
 }
 /*
+* UsersPage
+*/
+.users-list .users-list__item {
+  margin-left: -15px;
+  margin-right: -15px;
+}
+.users-item-container {
+  clear: both;
+  overflow: hidden;
+}
+.users-item-container .users-item-main {
+  float: left;
+  width: 240px;
+}
+.users-item-container .users-item-title {
+  font-size: 17px;
+  padding: 5px 0px;
+}
+.users-item-container .users-item-icon {
+  float: right;
+  width: 60px;
+}
+.users-invite_form .users-invite_form__introduction {
+  position: relative;
+  height: 240px;
+}
+.users-invite_form .users-invite_form__text {
+  position: absolute;
+  text-align: center;
+  top: 25%;
+  bottom: 25%;
+  left: 25%;
+  right: 25%;
+}
+.users-invite_form .users-invite_form__form {
+  margin-left: -15px;
+  margin-right: -15px;
+  margin-bottom: 30px;
+}
+.users-invite_form .users-invite_form__form input {
+  width: 100%;
+  padding: 20px 25%;
+  font-size: 40px;
+  text-align: center;
+  border: 8px solid darkgrey;
+  border-radius: 5px;
+}
+.users-invite_form .users-invite_form__submit {
+  text-align: center;
+}
+/*
 * Modules
 */
 .c-list .c-list__item {
@@ -223,6 +274,7 @@ p {
   border-radius: 5px;
   padding: 16px 0;
   margin: 15px;
+  text-align: center;
 }
 .c-btn--large {
   width: 270px;
@@ -232,8 +284,19 @@ p {
   width: 150px;
   height: 50px;
 }
+.c-btn--xsmall {
+  width: 60px;
+  padding: 0 5px;
+  margin: 0;
+  font-size: smaller;
+}
 .c-btn--blue {
   background-color: #2377D9;
+  color: white;
+}
+.c-btn--orange {
+  background-color: #FFB100;
+  border-color: #FFB100;
   color: white;
 }
 .c-btn--white {
