@@ -1,6 +1,6 @@
 @font-normal: 14px;  @font-middle: 17px; @font-large: 18px;
 @cream: #FFF9EB;
-@blue-grey: #004B6D; @light-blue:#2377D9; @orange:#FFB100;
+@blue-grey: #004B6D; @light-blue:#2377D9; @orange:#FFB100;  @red-orange:#FF5800;
 @pink: #FF4081;
 
 
@@ -139,6 +139,80 @@ p{
   .event-detail__footer{
     padding-top: 15px;
     padding-bottom: 15px;
+  }
+}
+.event-message{
+  .event-message__item{
+    margin-bottom: 10px;
+    clear: both;
+    overflow: hidden;
+  }
+  .event-message__body--you{
+    width:290px;
+    margin-bottom: 30px;
+    float: left;
+    word-break: break-all;
+  }
+  .event-message__body--me{
+    width:290px;
+    margin-bottom: 30px;
+    margin-left:50px;
+    word-break: break-all;
+  }
+  .event-message__thumb{
+    width: 50px;
+    height:50px;
+    float: left;
+  }
+}
+.event-review{
+  .event-review__introduction{
+    text-align: center;
+    margin-bottom:20px;
+  }
+  .event-review__notes{
+    margin-bottom: 15px;
+  }
+  table.event-review__rank{
+    width:100%;
+    margin-bottom:15px;
+    th{
+      text-align: center;
+    }
+    td{
+      text-align: center;
+    }
+  }
+  .event-review__submit{
+    text-align: center;
+    padding-bottom: 40px;
+    border-bottom: 1px solid grey;
+  }
+  .event-review__header{
+    .event-review__title{
+      font-size: @font-large;
+      text-align: center;
+    }
+    .event-review__notes{
+      text-align: right;
+
+    }
+  }
+  .event-review__body{
+    .event-review__schedule{
+      font-size:larger;
+      font-weight:bold;
+      margin-bottom: 15px;
+    }
+    .event-review__suppliers{
+      margin-bottom: 15px;
+    }
+    .event-review__parties{
+      margin-bottom: 15px;
+    }
+    .event-review__message{
+      margin-bottom: 15px;
+    }
   }
 }
 
@@ -336,4 +410,138 @@ p{
 .c-btn--white{
   background-color: white;
   color: @light-blue;
+}
+/* 吹き出し本体 */
+.c-balloon--container{
+  position: relative;
+  width:0px;
+  height:0px;
+}
+.c-balloon--you{
+  position: relative;
+  padding: 20px;
+  background-color: darkgrey;
+  color: #ffffff;
+  border-radius: 10px;
+}
+/* 色付きの半円 */
+.c-balloon__parts--you::before{
+  content: '';
+  position: absolute;
+  display: block;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  -webkit-transform: rotate(225deg);
+  transform: rotate(225deg);
+  left: 0px;
+  top: -10px;
+  border-left: 20px solid darkgray;
+  border-top: 20px solid darkgray;
+  border-right: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+}
+/* 白い半円 */
+.c-balloon__parts--you::after{
+  content: '';
+  position: absolute;
+  display: block;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  -webkit-transform: rotate(225deg);
+  transform: rotate(225deg);
+  left: -15px;
+  top: 0px;
+  border-left: 20px solid @cream;
+  border-top: 20px solid @cream;
+  border-right: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+}
+/* 吹き出し本体 */
+.c-balloon--me{
+  position: relative;
+  padding: 20px;
+  background-color: @light-blue;
+  color: #ffffff;
+  border-radius: 10px;
+}
+/* 色付きの半円 */
+.c-balloon__parts--me::before{
+  content: '';
+  position: absolute;
+  display: block;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  -webkit-transform: rotate(225deg);
+  transform: rotate(225deg);
+  left: 230px;
+  top: -10px;
+  border-left: 20px solid @light-blue;
+  border-top: 20px solid @light-blue;
+  border-right: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+}
+/* 白い半円 */
+.c-balloon__parts--me::after{
+  content: '';
+  position: absolute;
+  display: block;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  -webkit-transform: rotate(225deg);
+  transform: rotate(225deg);
+  left: 245px;
+  top: 0px;
+  border-left: 20px solid @cream;
+  border-top: 20px solid @cream;
+  border-right: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+}
+.c-input--large{
+    width:100%;
+    padding:20px 25%;
+    font-size: 40px;
+    text-align: center;
+    border:8px solid darkgrey;
+    -webkit-border-radius:5px;
+    -moz-border-radius:5px;
+    border-radius:5px;
+}
+/* Radio css */
+/*css c-radio*/
+.c-radio-input{
+  display: none;
+}
+.c-radio-input + label{
+  padding-left: 10px;
+  position:relative;
+  margin-right: 20px;
+}
+.c-radio-input + label::before{
+  content: "";
+  display: block;
+  position: absolute;
+  //top: 0;
+  //left: 0;
+  width: 15px;
+  height: 15px;
+  border: 1px solid #999;
+  border-radius: 50%;
+}
+.c-radio-input:checked + label{
+  color: #009a9a;
+}
+.c-radio-input:checked + label::after{
+  content: "";
+  display: block;
+  position: absolute;
+  top: 3px;
+  left: 13px;
+  width: 9px;
+  height: 9px;
+  background: @red-orange;
+  border-radius: 50%;
 }

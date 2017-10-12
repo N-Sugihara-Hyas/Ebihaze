@@ -18,4 +18,12 @@ class EventsController extends Controller
 	{
 		return view('events.detail');
 	}
+	public function message($id)
+	{
+		return view('events.message');
+	}
+	public function review($id)
+	{
+		return view('events.review');
+	}
 }

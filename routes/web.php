@@ -28,6 +28,8 @@ Route::get('/users/invite/complete', 'UsersController@inviteComplete')->name('us
 Route::get('/events/list', 'EventsController@list')->name('events-list');
 Route::get('/events/add', 'EventsController@add')->name('events-add');
 Route::get('/events/detail/{event}', 'EventsController@detail');
+Route::get('/events/message/{event}', 'EventsController@message');
+Route::get('/events/review/{event}', 'EventsController@review');
 
 // TradersRoute
 Route::get('/traders/list', 'TradersController@list')->name('traders-list');

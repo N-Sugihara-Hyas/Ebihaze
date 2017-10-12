@@ -124,6 +124,71 @@ p {
   padding-top: 15px;
   padding-bottom: 15px;
 }
+.event-message .event-message__item {
+  margin-bottom: 10px;
+  clear: both;
+  overflow: hidden;
+}
+.event-message .event-message__body--you {
+  width: 290px;
+  margin-bottom: 30px;
+  float: left;
+  word-break: break-all;
+}
+.event-message .event-message__body--me {
+  width: 290px;
+  margin-bottom: 30px;
+  margin-left: 50px;
+  word-break: break-all;
+}
+.event-message .event-message__thumb {
+  width: 50px;
+  height: 50px;
+  float: left;
+}
+.event-review .event-review__introduction {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.event-review .event-review__notes {
+  margin-bottom: 15px;
+}
+.event-review table.event-review__rank {
+  width: 100%;
+  margin-bottom: 15px;
+}
+.event-review table.event-review__rank th {
+  text-align: center;
+}
+.event-review table.event-review__rank td {
+  text-align: center;
+}
+.event-review .event-review__submit {
+  text-align: center;
+  padding-bottom: 40px;
+  border-bottom: 1px solid grey;
+}
+.event-review .event-review__header .event-review__title {
+  font-size: 18px;
+  text-align: center;
+}
+.event-review .event-review__header .event-review__notes {
+  text-align: right;
+}
+.event-review .event-review__body .event-review__schedule {
+  font-size: larger;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+.event-review .event-review__body .event-review__suppliers {
+  margin-bottom: 15px;
+}
+.event-review .event-review__body .event-review__parties {
+  margin-bottom: 15px;
+}
+.event-review .event-review__body .event-review__message {
+  margin-bottom: 15px;
+}
 /*
 * TraderPage
 */
@@ -302,4 +367,134 @@ p {
 .c-btn--white {
   background-color: white;
   color: #2377D9;
+}
+/* 吹き出し本体 */
+.c-balloon--container {
+  position: relative;
+  width: 0px;
+  height: 0px;
+}
+.c-balloon--you {
+  position: relative;
+  padding: 20px;
+  background-color: darkgrey;
+  color: #ffffff;
+  border-radius: 10px;
+}
+/* 色付きの半円 */
+.c-balloon__parts--you::before {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  -webkit-transform: rotate(225deg);
+  transform: rotate(225deg);
+  left: 0px;
+  top: -10px;
+  border-left: 20px solid darkgray;
+  border-top: 20px solid darkgray;
+  border-right: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+}
+/* 白い半円 */
+.c-balloon__parts--you::after {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  -webkit-transform: rotate(225deg);
+  transform: rotate(225deg);
+  left: -15px;
+  top: 0px;
+  border-left: 20px solid #FFF9EB;
+  border-top: 20px solid #FFF9EB;
+  border-right: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+}
+/* 吹き出し本体 */
+.c-balloon--me {
+  position: relative;
+  padding: 20px;
+  background-color: #2377D9;
+  color: #ffffff;
+  border-radius: 10px;
+}
+/* 色付きの半円 */
+.c-balloon__parts--me::before {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  -webkit-transform: rotate(225deg);
+  transform: rotate(225deg);
+  left: 230px;
+  top: -10px;
+  border-left: 20px solid #2377D9;
+  border-top: 20px solid #2377D9;
+  border-right: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+}
+/* 白い半円 */
+.c-balloon__parts--me::after {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  -webkit-transform: rotate(225deg);
+  transform: rotate(225deg);
+  left: 245px;
+  top: 0px;
+  border-left: 20px solid #FFF9EB;
+  border-top: 20px solid #FFF9EB;
+  border-right: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+}
+.c-input--large {
+  width: 100%;
+  padding: 20px 25%;
+  font-size: 40px;
+  text-align: center;
+  border: 8px solid darkgrey;
+  border-radius: 5px;
+}
+/* Radio css */
+/*css c-radio*/
+.c-radio-input {
+  display: none;
+}
+.c-radio-input + label {
+  padding-left: 10px;
+  position: relative;
+  margin-right: 20px;
+}
+.c-radio-input + label::before {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  border: 1px solid #999;
+  border-radius: 50%;
+}
+.c-radio-input:checked + label {
+  color: #009a9a;
+}
+.c-radio-input:checked + label::after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 3px;
+  left: 13px;
+  width: 9px;
+  height: 9px;
+  background: #FF5800;
+  border-radius: 50%;
 }
