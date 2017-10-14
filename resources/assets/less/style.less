@@ -1,6 +1,6 @@
 @font-normal: 14px;  @font-middle: 17px; @font-large: 18px;
 @cream: #FFF9EB;
-@blue-grey: #004B6D; @light-blue:#2377D9; @orange:#FFB100;  @red-orange:#FF5800;
+@blue-grey: #004B6D; @light-blue:#2377D9; @orange:#FFB100; @red-orange:#FF5800; @dark-blue:#004C6E;
 @pink: #FF4081;
 
 
@@ -362,6 +362,89 @@ p{
 }
 
 /*
+* ApartmentsPage
+*/
+.apartments-list{
+  .apartments-list__item{
+    clear: both;
+    overflow: hidden;
+    .apartments-item-num{
+      float: left;
+    }
+    .apartments-item-batch{
+      width:30px;
+      text-align: center;
+      color: white;
+      background: @light-blue;
+      border:5px solid @light-blue;
+      -webkit-border-radius:15px;
+      -moz-border-radius:15px;
+      border-radius:15px;
+      margin-top:10px;
+    }
+    .apartments-item-title{
+      float: left;
+      padding-left:15px;
+    }
+    .apartments-item-icon{
+      float: right;
+      margin-top:5px;
+    }
+    .apartments-item-rank {
+      float: left;
+      width: 50px;
+      padding: 20px 5px;
+      display: table;
+    }
+    .apartments-item-rank__fav{
+      font-size:@font-large;
+      color: @pink;
+      display: table-cell;
+      text-align: center;
+    }
+    .apartments-item-rank__score{
+      display: table-cell;
+      text-align: center;
+    }
+  }
+}
+/*
+* ContactPage
+*/
+.contact_form{
+  .contact_form__introduction{
+    position: relative;
+    height:120px;
+  }
+  .contact_form__text{
+    position: absolute;
+    text-align: center;
+    top:25%;
+    bottom:25%;
+    left:25%;
+    right:25%;
+  }
+  .contact_form__form{
+    margin-left: -15px;
+    margin-right: -15px;
+    margin-bottom: 30px;
+    input{
+      width:100%;
+      padding:20px 25%;
+      font-size: 40px;
+      text-align: center;
+      border:8px solid darkgrey;
+      -webkit-border-radius:5px;
+      -moz-border-radius:5px;
+      border-radius:5px;
+    }
+  }
+  .contact_form__submit{
+    text-align: center;
+  }
+}
+
+/*
 * Modules
 */
 .c-list{
@@ -410,6 +493,11 @@ p{
 .c-btn--white{
   background-color: white;
   color: @light-blue;
+}
+.c-btn--darkblue{
+  background-color: @dark-blue;
+  border-color: @dark-blue;
+  color: white;
 }
 /* 吹き出し本体 */
 .c-balloon--container{
@@ -544,4 +632,24 @@ p{
   height: 9px;
   background: @red-orange;
   border-radius: 50%;
+}
+.c-input{
+    width:100%;
+    padding:20px 25%;
+    font-size: 40px;
+    text-align: center;
+    border:8px solid darkgrey;
+    -webkit-border-radius:5px;
+    -moz-border-radius:5px;
+    border-radius:5px;
+}
+.c-textarea{
+  width:100%;
+  padding:20px 25%;
+  font-size: 40px;
+  text-align: center;
+  border:8px solid darkgrey;
+  -webkit-border-radius:5px;
+  -moz-border-radius:5px;
+  border-radius:5px;
 }

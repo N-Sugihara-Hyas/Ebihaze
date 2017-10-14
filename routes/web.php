@@ -35,3 +35,9 @@ Route::get('/events/review/{event}', 'EventsController@review');
 Route::get('/traders/list', 'TradersController@list')->name('traders-list');
 Route::get('/traders/add', 'TradersController@add')->name('traders-add');
 Route::get('/traders/detail/{trader}', 'TradersController@detail');
+
+// ApartmentsRoute
+Route::get('/apartments/list', 'ApartmentsController@list');
+
+// ContactsRoute
+Route::get('/contact', 'ContactController@index');
