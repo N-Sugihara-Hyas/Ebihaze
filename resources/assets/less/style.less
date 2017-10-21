@@ -1,5 +1,5 @@
 @font-normal: 14px;  @font-middle: 17px; @font-large: 18px;
-@cream: #FFF9EB;
+@cream: #FFF9EB; @darkgrey:#818181;
 @blue-grey: #004B6D; @light-blue:#2377D9; @orange:#FFB100; @red-orange:#FF5800; @dark-blue:#004C6E;
 @pink: #FF4081;
 
@@ -20,7 +20,9 @@ p{
   padding:0;
   margin:0;
 }
-
+a{
+  color: inherit;
+}
 
 .top{
   height:667px;
@@ -65,6 +67,7 @@ p{
         font-size:larger;
         font-weight:bold;
         float: left;
+        word-break: break-all;
         small{
           font-weight:normal;
         }
@@ -406,6 +409,40 @@ p{
       display: table-cell;
       text-align: center;
     }
+  }
+}
+/*
+* AccountsPage
+*/
+.accounts-nav{
+  display: table;
+  background: white;
+  width:100%;
+}
+.accounts-nav__item{
+  display: table-cell;
+}
+.accounts-list__item{
+  clear: both;
+  overflow: hidden;
+  .accounts-item-date{
+    width:100px;
+    float: left;
+  }
+  .accounts-item-status{
+    width:100px;
+    float: left;
+  }
+  .accounts-item-amount{
+    width:100%;
+    background: white;
+    float: left;
+  }
+  .accounts-nav__item--active{
+    background: white;
+  }
+  .accounts-nav__item--inactive{
+    background: white;
   }
 }
 /*

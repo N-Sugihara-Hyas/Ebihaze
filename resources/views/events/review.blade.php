@@ -3,6 +3,8 @@
 @section('content')
 <div class="container">
     <div class="event-review">
+        <form method="post" action="{{route('post.events-review', $event->id)}}">
+        {{ csrf_field() }}
         <section class="event-review__introduction">
             <p>案件が完了しました。<br>
                 今回の案件はいかがでしたか?<br>
@@ -11,11 +13,15 @@
         </section>
         <table class="event-review__rank">
             <tr>
-                <th><input type="radio" name="rank" id="rank01" class="c-radio-input"><label for="rank01">&nbsp;</label></th>
-                <th><input type="radio" name="rank" id="rank02" class="c-radio-input"><label for="rank02">&nbsp;</label></th>
-                <th><input type="radio" name="rank" id="rank03" class="c-radio-input"><label for="rank03">&nbsp;</label></th>
-                <th><input type="radio" name="rank" id="rank04" class="c-radio-input"><label for="rank04">&nbsp;</label></th>
-                <th><input type="radio" name="rank" id="rank05" class="c-radio-input"><label for="rank05">&nbsp;</label></th>
+                @foreach([1,2,3,4,5] as $num)
+                @if($rate==$num)
+                <th><input type="radio" name="rank_rate" id="rank0{{$num}}" class="c-radio-input" value="{{$num}}" checked="checked"><label for="rank0{{$num}}">&nbsp;</label></th>
+                @elseif($event->approval)
+                <th><input type="radio" name="rank_rate" id="rank0{{$num}}" class="c-radio-input" value="{{$num}}" disabled="disabled"><label for="rank0{{$num}}">&nbsp;</label></th>
+                @else
+                <th><input type="radio" name="rank_rate" id="rank0{{$num}}" class="c-radio-input" value="{{$num}}"><label for="rank0{{$num}}">&nbsp;</label></th>
+                @endif
+                @endforeach
             </tr>
             <tr>
                 <td>不満</td>
@@ -25,12 +31,18 @@
                 <td>満足</td>
             </tr>
         </table>
+        @if($event->approval)
+        <section class="event-review__submit">
+            <p>{{$event->message}}</p>
+        </section>
+        @else
         <section class="event-review__comment">
-            <textarea class="c-input--large"></textarea>
+        <textarea name="event_message" class="c-input--large"></textarea>
         </section>
         <section class="event-review__submit">
-            <button class="c-btn c-btn--large c-btn--orange">完了承認</button>
+            <button class="c-btn c-btn--large c-btn--orange action" data-method="post">完了承認</button>
         </section>
+        @endif
         <section class="event-review__main">
             <div class="event-review__header">
                 <h1 class="event-review__title">エントランス掃除</h1>
@@ -50,6 +62,7 @@
             </div>
         </section>
 
+        </form>
     </div>
 </div>
 @endsection

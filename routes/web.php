@@ -27,9 +27,11 @@ Route::get('/users/invite/complete', 'UsersController@inviteComplete')->name('us
 // EventsRoute
 Route::get('/events/list', 'EventsController@list')->name('events-list');
 Route::get('/events/add', 'EventsController@add')->name('events-add');
-Route::get('/events/detail/{event}', 'EventsController@detail');
+Route::post('/events/add', 'EventsController@postAdd')->name('post.events-add');
+Route::get('/events/detail/{event}', 'EventsController@detail')->name('events-detail');
 Route::get('/events/message/{event}', 'EventsController@message');
-Route::get('/events/review/{event}', 'EventsController@review');
+Route::get('/events/review/{event}', 'EventsController@review')->name('events-review');
+Route::post('/events/review/{event}', 'EventsController@postReview')->name('post.events-review');
 
 // TradersRoute
 Route::get('/traders/list', 'TradersController@list')->name('traders-list');
@@ -38,6 +40,15 @@ Route::get('/traders/detail/{trader}', 'TradersController@detail');
 
 // ApartmentsRoute
 Route::get('/apartments/list', 'ApartmentsController@list');
+Route::get('/apartments/rank', 'ApartmentsController@rank');
 
 // ContactsRoute
 Route::get('/contact', 'ContactController@index');
+
+// StaticsRoute
+Route::get('/privacy', 'StaticsController@privacy');
+Route::get('/terms', 'StaticsController@terms');
+
+// AccountsRoute
+Route::get('/accounts/list', 'AccountsController@list');
+Route::get('/accounts/edit/{account}', 'AccountsController@edit');

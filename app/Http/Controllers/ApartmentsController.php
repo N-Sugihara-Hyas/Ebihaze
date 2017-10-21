@@ -10,4 +10,8 @@ class ApartmentsController extends Controller
 	{
 		return view('apartments.list');
 	}
+	public function rank()
+	{
+		return view('apartments.rank');
+	}
 }

@@ -15,6 +15,7 @@
 </head>
 <body>
     <div id="app">
+        <form action="{{route('post.comment')}}"></form>
         <nav class="navbar navbar-default navbar-static-top">
             <div class="container">
                 <div class="navbar-header">

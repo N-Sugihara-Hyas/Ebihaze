@@ -14,6 +14,9 @@ p {
   padding: 0;
   margin: 0;
 }
+a {
+  color: inherit;
+}
 .top {
   height: 667px;
   position: relative;
@@ -57,6 +60,7 @@ p {
   font-size: larger;
   font-weight: bold;
   float: left;
+  word-break: break-all;
 }
 .event-item-container .event-item-main .event-item-main__header .event-item-main__title small {
   font-weight: normal;
@@ -363,6 +367,40 @@ p {
 .apartments-list .apartments-list__item .apartments-item-rank__score {
   display: table-cell;
   text-align: center;
+}
+/*
+* AccountsPage
+*/
+.accounts-nav {
+  display: table;
+  background: white;
+  width: 100%;
+}
+.accounts-nav__item {
+  display: table-cell;
+}
+.accounts-list__item {
+  clear: both;
+  overflow: hidden;
+}
+.accounts-list__item .accounts-item-date {
+  width: 100px;
+  float: left;
+}
+.accounts-list__item .accounts-item-status {
+  width: 100px;
+  float: left;
+}
+.accounts-list__item .accounts-item-amount {
+  width: 100%;
+  background: white;
+  float: left;
+}
+.accounts-list__item .accounts-nav__item--active {
+  background: white;
+}
+.accounts-list__item .accounts-nav__item--inactive {
+  background: white;
 }
 /*
 * ContactPage
