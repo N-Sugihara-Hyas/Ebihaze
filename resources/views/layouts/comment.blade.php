@@ -12,10 +12,12 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 </head>
 <body>
     <div id="app">
-        <form action="{{route('post.comment')}}"></form>
+        <form action="{{route('post.comments')}}" method="post">
         <nav class="navbar navbar-default navbar-static-top">
             <div class="container">
                 <div class="navbar-header">
@@ -73,9 +75,17 @@
         </nav>
 
         @yield('content')
+            <div class="c-comments_submit_container">
+                <input type="text" class="c-comments_submit_text" name="body">
+                <figure class="c-comments_submit_btn action" data-method="post">
+                    <img src="{{asset('img/up_arrow_bubble.png')}}" alt="送信ボタン">
+                </figure>
+            </div>
+        </form>
     </div>
 
     <!-- Scripts -->
+    <script src="{{ asset('js/form.js') }}"></script>
     <script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>

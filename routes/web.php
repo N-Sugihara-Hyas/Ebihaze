@@ -29,7 +29,7 @@ Route::get('/events/list', 'EventsController@list')->name('events-list');
 Route::get('/events/add', 'EventsController@add')->name('events-add');
 Route::post('/events/add', 'EventsController@postAdd')->name('post.events-add');
 Route::get('/events/detail/{event}', 'EventsController@detail')->name('events-detail');
-Route::get('/events/message/{event}', 'EventsController@message');
+Route::get('/events/message/{event}', 'EventsController@message')->name('events-message');
 Route::get('/events/review/{event}', 'EventsController@review')->name('events-review');
 Route::post('/events/review/{event}', 'EventsController@postReview')->name('post.events-review');
 
@@ -52,3 +52,6 @@ Route::get('/terms', 'StaticsController@terms');
 // AccountsRoute
 Route::get('/accounts/list', 'AccountsController@list');
 Route::get('/accounts/edit/{account}', 'AccountsController@edit');
+
+// CommentsRoute
+Route::post('/comments', 'CommentsController@postMessage')->name('post.comments');

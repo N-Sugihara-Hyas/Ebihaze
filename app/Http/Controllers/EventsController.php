@@ -48,7 +48,7 @@ class EventsController extends Controller
 	public function review($id)
 	{
 		$Event = \App\Event::find($id);
-
+		// Rankレートを取得してラジオを選択
 		foreach($Event->ranks as $rank)
 		{
 			$rate = $rank->rate;
@@ -72,7 +72,8 @@ class EventsController extends Controller
 	}
 	public function message($id)
 	{
-		$comments = \App\Event::find(1)->comments;
-		return view('events.message');
+		$Event = \App\Event::find($id);
+		$comments = $Event->comments;
+		return view('events.message', ['event' => $Event]);
 	}
 }

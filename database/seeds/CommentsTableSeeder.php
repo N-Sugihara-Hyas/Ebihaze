@@ -14,6 +14,7 @@ class CommentsTableSeeder extends Seeder
     {
 	    DB::table('comments')->insert([
 		    'body' => str_random(10, 60),
+		    'user_id' => rand(1,100),
 		    'commentable_id' => rand(1,100),
 		    'commentable_type' => self::$commentable_type[rand(0, count(self::$commentable_type)-1)],
 	    ]);
