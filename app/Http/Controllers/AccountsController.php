@@ -8,7 +8,8 @@ class AccountsController extends Controller
 {
 	public function list()
 	{
-		return view('accounts.list');
+		$Accounts = \App\User::find(1)->accounts;
+		return view('accounts.list', ['accounts' => $Accounts]);
 	}
 	public function edit()
 	{
