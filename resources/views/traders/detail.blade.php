@@ -30,7 +30,7 @@
             </tr>
         </table>
         <section class="trader-detail__body">
-            <h2>エビハゼ住宅 東京支店</h2>
+            <h2>{{$trader->name}}</h2>
             <dl class="trader-detail__content">
                 <dt class="trader-detail__address">住所</dt>
                 <dd class="trader-detail__address"></dd>

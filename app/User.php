@@ -31,4 +31,8 @@ class User extends Authenticatable
 	{
 		return $this->hasMany('App\Account')->orderBy('schedule');
 	}
+	public function ranks()
+	{
+		return $this->hasMany('App\Rank');
+	}
 }

@@ -9,7 +9,7 @@
     </ul>
     <section class="accounts-list accounts-nav">
         <span class="accounts-item-amount">資産</span>
-        <small class="accounts-item-price">¥12,987,000</small>
+        <small class="accounts-item-price">¥{{number_format($total)}}</small>
     </section>
     <h2>残高履歴</h2>
     <ul class="accounts-list c-list">
@@ -20,7 +20,7 @@
                     <p>{{date('Y/m/d', strtotime($account->schedule))}}</p>
                 </section>
                 <section class="accounts-item-status">
-                    <p>修繕費入金</p>
+                    <p>{{$account->category}}</p>
                 </section>
                 <section class="accounts-item-amount">
                     <p>¥{{number_format($account->amount)}}</p>

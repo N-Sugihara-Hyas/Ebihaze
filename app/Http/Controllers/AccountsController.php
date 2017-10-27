@@ -9,7 +9,12 @@ class AccountsController extends Controller
 	public function list()
 	{
 		$Accounts = \App\User::find(1)->accounts;
-		return view('accounts.list', ['accounts' => $Accounts]);
+		$total = 0;
+		foreach ($Accounts as $ac)
+		{
+			$total += $ac->amount;
+		}
+		return view('accounts.list', ['accounts' => $Accounts, 'total' => $total]);
 	}
 	public function edit()
 	{
