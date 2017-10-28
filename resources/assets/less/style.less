@@ -145,11 +145,11 @@ nav.navbar {
 }
 #container{
   padding-top:90px;
-  padding-bottom:60px;
+  padding-bottom:90px;
 }
 #container-menu{
   padding-top:10px;
-  padding-bottom:60px;
+  padding-bottom:90px;
 }
 /*
 * Menu
@@ -266,6 +266,7 @@ nav.navbar {
   .event-detail__header{
     .event-detail__title{
       font-size:@font-large;
+      font-weight: bold;
       text-align: center;
     }
     .event-detail__notes{
@@ -277,6 +278,7 @@ nav.navbar {
   .event-detail__body{
     padding: 15px 0;
     .event-detail__schedule{
+      font-weight: bold;
       padding: 0 30px;
       margin: 10px 0;
     }
@@ -345,12 +347,14 @@ nav.navbar {
   }
   .event-review__submit{
     text-align: center;
+    padding-top:15px;
     padding-bottom: 40px;
     border-bottom: 1px solid grey;
   }
   .event-review__header{
     .event-review__title{
       font-size: @font-large;
+      font-weight: bold;
       text-align: center;
     }
     .event-review__notes{
@@ -384,6 +388,7 @@ nav.navbar {
   overflow: hidden;
   .trader-item-title{
     float: left;
+    font-size: @font-middle;
     width:240px;
     padding: 20px;
   }
@@ -409,10 +414,18 @@ nav.navbar {
     width:60px;
   }
 }
+.c-list .trader-list__item.c-list__item{
+  padding: 0px 10px;
+}
 .trader-detail{
   .trader-detail__title{
     width:100%;
+    font-size: @font-middle;
+    font-weight:bold;
+    background: white;
     text-align: center;
+    margin:0px;
+    padding: 15px 0px;
   }
   .trader-detail__header--top{
     height:60px;
@@ -511,7 +524,7 @@ nav.navbar {
     margin-bottom: 30px;
     input{
       width:100%;
-      padding:20px 25%;
+      padding:20px 0px;
       font-size: 40px;
       text-align: center;
       border:8px solid darkgrey;
@@ -729,20 +742,27 @@ nav.navbar {
   .contact_form__form{
     margin-left: -15px;
     margin-right: -15px;
-    margin-bottom: 30px;
+    margin-bottom: 50px;
     input{
       width:100%;
-      padding:20px 25%;
-      font-size: 40px;
-      text-align: center;
+      padding:5px;
+      font-size: @font-normal;
+      text-align: left;
       border:8px solid darkgrey;
       -webkit-border-radius:5px;
       -moz-border-radius:5px;
       border-radius:5px;
     }
   }
+  .contact_form__textarea{
+    margin-left: -15px;
+    margin-right: -15px;
+    margin-bottom: 10px;
+  }
   .contact_form__submit{
     text-align: center;
+    margin-left:-15px;
+    margin-right:-15px;
   }
 }
 
@@ -957,8 +977,8 @@ nav.navbar {
 }
 .c-textarea{
   width:100%;
-  padding:20px 25%;
-  font-size: 40px;
+  padding:20px 0px;
+  font-size: @font-normal;
   text-align: center;
   border:8px solid darkgrey;
   -webkit-border-radius:5px;

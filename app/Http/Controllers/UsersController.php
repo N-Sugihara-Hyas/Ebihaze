@@ -8,7 +8,8 @@ class UsersController extends Controller
 {
 	public function list()
 	{
-		return view('users.list');
+		$Users = \App\User::all();
+		return view('users.list', ['users' => $Users]);
 	}
 	public function inviteForm()
 	{

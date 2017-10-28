@@ -29,8 +29,8 @@
                 <td>満足</td>
             </tr>
         </table>
+        <h2 class="trader-detail__title">{{$trader->name}}</h2>
         <section class="trader-detail__body">
-            <h2 class="trader-detail__title">{{$trader->name}}</h2>
             <dl class="trader-detail__content">
                 <dt class="trader-detail__address">住所</dt>
                 <dd class="trader-detail__address">{{$trader->address}}</dd>

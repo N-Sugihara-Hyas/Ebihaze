@@ -13,29 +13,51 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 </head>
 <body>
     <div id="app">
-        <form action="{{route('post.comments')}}" method="post">
         <nav class="navbar navbar-default navbar-static-top">
             <div class="container">
                 <div class="navbar-header">
 
                     <!-- Collapsed Hamburger -->
+{{--
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
                         <span class="sr-only">Toggle Navigation</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
+--}}
 
                     <!-- Branding Image -->
+                    <a class="navbar-left" href="{{ route('events-add') }}">
+                        ＋<br>
+                        <small>登録</small>
+                    </a>
                     <a class="navbar-brand" href="{{ url('/') }}">
                         {{ config('app.name', 'Laravel') }}
                     </a>
+                    <a class="navbar-right" href="{{route('events-search') }}">
+                        <img src="{{asset('img/nav_flag.png')}}" alt="カレンダー"><br>
+                        <small>カレンダー</small>
+                    </a>
                 </div>
-
+                <div class="navbar-footer">
+                    <ul class="navbar-footer__list">
+                        <a class="navbar-footer__tab navbar-footer--list navbar-footer__tab--active" href="{{route('events-list')}}">
+                            <li>案件一覧</li>
+                        </a>
+                        <a class="navbar-footer__tab navbar-footer--join" href="{{route('events-join')}}">
+                            <li>参加一覧</li>
+                        </a>
+                        <a class="navbar-footer__tab navbar-footer--watch" href="{{route('events-watch')}}">
+                            <li>ウォッチ一覧</li>
+                        </a>
+                    </ul>
+                </div>
+{{--
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
@@ -71,19 +93,23 @@
                         @endguest
                     </ul>
                 </div>
+--}}
             </div>
         </nav>
 
         <div id="container">
             @yield('content')
         </div>
-            <div class="c-comments_submit_container">
-                <input type="text" class="c-comments_submit_text" name="body">
-                <figure class="c-comments_submit_btn action" data-method="post">
-                    <img src="{{asset('img/up_arrow_bubble.png')}}" alt="送信ボタン">
-                </figure>
+
+        <nav class="navbar navbar-default navbar-static-bottom">
+            {{--<div class="container">--}}
+            <div class="navbar-globalcomment">
+                <a href="{{route('events-message', $event->id)}}">
+                    <button class="c-btn--max c-btn--blue">コメント</button>
+                </a>
             </div>
-        </form>
+            {{--</div>--}}
+        </nav>
     </div>
 
     <!-- Scripts -->

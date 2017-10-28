@@ -10,16 +10,16 @@
                     送信をお願いいたします
                 </p>
             </div>
-            <div class="contact_form__form">
-                <input type="text" maxlength="13">
+            <div class="contact_form__textarea">
+                <textarea class="c-textarea" rows="5" placeholder="お問い合わせ内容をご入力ください">
+                </textarea>
             </div>
             <div class="contact_form__form">
                 <p>ご連絡先メールアドレス</p>
-                <textarea class="c-textarea">
-                </textarea>
+                <input type="text" maxlength="13" placeholder="aaa@bbb.jp">
             </div>
             <div class="contact_form__submit">
-                <button class="c-btn c-btn--large c-btn--darkblue">送信</button>
+                <button class="c-btn--max c-btn--darkblue">送信</button>
             </div>
         </div>
     </form>

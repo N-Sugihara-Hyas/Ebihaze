@@ -6,7 +6,7 @@
             <div class="users-invite_form">
                 <div class="users-invite_form__introduction">
                     <p class="users-invite_form__text">
-                        新しいユーザーを招待しました<br>
+                        新しいユーザーを<br>招待しました<br>
                     </p>
                 </div>
                 <div class="users-invite_form__submit">

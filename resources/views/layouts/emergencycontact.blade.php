@@ -25,7 +25,7 @@
         <nav class="navbar navbar-default navbar-static-bottom">
             {{--<div class="container">--}}
                 <div class="navbar-emergencycontact">
-                    <button class="c-btn--max c-btn--red">送信</button>
+                    <button class="c-btn--max c-btn--red">緊急連絡をする</button>
                 </div>
             {{--</div>--}}
         </nav>

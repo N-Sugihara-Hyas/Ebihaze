@@ -29,7 +29,7 @@
                     </div>
                 </li>
             </a>
-            <a href="{{route('traders-add')}}">
+            <a href="{{route('traders-list')}}">
                 <li class="menu-list__item c-menu__item c-list__item">
                     <div class="menu-item-container">
                         <section class="menu-item-title">
