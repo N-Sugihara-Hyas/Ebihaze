@@ -30,22 +30,22 @@
             </tr>
         </table>
         <section class="trader-detail__body">
-            <h2>{{$trader->name}}</h2>
+            <h2 class="trader-detail__title">{{$trader->name}}</h2>
             <dl class="trader-detail__content">
                 <dt class="trader-detail__address">住所</dt>
-                <dd class="trader-detail__address"></dd>
+                <dd class="trader-detail__address">{{$trader->address}}</dd>
             </dl>
             <dl class="trader-detail__content">
                 <dt class="trader-detail__tel">電話番号</dt>
-                <dd class="trader-detail__tel"></dd>
+                <dd class="trader-detail__tel">{{$trader->tel}}</dd>
             </dl>
             <dl class="trader-detail__content">
                 <dt class="trader-detail__area">サービス提供エリア</dt>
-                <dd class="trader-detail__area"></dd>
+                <dd class="trader-detail__area">{{$trader->area}}</dd>
             </dl>
             <dl class="trader-detail__content">
                 <dt class="trader-detail__content">業務内容</dt>
-                <dd class="trader-detail__content"></dd>
+                <dd class="trader-detail__content">{{$trader->introduction}}</dd>
             </dl>
         </section>
     </div>

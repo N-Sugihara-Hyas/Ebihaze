@@ -8,7 +8,7 @@ class TradersController extends Controller
 {
 	public function list()
 	{
-		$Traders = \App\User::whereType('trader')->get();
+		$Traders = \App\Trader::all();
 		return view('traders.list', ['traders' => $Traders]);
 	}
 	public function add()
@@ -17,7 +17,7 @@ class TradersController extends Controller
 	}
 	public function detail($id)
 	{
-		$Trader = \App\User::find($id);
+		$Trader = \App\Trader::find($id);
 		return view('traders.detail', ['trader' => $Trader]);
 	}
 }
