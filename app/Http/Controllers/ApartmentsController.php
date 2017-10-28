@@ -8,10 +8,12 @@ class ApartmentsController extends Controller
 {
 	public function list()
 	{
-		return view('apartments.list');
+		$Apartments = \App\Apartment::all();
+		return view('apartments.list', ['apartments' => $Apartments]);
 	}
 	public function rank()
 	{
-		return view('apartments.rank');
+		$Apartments = \App\Apartment::all();
+		return view('apartments.rank', ['apartments' => $Apartments]);
 	}
 }

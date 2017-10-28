@@ -42,19 +42,21 @@ Route::get('/traders/add', 'TradersController@add')->name('traders-add');
 Route::get('/traders/detail/{trader}', 'TradersController@detail')->name('traders-detail');
 
 // ApartmentsRoute
-Route::get('/apartments/list', 'ApartmentsController@list');
-Route::get('/apartments/rank', 'ApartmentsController@rank');
+Route::get('/apartments/list', 'ApartmentsController@list')->name('apartments-list');
+Route::get('/apartments/rank', 'ApartmentsController@rank')->name('apartments-rank');
 
 // ContactsRoute
-Route::get('/contact', 'ContactController@index');
+Route::get('/contact', 'ContactController@index')->name('contacts-top');
 
 // StaticsRoute
-Route::get('/privacy', 'StaticsController@privacy');
-Route::get('/terms', 'StaticsController@terms');
+Route::get('/privacy', 'StaticsController@privacy')->name('statics-privacy');
+Route::get('/terms', 'StaticsController@terms')->name('statics-terms');
+Route::get('/menu', 'StaticsController@menu')->name('statics-menu');
 
 // AccountsRoute
-Route::get('/accounts/list', 'AccountsController@list');
-Route::get('/accounts/edit/{account}', 'AccountsController@edit');
+Route::get('/accounts/list', 'AccountsController@list')->name('accounts-list');
+Route::get('/accounts/edit/{account}', 'AccountsController@edit')->name('accounts-edit');
+Route::post('/accounts/edit', 'AccountsController@postEdit')->name('post.accounts-edit');
 
 // CommentsRoute
 Route::post('/comments', 'CommentsController@postMessage')->name('post.comments');

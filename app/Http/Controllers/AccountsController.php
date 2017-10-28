@@ -20,4 +20,17 @@ class AccountsController extends Controller
 	{
 		return view('accounts.edit');
 	}
+	public function postEdit(Request $request)
+	{
+		$id = $request->input('id');
+		$schedule = $request->input('account_schedule');
+		$category = $request->input('account_category');
+
+		$Account = \App\Account::updateOrCreate(
+			['id' => $id],
+			['schedule' => $schedule, 'category' => $category]
+		);
+
+		return view('accounts.edit');
+	}
 }

@@ -100,6 +100,30 @@
         <div id="container">
             @yield('content')
         </div>
+
+        <nav class="navbar navbar-default navbar-static-bottom">
+            <div class="container">
+                <div class="navbar-footer">
+                    <ul class="navbar-footer__list">
+                        <a class="navbar-footer__tab navbar-footer--list" href="{{route('statics-menu')}}">
+                            <li>
+                                <img src="{{asset('img/nav_menu.png')}}" alt="ナビメニュー"><br>メニュー
+                            </li>
+                        </a>
+                        <a class="navbar-footer__tab navbar-footer--join" href="{{route('apartments-rank')}}">
+                            <li>
+                                <img src="{{asset('img/nav_rank.png')}}" alt="ナビランク"><br>ランク
+                            </li>
+                        </a>
+                        <a class="navbar-footer__tab navbar-footer--watch" href="{{route('events-watch')}}">
+                            <li>
+                                <img src="{{asset('img/nav_flyer.png')}}" alt="ナビチラシ"><br>チラシ
+                            </li>
+                        </a>
+                    </ul>
+                </div>
+            </div>
+        </nav>
     </div>
 
     <!-- Scripts -->

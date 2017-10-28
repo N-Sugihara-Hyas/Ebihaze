@@ -35,8 +35,16 @@ a:focus {
 /*
 * GNav
 */
+nav.navbar {
+  margin-bottom: 0px;
+}
 nav.navbar-static-top {
   position: fixed;
+  width: 100%;
+}
+nav.navbar-static-bottom {
+  position: fixed;
+  bottom: 0px;
   width: 100%;
 }
 nav.navbar {
@@ -126,8 +134,59 @@ nav.navbar {
   color: inherit;
   text-decoration: none;
 }
+.navbar-emergencycontact {
+  width: 100%;
+}
+.navbar-accountscomplete {
+  width: 100%;
+}
 #container {
   padding-top: 90px;
+  padding-bottom: 60px;
+}
+#container-menu {
+  padding-top: 10px;
+  padding-bottom: 60px;
+}
+/*
+* Menu
+*/
+.menu-header {
+  display: table;
+  width: 100%;
+  background: white;
+  padding: 0px 10px;
+  clear: both;
+  overflow: hidden;
+}
+.menu-header .menu-header__thumb {
+  display: table-cell;
+  width: 15%;
+}
+.menu-header .menu-header__title {
+  display: table-cell;
+}
+.menu-list__title {
+  font-size: 17px;
+  color: #004C6E;
+}
+.menu-list {
+  margin-left: -5px;
+  margin-right: -5px;
+  background: white;
+}
+.menu-list .menu-list__item {
+  margin-left: 15px;
+  margin-right: 15px;
+}
+.menu-list .c-list__item.menu-list__item {
+  margin-bottom: 0px;
+}
+.menu-list a:not(:last-child) .menu-list__item {
+  border-bottom: 1px solid #686868;
+}
+.menu-list:last-of-type {
+  margin-top: 30px;
 }
 /*
 * EventPage
@@ -478,29 +537,137 @@ nav.navbar {
 * AccountsPage
 */
 .accounts-nav {
-  display: table;
-  background: white;
   width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 0;
+  list-style: none;
+  background: white;
 }
 .accounts-nav__item {
-  display: table-cell;
+  width: calc(33.33333333%);
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+  font-size: 85%;
+}
+.accounts-nav__item--active {
+  color: #004C6E;
+  background: white;
+}
+.accounts-nav__item--inactive {
+  color: white;
+  background: #818181;
+}
+.accounts-nav__item:nth-of-type(2) {
+  border-left: solid 1px white;
+  border-right: solid 1px white;
+}
+.accounts-total {
+  padding: 15px;
+  background: white;
+}
+.accounts-item-amount {
+  color: #004C6E;
+  font-size: 65%;
+}
+.accounts-item-price {
+  font-size: 27px;
+  font-weight: bold;
+  text-align: right;
+}
+.accounts-history {
+  font-size: 17px;
+  font-weight: bold;
+  color: #004C6E;
 }
 .accounts-list__item {
   clear: both;
   overflow: hidden;
 }
 .accounts-list__item .accounts-item-date {
-  width: 100px;
+  width: 120px;
+  line-height: 40px;
   float: left;
 }
 .accounts-list__item .accounts-item-status {
-  width: 100px;
+  width: 90px;
+  font-size: smaller;
+  line-height: 40px;
   float: left;
 }
 .accounts-list__item .accounts-item-amount {
-  width: 100%;
+  font-size: 27px;
   background: white;
+  float: right;
+}
+.accounts-list__item .accounts-item__title {
+  width: 100px;
+  line-height: 24px;
   float: left;
+  color: #004C6E;
+  font-weight: bold;
+}
+.accounts-list__item .accounts-item__date {
+  float: right;
+  padding-right: 2px;
+  position: relative;
+  color: #004C6E;
+}
+.accounts-list__item .accounts-item__date:after {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  right: -5px;
+  top: 35%;
+  width: 8px;
+  height: 8px;
+  border-top: 2px solid #2377D9;
+  border-right: 2px solid #2377D9;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+.accounts-list__item .accounts-item__category {
+  float: right;
+  padding-right: 5px;
+  position: relative;
+  color: #004C6E;
+}
+.accounts-list__item .accounts-item__category:after {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  right: -5px;
+  top: 35%;
+  width: 8px;
+  height: 8px;
+  border-top: 2px solid #2377D9;
+  border-right: 2px solid #2377D9;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+.accounts-list__item .accounts-item__input {
+  width: 250px;
+  border: none;
+  padding-right: 5px;
+  text-align: right;
+  color: #004C6E;
+}
+.accounts-list__item .accounts-item__input::-webkit-input-placeholder {
+  color: #004C6E;
+}
+.accounts-list__item .accounts-item__input:-ms-input-placeholder {
+  color: #004C6E;
+}
+.accounts-list__item .accounts-item__input::-moz-placeholder {
+  color: #004C6E;
+}
+.accounts-list__item .accounts-item__select option {
+  color: #004C6E;
 }
 .accounts-list__item .accounts-nav__item--active {
   background: white;
@@ -559,6 +726,12 @@ nav.navbar {
   margin: 15px;
   text-align: center;
 }
+.c-btn--max {
+  width: 100%;
+  padding: 16px 0;
+  border: none;
+  text-align: center;
+}
 .c-btn--large {
   width: 270px;
   height: 50px;
@@ -575,6 +748,10 @@ nav.navbar {
 }
 .c-btn--blue {
   background-color: #2377D9;
+  color: white;
+}
+.c-btn--red {
+  background-color: #D81921;
   color: white;
 }
 .c-btn--orange {

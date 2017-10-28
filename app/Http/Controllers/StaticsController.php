@@ -14,4 +14,8 @@ class StaticsController extends Controller
 	{
 		return view('statics.terms');
 	}
+	public function menu()
+	{
+		return view('statics.menu');
+	}
 }

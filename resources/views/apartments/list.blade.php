@@ -3,12 +3,12 @@
 @section('content')
 <div class="container">
     <ul class="apartments-list c-list">
-        @foreach([0,1,2,3,4,5] as $list)
+        @foreach($apartments as $apart)
         <li class="apartments-list__item c-list__item">
             <div class="apartments-item-container">
                 <section class="apartments-item-main">
                     <p class="apartments-item-title">
-                        妙蓮寺レジデンス光の邸<br>
+                        {{$apart->name}}<br>
                     </p>
                 </section>
                 <section class="apartments-item-icon">

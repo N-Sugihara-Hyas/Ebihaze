@@ -1,7 +1,7 @@
 @font-normal: 14px;  @font-middle: 17px; @font-large: 18px;
-@cream: #FFF9EB; @darkgrey:#818181;
-@blue-grey: #004B6D; @light-blue:#2377D9; @orange:#FFB100; @red-orange:#FF5800; @dark-blue:#004C6E;
-@pink: #FF4081;
+@cream: #FFF9EB; @darkgrey:#818181; @bordergrey:#686868;
+@blue-grey: #004B6D; @light-blue:#2377D9; @orange:#FFB100; @red-orange:#FF5800; @dark-blue:#004C6E; @pale-blue:#004C6E;
+@red: #D81921; @pink: #FF4081;
 
 
 body {
@@ -41,8 +41,16 @@ a:hover,a:focus{
 /*
 * GNav
 */
+nav.navbar{
+  margin-bottom:0px;
+}
 nav.navbar-static-top{
   position: fixed;
+  width:100%;
+}
+nav.navbar-static-bottom{
+  position: fixed;
+  bottom:0px;
   width:100%;
 }
 nav.navbar {
@@ -129,9 +137,61 @@ nav.navbar {
     }
   }
 }
+.navbar-emergencycontact{
+  width:100%;
+}
+.navbar-accountscomplete{
+  width:100%;
+}
 #container{
   padding-top:90px;
+  padding-bottom:60px;
 }
+#container-menu{
+  padding-top:10px;
+  padding-bottom:60px;
+}
+/*
+* Menu
+*/
+.menu-header{
+  display: table;
+  width:100%;
+  background: white;
+  padding:0px 10px;
+  clear: both;
+  overflow: hidden;
+  .menu-header__thumb{
+    display: table-cell;
+    width:15%;
+  }
+  .menu-header__title{
+    display: table-cell;
+  }
+}
+.menu-list__title{
+  font-size:17px;
+  color: @dark-blue;
+}
+.menu-list{
+  margin-left:-5px;
+  margin-right:-5px;
+  background: white;
+  .menu-list__item{
+    margin-left:15px;
+    margin-right:15px;
+  }
+  .c-list__item.menu-list__item{
+    margin-bottom:0px;
+  }
+  a:not(:last-child) .menu-list__item{
+    border-bottom:1px solid @bordergrey;
+  }
+}
+.menu-list:last-of-type{
+  margin-top: 30px;
+}
+
 /*
 * EventPage
 */
@@ -516,28 +576,132 @@ nav.navbar {
 * AccountsPage
 */
 .accounts-nav{
-  display: table;
-  background: white;
   width:100%;
+  display:flex;
+  justify-content: center;
+  padding:0;
+  list-style: none;
+  background: white;
 }
 .accounts-nav__item{
-  display: table-cell;
+  width:calc(100% / 3);
+  height:60px;
+  line-height:60px;
+  text-align: center;
+  font-size:85%;
+}
+.accounts-nav__item--active{
+  color: @dark-blue;
+  background: white;
+}
+.accounts-nav__item--inactive{
+  color: white;
+  background: @darkgrey;
+}
+.accounts-nav__item:nth-of-type(2){
+  border-left: solid 1px white;
+  border-right: solid 1px white;
+}
+.accounts-total{
+  padding:15px;
+  background: white;
+}
+.accounts-item-amount{
+  color:@dark-blue;
+  font-size: 65%;
+}
+.accounts-item-price{
+  font-size: 27px;
+  font-weight:bold;
+  text-align: right;
+}
+.accounts-history{
+  font-size: 17px;
+  font-weight:bold;
+  color:@dark-blue;
 }
 .accounts-list__item{
   clear: both;
   overflow: hidden;
   .accounts-item-date{
-    width:100px;
+    width:120px;
+    line-height: 40px;
     float: left;
   }
   .accounts-item-status{
-    width:100px;
+    width:90px;
+    font-size: smaller;
+    line-height: 40px;
     float: left;
   }
   .accounts-item-amount{
-    width:100%;
+    font-size: 27px;
     background: white;
+    float: right;
+  }
+  .accounts-item__title{
+    width:100px;
+    line-height:24px;
     float: left;
+    color: @dark-blue;
+    font-weight:bold;
+  }
+  .accounts-item__date{
+    float: right;
+    padding-right: 2px;
+    position: relative;
+    color: @pale-blue;
+  }
+  .accounts-item__date:after{
+    content: '';
+    display: inline-block;
+    position: absolute;
+    right: -5px;
+    top: 35%;
+    width: 8px;
+    height: 8px;
+    border-top: 2px solid #2377D9;
+    border-right: 2px solid #2377D9;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+  .accounts-item__category{
+    float: right;
+    padding-right: 5px;
+    position: relative;
+    color: @pale-blue;
+  }
+  .accounts-item__category:after{
+    content: '';
+    display: inline-block;
+    position: absolute;
+    right: -5px;
+    top: 35%;
+    width: 8px;
+    height: 8px;
+    border-top: 2px solid #2377D9;
+    border-right: 2px solid #2377D9;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+  .accounts-item__input{
+    width:250px;
+    border:none;
+    padding-right: 5px;
+    text-align: right;
+    color: @pale-blue;
+  }
+  .accounts-item__input::-webkit-input-placeholder {
+    color: @pale-blue;
+  }
+  .accounts-item__input:-ms-input-placeholder {
+    color: @pale-blue;
+  }
+  .accounts-item__input::-moz-placeholder {
+    color: @pale-blue;
+  }
+  .accounts-item__select option{
+    color: @pale-blue;
   }
   .accounts-nav__item--active{
     background: white;
@@ -605,6 +769,12 @@ nav.navbar {
   margin: 15px;
   text-align: center;
 }
+.c-btn--max{
+  width:100%;
+  padding: 16px 0;
+  border:none;
+  text-align: center;
+}
 .c-btn--large{
   width:270px;
   height:50px;
@@ -621,6 +791,10 @@ nav.navbar {
 }
 .c-btn--blue{
   background-color: @light-blue;
+  color: white;
+}
+.c-btn--red{
+  background-color: @red;
   color: white;
 }
 .c-btn--orange{
