@@ -60,3 +60,6 @@ Route::post('/accounts/edit', 'AccountsController@postEdit')->name('post.account
 
 // CommentsRoute
 Route::post('/comments', 'CommentsController@postMessage')->name('post.comments');
+
+// TwillioRoute
+Route::get('/twillio/{tel}', 'TwillioController@create')->name('twillio-create');
