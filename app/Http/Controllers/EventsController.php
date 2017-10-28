@@ -18,6 +18,28 @@ class EventsController extends Controller
 		}
 		return view('events.list', ['events' =>$Events]);
 	}
+	public function join()
+	{
+		$Events = \App\Event::all();
+		foreach($Events as &$event)
+		{
+			// TODO::Test
+			$event->title = mb_strimwidth($event->title, 0, 10, '...');
+			$event->parties = mb_strimwidth($event->parties, 0, 10, '...');
+		}
+		return view('events.list', ['events' =>$Events]);
+	}
+	public function watch()
+	{
+		$Events = \App\Event::all();
+		foreach($Events as &$event)
+		{
+			// TODO::Test
+			$event->title = mb_strimwidth($event->title, 0, 10, '...');
+			$event->parties = mb_strimwidth($event->parties, 0, 10, '...');
+		}
+		return view('events.list', ['events' =>$Events]);
+	}
 	public function add()
 	{
 		return view('events.add');
@@ -40,6 +62,11 @@ class EventsController extends Controller
 			return redirect()->route('events-list');
 		}
 	}
+	public function search()
+	{
+		return view('events.add');
+	}
+
 	public function detail($id)
 	{
 		$Event = \App\Event::find($id)->first();
@@ -49,6 +76,7 @@ class EventsController extends Controller
 	{
 		$Event = \App\Event::find($id);
 		// Rankレートを取得してラジオを選択
+		$rate=[];
 		foreach($Event->ranks as $rank)
 		{
 			$rate = $rank->rate;
@@ -65,10 +93,10 @@ class EventsController extends Controller
 			['message' => $message, 'approval' => 1]
 		);
 		$Rank = \App\Rank::updateOrCreate(
-			['rankable_id' => $id, 'rankable_type' => 'event'],
-			['rankable_id' => $id, 'rankable_type' => 'event', 'rate' => $rate]
+			['rankable_id' => $id, 'rankable_type' => 'App\Event'],
+			['rankable_id' => $id, 'rankable_type' => 'App\Event', 'rate' => $rate]
 		);
-		return view('events.review', ['id' => $id]);
+		return redirect()->route('events-review', $id);
 	}
 	public function message($id)
 	{

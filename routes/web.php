@@ -26,8 +26,11 @@ Route::get('/users/invite/complete', 'UsersController@inviteComplete')->name('us
 
 // EventsRoute
 Route::get('/events/list', 'EventsController@list')->name('events-list');
+Route::get('/events/join', 'EventsController@join')->name('events-join');
+Route::get('/events/watch', 'EventsController@watch')->name('events-watch');
 Route::get('/events/add', 'EventsController@add')->name('events-add');
 Route::post('/events/add', 'EventsController@postAdd')->name('post.events-add');
+Route::get('/events/search', 'EventsController@search')->name('events-search');
 Route::get('/events/detail/{event}', 'EventsController@detail')->name('events-detail');
 Route::get('/events/message/{event}', 'EventsController@message')->name('events-message');
 Route::get('/events/review/{event}', 'EventsController@review')->name('events-review');

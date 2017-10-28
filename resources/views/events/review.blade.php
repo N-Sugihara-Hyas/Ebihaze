@@ -14,10 +14,10 @@
         <table class="event-review__rank">
             <tr>
                 @foreach([1,2,3,4,5] as $num)
-                @if($rate==$num)
-                <th><input type="radio" name="rank_rate" id="rank0{{$num}}" class="c-radio-input" value="{{$num}}" checked="checked"><label for="rank0{{$num}}">&nbsp;</label></th>
-                @elseif($event->approval)
+                @if($event->approval && $rate!=$num)
                 <th><input type="radio" name="rank_rate" id="rank0{{$num}}" class="c-radio-input" value="{{$num}}" disabled="disabled"><label for="rank0{{$num}}">&nbsp;</label></th>
+                @elseif($event->approval && $rate==$num)
+                <th><input type="radio" name="rank_rate" id="rank0{{$num}}" class="c-radio-input" value="{{$num}}" checked="checked"><label for="rank0{{$num}}">&nbsp;</label></th>
                 @else
                 <th><input type="radio" name="rank_rate" id="rank0{{$num}}" class="c-radio-input" value="{{$num}}"><label for="rank0{{$num}}">&nbsp;</label></th>
                 @endif
@@ -45,16 +45,15 @@
         @endif
         <section class="event-review__main">
             <div class="event-review__header">
-                <h1 class="event-review__title">エントランス掃除</h1>
-                <p class="event-review__notes">2017年4月10日 12:35更新</p>
+                <h1 class="event-review__title">{{$event->title}}</h1>
+                <p class="event-review__notes">{{$event->updated_at}}更新</p>
             </div>
             <div class="event-review__body">
-                <p class="event-review__schedule">5月15日 10:00〜 5月15日 15:00</p>
-                <p class="event-review__suppliers">業者名/業者名</p>
-                <p class="event-review__parties">関係者名/関係者名</p>
-                <p class="event-review__message">ここにはテキストメッセージが入ります。注意点やこれを見た方へのメッセージなどが入ります。<br>
-                    ただ、マンションに居住されている方へのメッセージ
-                    やその時に注意する点などが書かれる想定です。
+                <p class="event-review__schedule">{{date('m月d日 H:i〜', strtotime($event->schedule))}}</p>
+                <p class="event-review__suppliers">{{$event->suppliers}}/{{$event->suppliers}}</p>
+                <p class="event-review__parties">{{$event->parties}}/{{$event->parties}}</p>
+                <p class="event-review__message">
+                    {{$event->document}}
                 </p>
                 <figure class="event-review__picture">
                     <img width="100%" src="{{asset('img/detail_pic.png')}}" alt="案件画像">
