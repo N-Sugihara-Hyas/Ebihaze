@@ -25,6 +25,8 @@ Route::post('/users/create', 'UsersController@postCreate')->name('post.users-cre
 Route::get('/users/certificate/{id}', 'UsersController@certificate')->name('users-certificate');
 Route::post('/users/certificate', 'UsersController@postCertificate')->name('post.users-certificate');
 Route::get('/users/add/{id}', 'UsersController@add')->name('users-add');
+Route::post('/users/add', 'UsersController@postAdd')->name('post.users-add');
+Route::get('/users/add-complete', 'UsersController@addComplete')->name('users-add-complete');
 Route::get('/users/list', 'UsersController@list')->name('users-list');
 Route::get('/users/invite/form', 'UsersController@inviteForm')->name('users-invite-form');
 Route::get('/users/invite/complete', 'UsersController@inviteComplete')->name('users-invite-complete');

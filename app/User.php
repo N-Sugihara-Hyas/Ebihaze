@@ -35,4 +35,8 @@ class User extends Authenticatable
 	{
 		return $this->hasMany('App\Rank');
 	}
+	public function apartments()
+	{
+		return $this->hasMany('App\Apartment');
+	}
 }

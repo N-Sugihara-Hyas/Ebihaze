@@ -66,12 +66,68 @@ class UsersController extends Controller
 		$User = \App\User::find($id);
 		switch ($User->type){
 			case 'officer':
-				return view('users.add_officer');
+				return view('users.add_officer', ['user' => $User]);
 			break;
 			case 'common':
 			break;
 		}
 		return view('users.add');
+	}
+	public function postAdd(Request $request)
+	{
+		$all = $request->all();
+//		$User = \App\User::find($all['user']['id']);
+		$User = \App\User::find(4);
+		$Apartment = new \App\Apartment;
+		$Building = new \App\Building;
+		$Room = new \App\Room;
+		foreach($all as $model => $attributes)
+		{
+			switch ($model){
+				case 'user':
+					foreach($attributes as $attr => $val)
+					{
+						$User->{$attr} = $val;
+					}
+				break;
+				case 'apartment':
+					foreach($attributes as $attr => $val)
+					{
+						if(is_array($val))$val = serialize($val);
+						$Apartment->{$attr} = $val;
+					}
+				break;
+				case 'building':
+					foreach($attributes as $attr => $val)
+					{
+						$Building->{$attr} = $val;
+					}
+				break;
+				case 'room':
+					foreach($attributes as $attr => $val)
+					{
+						$Room->{$attr} = $val;
+					}
+				break;
+			}
+		}
+		$Apartment->user_id = $User->id;
+		$Apartment->save();
+		$Building->apartment_id = $Apartment->id;
+		$Building->save();
+		$Room->building_id = $Building->id;
+		$Room->save();
+		$User->approval = 1;
+		$User->apartment_id = $Apartment->id;
+		$User->building_id = $Building->id;
+		$User->room_id = $Room->id;
+		$User->save();
+		return redirect()->route('users-add-complete');
+	}
+
+	public function addComplete()
+	{
+		return view('users.add_complete');
 	}
 
 	public function list()

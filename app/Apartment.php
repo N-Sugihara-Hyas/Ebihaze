@@ -6,5 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Apartment extends Model
 {
-    //
+	public function users()
+	{
+		return $this->belongsToMany('App\User');
+	}
+	public function buildings()
+	{
+		return $this->hasMany('App\Building');
+	}
 }

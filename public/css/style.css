@@ -503,6 +503,21 @@ nav.navbar {
 .users-invite_form .users-invite_form__submit {
   text-align: center;
 }
+.users-add_form__container .users-add_form__list dd {
+  width: 270px;
+  border-bottom: 1px solid #818181;
+  margin-left: 30px;
+  padding: 5px 10px;
+}
+.users-add_form__container .users-add_form__list dd input {
+  width: 270px;
+  background: transparent;
+  border: none;
+}
+.users-add_form__container .users-add_form__list .users-add_list-form__user-tel {
+  text-align: center;
+  border: none;
+}
 /*
 * ApartmentsPage
 */
