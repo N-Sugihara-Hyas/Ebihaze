@@ -30,6 +30,8 @@ class UsersTableSeeder extends Seeder
 	        'fam' => null,
 	        'pet' => null,
 	        'certification' => true,
+		    'auth_token' => null,
+	        'notification' => 0,
 	        'type' => self::$type[rand(0, count(self::$type)-1)],
 	        'owned' => self::$owned[rand(0, count(self::$owned)-1)],
 	        'reside' => self::$reside[rand(0, count(self::$reside)-1)],

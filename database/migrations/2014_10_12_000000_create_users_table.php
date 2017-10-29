@@ -27,6 +27,8 @@ class CreateUsersTable extends Migration
 	        $table->string('fam')->nullable();
 	        $table->string('pet')->nullable();
 	        $table->boolean('certification')->comment('SMS認証');//!SMS認証
+	        $table->string('auth_token')->nullable();
+	        $table->boolean('notification')->comment('他者通知可否');
 	        $table->string('type')->comment('[app, officer, common / trader]');//[app, officer, common / trader] TODO::Trader?
 			$table->string('owned')->comment('[owner, rent, treader]');//[owner, rent, treader] TODO::Trader?
 			$table->string('reside')->comment('[residents, rentout, trader]');//[residents, rentout, trader]
