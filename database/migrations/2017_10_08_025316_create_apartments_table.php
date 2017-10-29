@@ -15,9 +15,9 @@ class CreateApartmentsTable extends Migration
     {
         Schema::create('apartments', function (Blueprint $table) {
             $table->increments('id');
-	        $table->string('name');
+	        $table->string('name')->nullable();
 	        $table->string('address')->nullable();
-	        $table->boolean('contact')->comment('0:不可, 1:可');
+	        $table->boolean('contact')->default(0)->comment('0:不可, 1:可');
 	        $table->string('control')->nullable()->comment('管理形態');
 	        $table->string('construction')->nullable()->comment('構造');
 	        $table->string('pet')->nullable()->comment('ペット');
@@ -26,9 +26,10 @@ class CreateApartmentsTable extends Migration
 	        $table->string('insurance')->nullable()->comment('保険情報');
 	        $table->integer('total_units')->nullable()->comment('総戸数');
 	        $table->text('introduction')->nullable()->comment('マンション紹介テキスト');
-	        $table->boolean('official')->comment('0:非公式, 1:公式');
-	        $table->boolean('public')->comment('0:リストに出さない, 1:リストに出す');
-            $table->timestamps();
+	        $table->boolean('official')->default(0)->comment('0:非公式, 1:公式');
+	        $table->boolean('public')->default(0)->comment('0:リストに出さない, 1:リストに出す');
+	        $table->integer('user_id')->nullable();
+	        $table->timestamps();
         });
     }
 
