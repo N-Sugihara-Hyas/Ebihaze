@@ -20,6 +20,11 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 // UsersRoute
+Route::get('/users/create', 'UsersController@create')->name('users-create');
+Route::post('/users/create', 'UsersController@postCreate')->name('post.users-create');
+Route::get('/users/certificate/{id}', 'UsersController@certificate')->name('users-certificate');
+Route::post('/users/certificate', 'UsersController@postCertificate')->name('post.users-certificate');
+Route::get('/users/add/{id}', 'UsersController@add')->name('users-add');
 Route::get('/users/list', 'UsersController@list')->name('users-list');
 Route::get('/users/invite/form', 'UsersController@inviteForm')->name('users-invite-form');
 Route::get('/users/invite/complete', 'UsersController@inviteComplete')->name('users-invite-complete');

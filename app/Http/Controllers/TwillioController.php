@@ -13,8 +13,9 @@ class TwillioController extends Controller
 	static $AuthToken = "e74853f48e4455c7f5f6291992666e64";
 	static $accountSid = "ACb0a6d001b6a4985a25cf5eb717358024";
 
-	public function create($to)
+	public function create($to, $type='num')
 	{
+		$token = self::makeAuthToken($type);
 		if(preg_match('/0[7-9]0[0-9]+/',$to))
 		{
 			$to = preg_replace('/0([7-9]0)([0-9]+)/', '+81$1$2', $to);
@@ -28,9 +29,38 @@ class TwillioController extends Controller
 				// A Twilio phone number you purchased at twilio.com/console
 				'from' => '+15205829627',
 				// the body of the text message you'd like to send
-				'body' => 'This is Ebihaze! Good luck on the bar exam!'
+				'body' => 'This is Ebihaze! Your AuthToken is '.$token.' .'
 			)
 		);
+		return $token;
+	}
+	private function makeAuthToken($type = 'num'){
+		static $chars = 'ABCDEFGHIJLKMNOPQRSTUVWXYZ';
+		static $nums = '123456789';
+		$token = '';
+		switch ($type){
+			case 'num':
+				for($i=0;$i<4;++$i)
+				{
+					$token .= $nums[mt_rand(0, 8)];
+				}
+			break;
+			case 'str':
+				for($i=0;$i<4;++$i)
+				{
+					$token .= $nums[mt_rand(0, 8)];
+				}
+				for($i=0;$i<2;++$i)
+				{
+					$token .= $chars[mt_rand(0, 25)];
+				}
+				for($i=0;$i<2;++$i)
+				{
+					$token .= $nums[mt_rand(0, 8)];
+				}
+			break;
+		}
+		return $token;
 	}
 }
 

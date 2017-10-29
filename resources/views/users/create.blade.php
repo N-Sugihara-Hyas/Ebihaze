@@ -2,20 +2,25 @@
 
 @section('content')
 <div class="container">
-    <form action="">
+    <form action="{{route('post.users-create')}}" method="post">
+        {{ csrf_field() }}
         <div class="users-invite_form">
             <div class="users-invite_form__introduction">
+                <p class="error" style="color:red;">{{session('error')}}</p>
                 <p class="users-invite_form__text">
-                    新しいユーザーを招待します<br>
-                    下記フォームに電話番号を正しく入力してください<br>
-                    招待メッセージをお送りいたします
+                    ユーザー登録を行います<br>
+                    SMSの番号を<br>
+                    入力してください<br>
+                    送信後SMSが届きますので<br>
+                    SMSに記載のIDを入力の上<br>
+                    ユーザー情報入力にお進み下さい<br>
                 </p>
             </div>
             <div class="users-invite_form__form">
-                <input type="text" maxlength="13">
+                <input name="user_tel" type="text" maxlength="13">
             </div>
             <div class="users-invite_form__submit">
-                <button class="c-btn c-btn--large c-btn--blue">送信</button>
+                <button class="c-btn c-btn--large c-btn--blue action" data-method="post">送信</button>
             </div>
         </div>
     </form>
