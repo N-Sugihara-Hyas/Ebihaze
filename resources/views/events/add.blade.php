@@ -3,7 +3,7 @@
 @section('content')
 <div class="container" id="event-form">
     <h1>案件登録</h1>
-    <form method="post" action="{{route('post.events-add')}}">
+    <form method="post" action="{{route('post.events-add')}}" enctype="multipart/form-data">
     {{ csrf_field() }}
         <dl class="event-form">
             <dt class="event-form__title">
@@ -64,7 +64,8 @@
 
         <section class="c-btn-area">
             <div class="c-btn-area__large">
-                <button class="c-btn c-btn--large c-btn--blue">画像登録</button>
+                <button class="c-btn c-btn--large c-btn--blue action" data-method="file">画像登録</button>
+                <input type="file" name="event_thumb">
             </div>
             <div class="c-btn-area__small">
                 <button class="c-btn c-btn--small c-btn--white action" data-method="cancel">キャンセル</button>

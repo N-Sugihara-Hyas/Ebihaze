@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Faker\Provider\Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Intervention\Image\Facades\Image as Img;
 
 class EventsController extends Controller
 {
@@ -57,9 +59,31 @@ class EventsController extends Controller
 		$Event->suppliers = $request->input('suppliers');
 		$Event->parties = $request->input('parties');
 		$Event->approval = 0;
+
 		if($Event->save())
 		{
+			if ($request->hasFile('event_thumb')) {
+				$thumb = $request->file('event_thumb');
+				$thumb = Img::make($thumb);
+				$thumb->fit(240,240);
+//				$dir = asset('img/resources/event/'.$Event->id);
+				$dir = '/home/vagrant/ebihaze/public/img/resources/event/'.$Event->id;
+				$dir = public_path('img/resources/event/'.$Event->id);
+				if(!is_dir($dir))
+				{
+//					mkdir($dir, 0777);
+					exec('mkdir -p '.$dir);
+					exec('chmod -R 777 img/resources');
+//					exec('install -d -m=777 '.$dir);
+				}
+				$thumb->save($dir.'/thumb');
+//				$thumb->save(asset('img/resources/event/'.$Event->id.'/thumb.'.$thumb->getClientOriginalExtension()));
+			}
 			return redirect()->route('events-list');
+		}
+		else
+		{
+			//TODO::throw404
 		}
 	}
 	public function search()
