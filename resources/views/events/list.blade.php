@@ -9,7 +9,7 @@
                 <div class="event-item-container">
                     <section class="event-item-thumb">
                         <figure>
-                            <img src="{{asset('img/thumb.png')}}" alt="">
+                            <img width="60px" heihgt="60px" src="{{asset('img/resources/event/'.$event->id.'/thumb')}}" alt="">
                         </figure>
                     </section>
                     <section class="event-item-main">
@@ -31,7 +31,7 @@
                         </div>
                         <div class="event-item-main__footer">
                             <p>
-                                2017年4月10日 12:35更新
+                                {{$event->updated_at}}
                             </p>
                         </div>
                     </section>
