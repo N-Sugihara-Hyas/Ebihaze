@@ -23,7 +23,7 @@ class UsersController extends Controller
 
 			$User = \App\User::updateOrCreate(
 				['tel' => $tel],
-				['tel' => $tel, 'auth_token' => $auth_token]
+				['tel' => $tel, 'auth_token' => $auth_token, 'password' => bcrypt('secret')]
 			);
 		}catch (Exception $e){
 			echo "エラーが発生しました。戻るボタンを押して下さい。";
@@ -76,8 +76,8 @@ class UsersController extends Controller
 	public function postAdd(Request $request)
 	{
 		$all = $request->all();
-//		$User = \App\User::find($all['user']['id']);
-		$User = \App\User::find(4);
+		$User = \App\User::find($all['user']['id']);
+//		$User = \App\User::find(4);
 		$Apartment = new \App\Apartment;
 		$Building = new \App\Building;
 		$Room = new \App\Room;
@@ -113,6 +113,24 @@ class UsersController extends Controller
 		}
 		$Apartment->user_id = $User->id;
 		$Apartment->save();
+		if ($request->hasFile('user_icon'))
+		{
+			$thumb = $request->file('event_thumb');
+			$thumb = Img::make($thumb);
+			$thumb->fit(240,240);
+//				$dir = asset('img/resources/event/'.$Event->id);
+			$dir = '/home/vagrant/ebihaze/public/img/resources/apartment/'.$Apartment->id;
+			$dir = public_path('img/resources/apartment/'.$Apartment->id);
+			if(!is_dir($dir))
+			{
+//					mkdir($dir, 0777);
+				exec('mkdir -p '.$dir);
+				exec('chmod -R 777 img/resources');
+//					exec('install -d -m=777 '.$dir);
+			}
+			$thumb->save($dir.'/icon');
+//				$thumb->save(asset('img/resources/event/'.$Event->id.'/thumb.'.$thumb->getClientOriginalExtension()));
+		}
 		$Building->apartment_id = $Apartment->id;
 		$Building->save();
 		$Room->building_id = $Building->id;
