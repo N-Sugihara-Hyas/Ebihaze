@@ -31,7 +31,7 @@ class CreateEventsTable extends Migration
 			$table->text('message')->nullable()->comment('メッセージ');
 			$table->boolean('approval')->comment('承認フラグ[0:未承認, 1:承認済み]');
 			$table->text('etc')->nullable()->comment('出欠など予備カラム');
-
+			$table->integer('apartment_id')->nullable();
             $table->timestamps();
         });
     }
