@@ -14,4 +14,8 @@ class Apartment extends Model
 	{
 		return $this->hasMany('App\Building');
 	}
+	public function events()
+	{
+		return $this->hasMany('App\Event');
+	}
 }

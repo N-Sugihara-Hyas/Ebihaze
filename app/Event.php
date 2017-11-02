@@ -16,4 +16,8 @@ class Event extends Model
 	{
 		return $this->morphMany('App\Rank', 'rankable');
 	}
+	public function apartment()
+	{
+		return $this->belongsTo('App\Apartment');
+	}
 }

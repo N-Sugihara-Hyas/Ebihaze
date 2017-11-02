@@ -6,11 +6,17 @@ use Faker\Provider\Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Intervention\Image\Facades\Image as Img;
+use Illuminate\Support\Facades\Auth;
 
 class EventsController extends Controller
 {
 	public function list()
 	{
+		$Apartments = \App\User::find(Auth::id())->apartments;
+		foreach ($Apartments as $Apartment)
+		{
+			$events = $Apartment->events;
+		}
 		$Events = \App\Event::all();
 		foreach($Events as &$event)
 		{
@@ -62,7 +68,8 @@ class EventsController extends Controller
 
 		if($Event->save())
 		{
-			if ($request->hasFile('event_thumb')) {
+			if ($request->hasFile('event_thumb'))
+			{
 				$thumb = $request->file('event_thumb');
 				$thumb = Img::make($thumb);
 				$thumb->fit(240,240);
