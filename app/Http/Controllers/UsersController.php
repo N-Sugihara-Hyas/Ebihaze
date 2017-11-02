@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use League\Flysystem\Exception;
+use Intervention\Image\Facades\Image as Img;
 
 class UsersController extends Controller
 {
@@ -64,9 +65,11 @@ class UsersController extends Controller
 	public function add($id)
 	{
 		$User = \App\User::find($id);
+		// セレクト項目表示用
+		$Apartment = new \App\Apartment;
 		switch ($User->type){
 			case 'officer':
-				return view('users.add_officer', ['user' => $User]);
+				return view('users.add_officer', ['user' => $User, 'apartment' => $Apartment]);
 			break;
 			case 'common':
 			break;
@@ -77,7 +80,6 @@ class UsersController extends Controller
 	{
 		$all = $request->all();
 		$User = \App\User::find($all['user']['id']);
-//		$User = \App\User::find(4);
 		$Apartment = new \App\Apartment;
 		$Building = new \App\Building;
 		$Room = new \App\Room;
@@ -112,24 +114,21 @@ class UsersController extends Controller
 			}
 		}
 		$Apartment->user_id = $User->id;
+		$Apartment->public = 1;
 		$Apartment->save();
 		if ($request->hasFile('user_icon'))
 		{
-			$thumb = $request->file('event_thumb');
-			$thumb = Img::make($thumb);
-			$thumb->fit(240,240);
-//				$dir = asset('img/resources/event/'.$Event->id);
+			$icon = $request->file('user_icon');
+			$icon = Img::make($icon);
+			$icon->fit(240,240);
 			$dir = '/home/vagrant/ebihaze/public/img/resources/apartment/'.$Apartment->id;
 			$dir = public_path('img/resources/apartment/'.$Apartment->id);
 			if(!is_dir($dir))
 			{
-//					mkdir($dir, 0777);
 				exec('mkdir -p '.$dir);
 				exec('chmod -R 777 img/resources');
-//					exec('install -d -m=777 '.$dir);
 			}
-			$thumb->save($dir.'/icon');
-//				$thumb->save(asset('img/resources/event/'.$Event->id.'/thumb.'.$thumb->getClientOriginalExtension()));
+			$icon->save($dir.'/icon');
 		}
 		$Building->apartment_id = $Apartment->id;
 		$Building->save();

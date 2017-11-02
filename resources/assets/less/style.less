@@ -551,7 +551,7 @@ nav.navbar {
       margin-left: 30px;
       padding: 5px 10px;
     }
-    dd input{
+    dd input:not([type=checkbox]):not([type=radio]){
       width:270px;
       background: transparent;
       border: none;
@@ -607,6 +607,65 @@ nav.navbar {
     .apartments-item-rank__score{
       display: table-cell;
       text-align: center;
+    }
+  }
+}
+.apartments-detail{
+  .apartments-detail__title{
+    width:100%;
+    font-size: @font-middle;
+    font-weight:bold;
+    background: white;
+    text-align: center;
+    margin:0px;
+    padding: 15px 0px;
+  }
+  .apartments-detail__header--top{
+    height:60px;
+    position: relative;
+  }
+  .apartments-detail__mv{
+    position: absolute;
+    width:100%;
+    height:120px;
+    text-align: center;
+  }
+  .apartments-detail__header--bottom{
+    background: white;
+    height:90px;
+  }
+  table.apartments-detail__rank{
+    width:100%;
+    background: white;
+    padding: 15px 90px 15px 15px;
+    text-align: center;
+    th{
+      font-size:@font-large;
+      color: @pink;
+    }
+    td{
+      font-size: smaller;
+    }
+  }
+  .apartments-detail__body{
+    background: white;
+    width:100%;
+    padding:15px;
+    display: table;
+    h2{
+      font-size: @font-large;
+      text-align: center;
+    }
+    dl.apartments-detail__content {
+      display: table-row;
+      dt{
+        padding: 10px 5px;
+        display: table-cell;
+      }
+      dd{
+        padding: 10px 5px;
+        display: table-cell;
+      }
     }
   }
 }

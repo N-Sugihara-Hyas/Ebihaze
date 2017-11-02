@@ -27,6 +27,8 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+	static $job = ['自営業', '会社役員', '会社員', '公務員', 'パートアルバイト', 'その他'];
+
 	public function accounts()
 	{
 		return $this->hasMany('App\Account')->orderBy('schedule');
