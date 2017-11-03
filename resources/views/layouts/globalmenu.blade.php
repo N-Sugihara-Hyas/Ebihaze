@@ -48,7 +48,7 @@
                       </dt>
                       <dd class="event-form__input">
                           <select name="category" id="category">
-                              @foreach($main_category = array_keys($event::$category) as $cate)
+                              @foreach($main_category = array_keys($events::$category) as $cate)
                                   <option value="{{$cate}}">{{$cate}}</option>
                               @endforeach
                           </select>
