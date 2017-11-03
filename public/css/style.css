@@ -956,6 +956,14 @@ nav.navbar {
   border-right: 20px solid transparent;
   border-bottom: 20px solid transparent;
 }
+.c-input--medium {
+  width: 100%;
+  padding: 20px 0;
+  font-size: 17px;
+  text-align: center;
+  border: 8px solid darkgrey;
+  border-radius: 5px;
+}
 .c-input--large {
   width: 100%;
   padding: 20px 25%;
