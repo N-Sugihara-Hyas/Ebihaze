@@ -1,10 +1,10 @@
-@extends('layouts.globalmenu')
+@extends('layouts.usersheader')
 
 @section('content')
 <div class="container">
     <div class="users-add_title">
         <p>
-            認証されました
+            認証されました<br>
             アプリ利用に必要な情報の入力をお願いいたします
         </p>
     </div>
@@ -83,7 +83,8 @@
             <dl class="users-add_form__list">
                 <dt class="users-add_list-title__apartment-name">マンション名</dt>
                 <dd class="users-add_list-form__apartment-name">
-                    <button>検索</button>
+                    <input type="text" name="apartment[name]">
+                    {{--<button>検索</button>--}}
                 </dd>
             </dl>
             <dl class="users-add_form__list">

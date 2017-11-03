@@ -11,7 +11,9 @@ class UsersController extends Controller
 {
 	public function create()
 	{
-		return view('users.create');
+		$title = 'ユーザー作成';
+
+		return view('users.create', ['title' => $title]);
 	}
 	public function postCreate(Request $request)
 	{
@@ -34,8 +36,10 @@ class UsersController extends Controller
 	}
 	public function certificate($id)
 	{
+		$title = 'ユーザー認証';
+
 		$User = \App\User::find($id);
-		return view('users.certificate', ['user' => $User]);
+		return view('users.certificate', ['user' => $User, 'title' => $title]);
 	}
 	public function postCertificate(Request $request)
 	{
@@ -46,7 +50,7 @@ class UsersController extends Controller
 		$User = \App\User::find($id);
 
 		// authToken認証
-		$certification = ($User->auth_token===$auth_token && time()-strtotime($User->created_at) <= 60*60*24);
+		$certification = ($User->auth_token===$auth_token && time()-strtotime($User->updated_at) <= 60*60*24);
 
 		$User->certification = $certification;
 		$User->type = $type;
@@ -64,12 +68,14 @@ class UsersController extends Controller
 	}
 	public function add($id)
 	{
+		$title = 'ユーザー登録';
+
 		$User = \App\User::find($id);
 		// セレクト項目表示用
 		$Apartment = new \App\Apartment;
 		switch ($User->type){
 			case 'officer':
-				return view('users.add_officer', ['user' => $User, 'apartment' => $Apartment]);
+				return view('users.add_officer', ['user' => $User, 'apartment' => $Apartment, 'title' => $title]);
 			break;
 			case 'common':
 			break;
@@ -144,7 +150,9 @@ class UsersController extends Controller
 
 	public function addComplete()
 	{
-		return view('users.add_complete');
+		$title = 'ユーザー登録完了';
+
+		return view('users.add_complete', ['title' => $title]);
 	}
 
 	public function list()
