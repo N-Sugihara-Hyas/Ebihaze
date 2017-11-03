@@ -8,11 +8,17 @@ class StaticsController extends Controller
 {
 	public function privacy()
 	{
-		return view('statics.privacy');
+		$title = 'プライバシーポリシー';
+		$route = ['url' => route('statics-menu'), 'title' => ' メニュー'];
+
+		return view('statics.privacy', ['route' => $route, 'title' => $title]);
 	}
 	public function terms()
 	{
-		return view('statics.terms');
+		$title = 'ご利用規約';
+		$route = ['url' => route('statics-menu'), 'title' => ' メニュー'];
+
+		return view('statics.terms', ['route' => $route, 'title' => $title]);
 	}
 	public function menu()
 	{

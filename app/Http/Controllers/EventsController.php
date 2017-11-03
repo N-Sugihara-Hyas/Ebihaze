@@ -68,8 +68,11 @@ class EventsController extends Controller
 	}
 	public function add()
 	{
+		$route = ['title' => '案件一覧', 'url' => route('events-list')];
+		$title = "案件登録";
+
 		$Event = new \App\Event;
-		return view('events.add', ['event' => $Event]);
+		return view('events.add', ['event' => $Event, 'route' => $route, 'title' => $title]);
 	}
 	public function postAdd(Request $request)
 	{

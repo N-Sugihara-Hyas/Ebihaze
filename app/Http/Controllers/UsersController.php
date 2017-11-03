@@ -149,16 +149,25 @@ class UsersController extends Controller
 
 	public function list()
 	{
+		$title = 'ユーザー一覧';
+		$route = ['url' => route('statics-menu'), 'title' => 'メニュー'];
+
 		$Users = \App\User::all();
-		return view('users.list', ['users' => $Users]);
+		return view('users.list', ['users' => $Users, 'route' => $route, 'title' => $title]);
 	}
 	public function inviteForm()
 	{
-		return view('users.invite_form');
+		$title = 'ユーザー招待';
+		$route = ['url' => route('statics-menu'), 'title' => 'メニュー'];
+
+		return view('users.invite_form', ['route' => $route, 'title' => $title]);
 	}
 	public function inviteComplete()
 	{
-		return view('users.invite_complete');
+		$title = 'ユーザー招待完了';
+		$route = ['url' => route('statics-menu'), 'title' => 'メニュー'];
+
+		return view('users.invite_complete', ['route' => $route, 'title' => $title]);
 	}
 	public function detail($id)
 	{

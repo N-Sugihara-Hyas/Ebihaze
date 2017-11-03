@@ -1,18 +1,18 @@
-@extends('layouts.globalmenu')
+@extends('layouts.globalheader')
 
 @section('content')
     <div class="container">
-        <form action="">
-            <div class="users-invite_form">
-                <div class="users-invite_form__introduction">
-                    <p class="users-invite_form__text">
-                        新しいユーザーを<br>招待しました<br>
-                    </p>
-                </div>
-                <div class="users-invite_form__submit">
-                    <button class="c-btn c-btn--large c-btn--orange">トップへ</button>
-                </div>
+        <div class="users-invite_form">
+            <div class="users-invite_form__introduction">
+                <p class="users-invite_form__text">
+                    新しいユーザーを<br>招待しました<br>
+                </p>
             </div>
-        </form>
+            <div class="users-invite_form__submit">
+                <a href="{{route('events-list')}}">
+                    <button class="c-btn c-btn--large c-btn--orange">トップへ</button>
+                </a>
+            </div>
+        </div>
     </div>
 @endsection
