@@ -282,10 +282,10 @@ console.log($(this).text())
                 $("#modal-overlay").fadeIn("slow");
                 $("#modal-content-cal").fadeIn("slow");
                 $('#container').css({'overflow': 'hidden'});
-                $("#modal-overlay,#modal-close,#modal-close-add").unbind().click(function(t){
+                $("#modal-overlay,#modal-close,#modal-close-cal").unbind().click(function(t){
                     t.preventDefault();
                     //[#modal-overlay]と[#modal-close]をフェードアウトする
-                    $("#modal-content-add,#modal-overlay").fadeOut("slow",function(){
+                    $("#modal-content-cal,#modal-overlay").fadeOut("slow",function(){
                         //フェードアウト後、[#modal-overlay]をHTML(DOM)上から削除
                         $("#modal-overlay").remove();
                     });
