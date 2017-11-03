@@ -12,6 +12,16 @@ class ApartmentsController extends Controller
 		$Apartments = \App\User::find(Auth::id())->apartments;
 		return view('apartments.list', ['apartments' => $Apartments]);
 	}
+	public function switch()
+	{
+		$Apartments = \App\User::find(Auth::id())->apartments;
+		return view('apartments.switch', ['apartments' => $Apartments]);
+	}
+	public function postSwitch(Request $request)
+	{
+		session(['apartment_id' => $request->input(('apartment_id'))]);
+		return redirect()->route('events-list');
+	}
 	public function detail($id)
 	{
 		$Apartment = \App\Apartment::find($id);

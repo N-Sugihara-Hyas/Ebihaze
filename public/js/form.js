@@ -24,6 +24,11 @@ console.log('click');
                     });
                     return false;
                     break;
+                case 'switch':
+                    var id = $(this).data('id');
+                    $('form').append('<input type="hidden" name="apartment_id" value="'+id+'">').submit();
+                    return false;
+                    break;
                 default:
                     return false;
                     break;
