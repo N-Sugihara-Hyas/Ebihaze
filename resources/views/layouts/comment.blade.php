@@ -16,8 +16,8 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 </head>
 <body>
+    <form action="{{route('post.comments')}}" method="post">
     <div id="app">
-        <form action="{{route('post.comments')}}" method="post">
         <nav class="navbar navbar-default navbar-static-top">
             <div class="container">
                 <div class="navbar-header">
@@ -83,8 +83,8 @@
                     <img src="{{asset('img/up_arrow_bubble.png')}}" alt="送信ボタン">
                 </figure>
             </div>
-        </form>
     </div>
+    </form>
 
     <!-- Scripts -->
     <script src="{{ asset('js/form.js') }}"></script>

@@ -12,8 +12,16 @@ class EventsController extends Controller
 {
 	public function list()
 	{
-		$Apartments = \App\User::find(Auth::id())->apartments;
-		$Events = $Apartments[0]->events;
+		if(session()->has('apartment_id'))
+		{
+			$Apartment = \App\Apartment::find(session('apartment_id'));
+		}
+		else
+		{
+			$Apartments = \App\User::find(Auth::id())->apartments;
+			$Apartment = $Apartments[0];
+		}
+		$Events = $Apartment->events;
 		foreach($Events as &$event)
 		{
 			// TODO::Test
