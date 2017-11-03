@@ -1,11 +1,11 @@
-@extends('layouts.globalmenu')
+@extends('layouts.usersheader')
 
 @section('content')
     <div class="container">
         <div class="users-invite_form">
             <div class="users-invite_form__introduction">
                 <p class="users-invite_form__text">
-                    新しいユーザーを<br>招待しました<br>
+                    ユーザー登録しました<br>
                 </p>
             </div>
             <div class="users-invite_form__submit">
