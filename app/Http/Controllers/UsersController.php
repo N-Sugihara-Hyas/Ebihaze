@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use League\Flysystem\Exception;
+use Intervention\Image\Facades\Image as Img;
 
 class UsersController extends Controller
 {
@@ -23,7 +24,7 @@ class UsersController extends Controller
 
 			$User = \App\User::updateOrCreate(
 				['tel' => $tel],
-				['tel' => $tel, 'auth_token' => $auth_token]
+				['tel' => $tel, 'auth_token' => $auth_token, 'password' => bcrypt('secret')]
 			);
 		}catch (Exception $e){
 			echo "エラーが発生しました。戻るボタンを押して下さい。";
@@ -64,9 +65,11 @@ class UsersController extends Controller
 	public function add($id)
 	{
 		$User = \App\User::find($id);
+		// セレクト項目表示用
+		$Apartment = new \App\Apartment;
 		switch ($User->type){
 			case 'officer':
-				return view('users.add_officer', ['user' => $User]);
+				return view('users.add_officer', ['user' => $User, 'apartment' => $Apartment]);
 			break;
 			case 'common':
 			break;
@@ -76,8 +79,7 @@ class UsersController extends Controller
 	public function postAdd(Request $request)
 	{
 		$all = $request->all();
-//		$User = \App\User::find($all['user']['id']);
-		$User = \App\User::find(4);
+		$User = \App\User::find($all['user']['id']);
 		$Apartment = new \App\Apartment;
 		$Building = new \App\Building;
 		$Room = new \App\Room;
@@ -112,7 +114,22 @@ class UsersController extends Controller
 			}
 		}
 		$Apartment->user_id = $User->id;
+		$Apartment->public = 1;
 		$Apartment->save();
+		if ($request->hasFile('user_icon'))
+		{
+			$icon = $request->file('user_icon');
+			$icon = Img::make($icon);
+			$icon->fit(240,240);
+			$dir = '/home/vagrant/ebihaze/public/img/resources/apartment/'.$Apartment->id;
+			$dir = public_path('img/resources/apartment/'.$Apartment->id);
+			if(!is_dir($dir))
+			{
+				exec('mkdir -p '.$dir);
+				exec('chmod -R 777 img/resources');
+			}
+			$icon->save($dir.'/icon');
+		}
 		$Building->apartment_id = $Apartment->id;
 		$Building->save();
 		$Room->building_id = $Building->id;
@@ -132,16 +149,25 @@ class UsersController extends Controller
 
 	public function list()
 	{
+		$title = 'ユーザー一覧';
+		$route = ['url' => route('statics-menu'), 'title' => 'メニュー'];
+
 		$Users = \App\User::all();
-		return view('users.list', ['users' => $Users]);
+		return view('users.list', ['users' => $Users, 'route' => $route, 'title' => $title]);
 	}
 	public function inviteForm()
 	{
-		return view('users.invite_form');
+		$title = 'ユーザー招待';
+		$route = ['url' => route('statics-menu'), 'title' => 'メニュー'];
+
+		return view('users.invite_form', ['route' => $route, 'title' => $title]);
 	}
 	public function inviteComplete()
 	{
-		return view('users.invite_complete');
+		$title = 'ユーザー招待完了';
+		$route = ['url' => route('statics-menu'), 'title' => 'メニュー'];
+
+		return view('users.invite_complete', ['route' => $route, 'title' => $title]);
 	}
 	public function detail($id)
 	{

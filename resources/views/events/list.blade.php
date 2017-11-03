@@ -5,18 +5,24 @@
     <ul class="event-list c-list">
         @foreach($events as $event)
         <a href="{{route('events-detail', $event->id)}}">
-            <li class="event-list__item c-list__item">
+            <li class="event-list__item c-list__item {{($event->status=='required') ? 'event-list__item--required' : ''}}{{($event->status=='done') ? 'event-list__item--done' : ''}}">
                 <div class="event-item-container">
                     <section class="event-item-thumb">
                         <figure>
-                            <img src="{{asset('img/thumb.png')}}" alt="">
+                            <img width="60px" heihgt="60px" src="{{asset('img/resources/event/'.$event->id.'/thumb')}}" alt="">
                         </figure>
                     </section>
                     <section class="event-item-main">
                         <div class="event-item-main__header">
                             <p class="event-item-main__title">
-                                {{$event->title}}<br>
-                                <small>{{$event->parties}}/{{$event->parties}}</small>
+                                @if($event->status=='required')
+                                <span style="color:red;">(要評価)</span>
+                                @endif
+                                {{$event->title}}
+                                @if($event->status=='done')
+                                <span>(完了)</span>
+                                @endif
+                                <br><small>{{$event->parties}}/{{$event->parties}}</small>
                             </p>
                             <figure class="event-item-main__icon">
                                 <img src="{{asset('img/icon.png')}}" alt="">
@@ -31,7 +37,7 @@
                         </div>
                         <div class="event-item-main__footer">
                             <p>
-                                2017年4月10日 12:35更新
+                                {{$event->updated_at}}
                             </p>
                         </div>
                     </section>

@@ -101,7 +101,7 @@
                     </div>
                 </li>
             </a>
-            <a href="{{route('apartments-list')}}">
+            <a href="{{route('apartments-switch')}}">
                 <li class="menu-list__item c-menu__item c-list__item">
                     <div class="menu-item-container">
                         <section class="menu-item-title">

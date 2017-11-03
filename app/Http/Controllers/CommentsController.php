@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CommentsController extends Controller
 {
@@ -14,13 +15,15 @@ class CommentsController extends Controller
 
 		$Comment = new \App\Comment;
 		$Comment->body = $comment_body;
-		$Comment->user_id = 1;//TODO::Test
+		$Comment->user_id = Auth::id();
+		// for Test
+//		$Comment->user_id = 3;
 		$Comment->commentable_type = $commentable_type;
 		$Comment->commentable_id = $_id;
 		if($Comment->save())
 		{
 			switch ($commentable_type){
-				case 'Event':
+				case 'App\Event':
 				return redirect()->route('events-message', $Comment->commentable_id);
 					break;
 				default:

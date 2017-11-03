@@ -13,33 +13,133 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    {{--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>--}}
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1/i18n/jquery.ui.datepicker-ja.min.js"></script>
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/redmond/jquery-ui.css" >
 </head>
 <body>
-    <div id="app">
-        <nav class="navbar navbar-default navbar-static-top">
+  <div id="app">
+      <section id="modal-content-add">
+          <div class="container" id="event-form">
+              <h1>案件登録</h1>
+              <form method="post" action="{{route('post.events-add')}}" enctype="multipart/form-data">
+                  {{ csrf_field() }}
+                  <dl class="event-form">
+                      <dt class="event-form__title">
+                          タイトル
+                      </dt>
+                      <dd class="event-form__input">
+                          <input type="text" name="title">
+                      </dd>
+                  </dl>
+                  <dl class="event-form">
+                      <dt class="event-form__title">
+                          施工日時
+                      </dt>
+                      <dd class="event-form__input">
+                          <input type="text" name="schedule">
+                      </dd>
+                  </dl>
+                  <dl class="event-form">
+                      <dt class="event-form__title">
+                          種類１
+                      </dt>
+                      <dd class="event-form__input">
+                          <select name="category" id="category">
+                              @foreach($main_category = array_keys($event::$category) as $cate)
+                                  <option value="{{$cate}}">{{$cate}}</option>
+                              @endforeach
+                          </select>
+                      </dd>
+                  </dl>
+                  <dl class="event-form">
+                      <dt class="event-form__title">
+                          種類２
+                      </dt>
+                      <dd class="event-form__input">
+                          <select name="subcategory" id="subcategory">
+                              @foreach($event::$category[$main_category[0]] as $subcate)
+                                  <option value="{{$subcate}}">{{$subcate}}</option>
+                              @endforeach
+                          </select>
+                      </dd>
+                  </dl>
+                  <dl class="event-form">
+                      <dt class="event-form__title">
+                          業者
+                      </dt>
+                      <dd class="event-form__input">
+                          <input type="text" name="suppliers">
+                      </dd>
+                  </dl>
+                  <dl class="event-form">
+                      <dt class="event-form__title">
+                          内容
+                      </dt>
+                      <dd class="event-form__input">
+                          <input type="text" name="content">
+                      </dd>
+                  </dl>
+                  <dl class="event-form">
+                      <dt class="event-form__title">
+                          関係者
+                      </dt>
+                      <dd class="event-form__input">
+                          <input type="text" name="parties">
+                      </dd>
+                  </dl>
+
+                  <section class="c-btn-area">
+                      <div class="c-btn-area__large">
+                          <button class="c-btn c-btn--large c-btn--blue action" data-method="file">画像登録</button>
+                          <input type="file" name="event_thumb">
+                      </div>
+                      <div class="c-btn-area__small" style="text-align: center">
+                          <button class="c-btn c-btn--small c-btn--white action" style="width:115px;" data-method="cancel" id="modal-close-add">キャンセル</button>
+                          <button class="c-btn c-btn--small c-btn--blue action" style="width:115px;" data-method="post">登録</button>
+                      </div>
+                  </section>
+
+              </form>
+          </div>
+          <script>
+              var category = {
+                  '管理業務' : ['修繕', '清掃', '保険', '町内会等', 'その他'],
+                  'イベント' : ['イベント'],
+                  '会議' : ['理事会', '総会', 'その他'],
+                  '共有' : ['連絡事項', 'その他'],
+                  'その他' : ['その他']
+              };
+              $(function(){
+                  $('#category').on('change', function(){
+                      cate = $('#category').val();
+                      subcate = category[cate];
+                      $('#subcategory').empty();
+                      $.each(subcate, function(){
+                          $('#subcategory').append(
+                                  '<option value="'+this+'">'+this+'</option>'
+                          );
+                      });
+                  });
+              });
+          </script>
+      </section>
+      <section id="modal-content-cal">
+      </section>
+      <nav class="navbar navbar-default navbar-static-top">
             <div class="container">
                 <div class="navbar-header">
-
-                    <!-- Collapsed Hamburger -->
-{{--
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
-                        <span class="sr-only">Toggle Navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
---}}
-
                     <!-- Branding Image -->
-                    <a class="navbar-left" href="{{ route('events-add') }}">
+                    <a class="navbar-left" href="{{ route('events-add') }}" id="modal-open-add">
                         ＋<br>
                         <small>登録</small>
                     </a>
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
+                        {{$title}}
                     </a>
-                    <a class="navbar-right" href="{{route('events-search') }}">
+                    <a class="navbar-right" href="{{route('events-search') }}" id="modal-open-cal">
                         <img src="{{asset('img/nav_flag.png')}}" alt="カレンダー"><br>
                         <small>カレンダー</small>
                     </a>
@@ -57,43 +157,6 @@
                         </a>
                     </ul>
                 </div>
-{{--
-                <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="nav navbar-nav">
-                        &nbsp;
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="nav navbar-nav navbar-right">
-                        <!-- Authentication Links -->
-                        @guest
-                            <li><a href="{{ route('login') }}">Login</a></li>
-                            <li><a href="{{ route('register') }}">Register</a></li>
-                        @else
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
-
-                                <ul class="dropdown-menu" role="menu">
-                                    <li>
-                                        <a href="{{ route('logout') }}"
-                                            onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                            Logout
-                                        </a>
-
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                            {{ csrf_field() }}
-                                        </form>
-                                    </li>
-                                </ul>
-                            </li>
-                        @endguest
-                    </ul>
-                </div>
---}}
             </div>
         </nav>
 
@@ -127,7 +190,109 @@
     </div>
 
     <!-- Scripts -->
+    @section('scripts')
+    @show
     <script src="{{ asset('js/form.js') }}"></script>
-    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/calender.js') }}"></script>
+{{--    <script src="{{ asset('js/app.js') }}"></script>--}}
+    <script>
+        $(function() {
+//            $("#datepicker").datepicker();
+//            $('#datepicker_btn').on('click', function(){
+//console.log('date_btn');
+//                $('#datepicker').focus();
+//                return false;
+//            })
+//            return false;
+        });
+    </script>
+    <script>
+        function setEvent(){
+console.log('setEvent trig');
+            var event_days = @json($calendar);
+            var year = $('table.calendar thead th').text().replace(/(.+)年.+/, '$1');
+console.log(year);
+            var month = ('0'+$('table.calendar thead th').text().replace(/.+年(.+)月/, '$1')).slice(-2);
+console.log(month);
+            var preg = new RegExp(year+'-'+month);
+            var target_days = $.grep(event_days, function(elem, index){
+                return (elem.match(preg));
+            });
+
+            $('table.calendar tbody td').each(function(){
+                if($(this).text().match(/\d/)){
+console.log($(this).text())
+                    var day = ('0'+$(this).text()).slice(-2);
+                    $(this).html('<a class="'+year+'-'+month+'-'+day+'">'+$(this).text()+'</a>');
+                }
+            });
+            $('table.calendar tbody td a').each(function(){
+                if($.inArray($(this).attr('class'), target_days)!=-1){
+                    $(this).css({
+                        'display' : 'inline-block',
+                        'width' : '60%',
+                        'background' : 'orange',
+                        'border-radius' : '20px',
+                        'border' : 'solid 1px orange'
+                    });
+                    var url = "{{route('events-list')}}";
+                    $(this).attr('href', url+'?schedule='+$(this).attr('class'));
+                }
+            });
+        }
+        $(function(){
+            // イベント登録
+            $("#modal-open-add").click(function(t){
+                t.preventDefault();
+                $(this).blur() ; //ボタンからフォーカスを外す
+                if($("#modal-overlay")[0]) return false ; //新しくモーダルウィンドウを起動しない
+                //オーバーレイ用のHTMLコードを、[body]内の最後に生成する
+                $("#container").append('<div id="modal-overlay"></div>');
+                //[$modal-overlay]をフェードインさせる
+                $("#modal-overlay").fadeIn("slow");
+                $("#modal-content-add").fadeIn("slow");
+                $('#container').css({'overflow': 'hidden'});
+                $("#modal-overlay,#modal-close,#modal-close-add").unbind().click(function(t){
+                    t.preventDefault();
+                    //[#modal-overlay]と[#modal-close]をフェードアウトする
+                    $("#modal-content-add,#modal-overlay").fadeOut("slow",function(){
+                        //フェードアウト後、[#modal-overlay]をHTML(DOM)上から削除
+                        $("#modal-overlay").remove();
+                    });
+                    $('#container').css({'overflow': 'visible'});
+                });
+            });
+            // カレンダー表示
+            $('#modal-open-cal').click(function(t){
+                t.preventDefault();
+                $(this).blur() ;	//ボタンからフォーカスを外す
+                var ve = document.getElementById('modal-content-cal');
+                var calendar = new Calendar(ve);
+                calendar.view(); // 表示
+
+                // イベント日付設定
+                setEvent();
+                $(document).unbind().on('click', 'table.calendar thead .next, table.calendar thead .prev',  function(){
+                    setEvent();
+                });
+
+                if($("#modal-overlay")[0]) return false ; //新しくモーダルウィンドウを起動しない
+                //オーバーレイ用のHTMLコードを、[body]内の最後に生成する
+                $("#container").append('<div id="modal-overlay"></div>');
+                $("#modal-overlay").fadeIn("slow");
+                $("#modal-content-cal").fadeIn("slow");
+                $('#container').css({'overflow': 'hidden'});
+                $("#modal-overlay,#modal-close,#modal-close-cal").unbind().click(function(t){
+                    t.preventDefault();
+                    //[#modal-overlay]と[#modal-close]をフェードアウトする
+                    $("#modal-content-cal,#modal-overlay").fadeOut("slow",function(){
+                        //フェードアウト後、[#modal-overlay]をHTML(DOM)上から削除
+                        $("#modal-overlay").remove();
+                    });
+                    $('#container').css({'overflow': 'visible'});
+                });
+            });
+        });
+    </script>
 </body>
 </html>

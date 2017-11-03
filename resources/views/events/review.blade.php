@@ -37,7 +37,7 @@
         </section>
         @else
         <section class="event-review__comment">
-        <textarea name="event_message" class="c-input--large"></textarea>
+        <textarea name="event_message" class="c-input--medium"></textarea>
         </section>
         <section class="event-review__submit">
             <button class="c-btn c-btn--large c-btn--orange action" data-method="post">完了承認</button>

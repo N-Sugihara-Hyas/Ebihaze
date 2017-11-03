@@ -8,7 +8,7 @@
             <p class="event-detail__notes">{{date('Y', strtotime($event->updated_at))}}年{{'m', strtotime($event->updated_at)}}月{{date('d', strtotime($event->updated_at))}}日 {{date('H:i', strtotime($event->updated_at))}}更新</p>
         </section>
         <section class="event-detail__body">
-            <p class="event-detail__schedule">{{date('m', strtotime($event->updated_at))}}月{{date('d', strtotime($event->updated_at))}}日 {{date('H:i', strtotime($event->updated_at))}}〜 {{date('m', strtotime($event->updated_at))}}月{{date('d', strtotime($event->updated_at))}}日 {{date('H:i', strtotime($event->updated_at))}}</p>
+            <p class="event-detail__schedule">{{date('m', strtotime($event->schedule))}}月{{date('d', strtotime($event->schedule))}}日 {{date('H:i', strtotime($event->schedule))}}〜 {{date('m', strtotime($event->schedule))}}月{{date('d', strtotime($event->schedule))}}日 {{date('H:i', strtotime($event->schedule))}}</p>
             <p class="event-detail__suppliers">{{$event->suppliers}}/{{$event->suppliers}}</p>
             <p class="event-detail__parties">{{$event->parties}}/{{$event->parties}}</p>
             <p class="event-detail__message">

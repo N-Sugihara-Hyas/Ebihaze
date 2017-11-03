@@ -1,4 +1,4 @@
-@extends('layouts.globalmenu')
+@extends('layouts.globalheader')
 
 @section('content')
 <div class="container" id="event-form">
@@ -26,7 +26,11 @@
                 種類１
             </dt>
             <dd class="event-form__input">
-                <input type="text" name="category">
+                <select name="category" id="category">
+                    @foreach($main_category = array_keys($event::$category) as $cate)
+                        <option value="{{$cate}}">{{$cate}}</option>
+                    @endforeach
+                </select>
             </dd>
         </dl>
         <dl class="event-form">
@@ -34,7 +38,11 @@
                 種類２
             </dt>
             <dd class="event-form__input">
-                <input type="text">
+                <select name="subcategory" id="subcategory">
+                    @foreach($event::$category[$main_category[0]] as $subcate)
+                        <option value="{{$subcate}}">{{$subcate}}</option>
+                    @endforeach
+                </select>
             </dd>
         </dl>
         <dl class="event-form">
@@ -75,4 +83,28 @@
 
     </form>
 </div>
+@endsection
+@section('scripts')
+    @parent
+    <script>
+        var category = {
+            '管理業務' : ['修繕', '清掃', '保険', '町内会等', 'その他'],
+            'イベント' : ['イベント'],
+            '会議' : ['理事会', '総会', 'その他'],
+            '共有' : ['連絡事項', 'その他'],
+            'その他' : ['その他']
+        };
+        $(function(){
+            $('#category').on('change', function(){
+                cate = $('#category').val();
+                subcate = category[cate];
+                $('#subcategory').empty();
+                $.each(subcate, function(){
+                    $('#subcategory').append(
+                            '<option value="'+this+'">'+this+'</option>'
+                    );
+                });
+            });
+        });
+    </script>
 @endsection

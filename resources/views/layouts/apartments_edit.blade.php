@@ -26,25 +26,25 @@
                     </a>
                     <a class="navbar-brand" href="{{ url('/') }}">
                         {{ $title }}
-{{--                        {{ config('app.name', 'Laravel') }}--}}
+                        {{--                        {{ config('app.name', 'Laravel') }}--}}
                     </a>
                     {{--<a class="navbar-right" href="{{route('events-search') }}">--}}
-                        {{--<img src="{{asset('img/nav_flag.png')}}" alt="カレンダー"><br>--}}
-                        {{--<small>カレンダー</small>--}}
+                    {{--<img src="{{asset('img/nav_flag.png')}}" alt="カレンダー"><br>--}}
+                    {{--<small>カレンダー</small>--}}
                     {{--</a>--}}
                 </div>
                 {{--<div class="navbar-footer">--}}
-                    {{--<ul class="navbar-footer__list">--}}
-                        {{--<a class="navbar-footer__tab navbar-footer--list navbar-footer__tab--active" href="{{route('events-list')}}">--}}
-                            {{--<li>案件一覧</li>--}}
-                        {{--</a>--}}
-                        {{--<a class="navbar-footer__tab navbar-footer--join" href="{{route('events-join')}}">--}}
-                            {{--<li>参加一覧</li>--}}
-                        {{--</a>--}}
-                        {{--<a class="navbar-footer__tab navbar-footer--watch" href="{{route('events-watch')}}">--}}
-                            {{--<li>ウォッチ一覧</li>--}}
-                        {{--</a>--}}
-                    {{--</ul>--}}
+                {{--<ul class="navbar-footer__list">--}}
+                {{--<a class="navbar-footer__tab navbar-footer--list navbar-footer__tab--active" href="{{route('events-list')}}">--}}
+                {{--<li>案件一覧</li>--}}
+                {{--</a>--}}
+                {{--<a class="navbar-footer__tab navbar-footer--join" href="{{route('events-join')}}">--}}
+                {{--<li>参加一覧</li>--}}
+                {{--</a>--}}
+                {{--<a class="navbar-footer__tab navbar-footer--watch" href="{{route('events-watch')}}">--}}
+                {{--<li>ウォッチ一覧</li>--}}
+                {{--</a>--}}
+                {{--</ul>--}}
                 {{--</div>--}}
             </div>
         </nav>
@@ -56,8 +56,8 @@
         <nav class="navbar navbar-default navbar-static-bottom">
             {{--<div class="container">--}}
             <div class="navbar-globalcomment">
-                <a href="{{route('events-message', $event->id)}}">
-                    <button class="c-btn--max c-btn--blue">コメント</button>
+                <a href="{{route('apartments-edit', $apartment->id)}}">
+                    <button class="c-btn--max c-btn--blue">情報編集</button>
                 </a>
             </div>
             {{--</div>--}}

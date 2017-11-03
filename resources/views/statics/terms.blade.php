@@ -1,4 +1,4 @@
-@extends('layouts.globalmenu')
+@extends('layouts.globalheader')
 
 @section('content')
 <div class="container">

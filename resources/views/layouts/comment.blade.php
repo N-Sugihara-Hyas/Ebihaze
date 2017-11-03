@@ -16,24 +16,23 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 </head>
 <body>
+    <form action="{{route('post.comments')}}" method="post">
     <div id="app">
-        <form action="{{route('post.comments')}}" method="post">
         <nav class="navbar navbar-default navbar-static-top">
             <div class="container">
                 <div class="navbar-header">
-
-                    <!-- Collapsed Hamburger -->
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
-                        <span class="sr-only">Toggle Navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-
                     <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
+                    <a class="navbar-left" href="{{ $route['url'] }}">
+                        ＜ <small>{{$route['title']}}</small>
                     </a>
+                    <a class="navbar-brand" href="{{ url('/') }}">
+                        {{ $title }}
+                        {{--                        {{ config('app.name', 'Laravel') }}--}}
+                    </a>
+                    {{--<a class="navbar-right" href="{{route('events-search') }}">--}}
+                    {{--<img src="{{asset('img/nav_flag.png')}}" alt="カレンダー"><br>--}}
+                    {{--<small>カレンダー</small>--}}
+                    {{--</a>--}}
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
@@ -83,8 +82,8 @@
                     <img src="{{asset('img/up_arrow_bubble.png')}}" alt="送信ボタン">
                 </figure>
             </div>
-        </form>
     </div>
+    </form>
 
     <!-- Scripts -->
     <script src="{{ asset('js/form.js') }}"></script>

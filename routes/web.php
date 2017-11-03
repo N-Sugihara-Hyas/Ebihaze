@@ -15,9 +15,11 @@ Route::get('/', function () {
     return view('top');
 });
 
-Auth::routes();
+Auth::routes(
+	Route::get('/home', 'HomeController@index')->name('home')
+);
 
-Route::get('/home', 'HomeController@index')->name('home');
+
 
 // UsersRoute
 Route::get('/users/create', 'UsersController@create')->name('users-create');
@@ -50,6 +52,10 @@ Route::get('/traders/detail/{trader}', 'TradersController@detail')->name('trader
 
 // ApartmentsRoute
 Route::get('/apartments/list', 'ApartmentsController@list')->name('apartments-list');
+Route::get('/apartments/switch', 'ApartmentsController@switch')->name('apartments-switch');
+Route::post('/apartments/switch', 'ApartmentsController@postSwitch')->name('post.apartments-switch');
+Route::get('/apartments/detail/{apartment}', 'ApartmentsController@detail')->name('apartments-detail');
+Route::get('/apartments/edit/{apartment}', 'ApartmentsController@edit')->name('apartments-edit');
 Route::get('/apartments/rank', 'ApartmentsController@rank')->name('apartments-rank');
 
 // ContactsRoute
