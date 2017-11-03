@@ -46,7 +46,8 @@ class EventsController extends Controller
 	}
 	public function add()
 	{
-		return view('events.add');
+		$Event = new \App\Event;
+		return view('events.add', ['event' => $Event]);
 	}
 	public function postAdd(Request $request)
 	{
@@ -55,6 +56,7 @@ class EventsController extends Controller
 		$Event = new \App\Event;
 		$Event->title = $request->input('title');
 		$Event->category = $request->input('category');
+		$Event->subcategory = $request->input('subcategory');
 		$Event->schedule = $request->input('schedule');
 		$Event->notification = 0;
 		$Event->content = $request->input('content');
