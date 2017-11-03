@@ -12,6 +12,8 @@ class EventsController extends Controller
 {
 	public function list()
 	{
+		$title = '案件一覧';
+
 		if(session()->has('apartment_id'))
 		{
 			$Apartment = \App\Apartment::find(session('apartment_id'));
@@ -22,13 +24,25 @@ class EventsController extends Controller
 			$Apartment = $Apartments[0];
 		}
 		$Events = $Apartment->events;
+		$calendar = [];
 		foreach($Events as &$event)
 		{
 			// TODO::Test
 			$event->title = mb_strimwidth($event->title, 0, 10, '...');
 			$event->parties = mb_strimwidth($event->parties, 0, 10, '...');
+
+			/** イベントステータス付け **/
+			// 完了
+			if($event->approval==1 && strtotime($event->schedule)<time())$event->status = 'done';
+			elseif ($event->approval==0 && strtotime($event->schedule)<time())$event->status = 'required';
+			else $event->status = '';
+			/** カレンダー用付け **/
+			$calendar[] = $event->schedule;
+			$calendar = array_unique($calendar);
 		}
-		return view('events.list', ['events' =>$Events]);
+		// 日付指定アリの場合
+		if(isset($_GET['schedule']))$Events = $Apartment->events()->where('schedule', 'LIKE', $_GET['schedule'])->get();
+		return view('events.list', ['events' =>$Events, 'calendar' => $calendar, 'title' => $title]);
 	}
 	public function join()
 	{
@@ -59,7 +73,7 @@ class EventsController extends Controller
 	}
 	public function postAdd(Request $request)
 	{
-		// TODO::Validate, Image
+		// TODO::Validate
 		$all = $request->all();
 		$Event = new \App\Event;
 		$Event->title = $request->input('title');
@@ -71,6 +85,7 @@ class EventsController extends Controller
 		$Event->suppliers = $request->input('suppliers');
 		$Event->parties = $request->input('parties');
 		$Event->approval = 0;
+		$Event->apartment_id = session('apartment_id');
 
 		if($Event->save())
 		{
@@ -106,11 +121,17 @@ class EventsController extends Controller
 
 	public function detail($id)
 	{
-		$Event = \App\Event::find($id)->first();
-		return view('events.detail', ['event' => $Event]);
+		$route = ['title' => '案件一覧', 'url' => route('events-list')];
+		$title = "案件詳細";
+
+		$Event = \App\Event::find($id);
+		return view('events.detail', ['event' => $Event, 'route' => $route, 'title' => $title]);
 	}
 	public function review($id)
 	{
+		$route = ['title' => '案件詳細', 'url' => route('events-detail', $id)];
+		$title = "案件評価";
+
 		$Event = \App\Event::find($id);
 		// Rankレートを取得してラジオを選択
 		$rate=[];
@@ -119,7 +140,7 @@ class EventsController extends Controller
 			$rate = $rank->rate;
 		}
 
-		return view('events.review', ['event' => $Event, 'rate' => $rate]);
+		return view('events.review', ['event' => $Event, 'rate' => $rate, 'route' => $route, 'title' => $title]);
 	}
 	public function postReview($id, Request $request)
 	{
@@ -137,8 +158,20 @@ class EventsController extends Controller
 	}
 	public function message($id)
 	{
+		// 戻る分岐
+		if(request()->headers->get('referer')==route('events-detail', $id))
+		{
+			$route = ['title' => '案件一覧', 'url' => route('events-detail', $id)];
+			$title = "案件詳細";
+		}
+		else
+		{
+			$route = ['title' => '案件一覧', 'url' => route('events-review', $id)];
+			$title = "案件評価";
+		}
+
 		$Event = \App\Event::find($id);
 		$comments = $Event->comments;
-		return view('events.message', ['event' => $Event]);
+		return view('events.message', ['event' => $Event, 'route' => $route, 'title' => $title]);
 	}
 }

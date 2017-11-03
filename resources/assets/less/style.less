@@ -2,7 +2,7 @@
 @cream: #FFF9EB; @darkgrey:#818181; @bordergrey:#686868;
 @blue-grey: #004B6D; @light-blue:#2377D9; @orange:#FFB100; @red-orange:#FF5800; @dark-blue:#004C6E; @pale-blue:#004C6E;
 @red: #D81921; @pink: #FF4081;
-
+@sunday-red: #FF3636; @saturday-blue: #0099FF;
 
 body {
   font-family: "Raleway", sans-serif;
@@ -206,6 +206,12 @@ nav.navbar {
 }
 .event-list__item{
   height: 100px;
+}
+.event-list__item--done{
+  background: lightgray !important;
+}
+.event-list__item--required{
+  //height: 100px;
 }
 .event-item-container{
   clear: both;
@@ -1105,4 +1111,94 @@ nav.navbar {
 .c-comments_submit_btn{
   display: inline-block;
   padding-left: 10px;
+}
+
+/** ModalWindow */
+#modal-overlay{
+  z-index:1001;
+  display:none;
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:120%;
+  position:fixed;
+  top:0;
+  left:0;
+  background-color:rgba(0,0,0,0.75);
+}
+#modal-content{
+  width:50%;
+  margin:1.5em auto 0;
+  padding:10px 20px;
+  border:2px solid #aaa;
+  background:#fff;
+  z-index:2;
+  position: fixed;
+  display: none;
+}
+#modal-content-add{
+  width:90%;
+  height:90%;
+  margin:1.5em auto 0;
+  padding:10px 20px;
+  border:2px solid #aaa;
+  background:#fff;
+  z-index:1002;
+  position: fixed;
+  left: 5%;
+  right:5%;
+  display: none;
+  overflow-y: scroll;
+}
+#modal-content-cal{
+  width:340px;
+  height:250px;
+  margin:1.5em auto 0;
+  padding:10px 20px;
+  border:2px solid #aaa;
+  background:#fff;
+  z-index:1002;
+  position: fixed;
+  left: 5%;
+  right:5%;
+  top:25%;
+  bottom:25%;
+  display: none;
+  overflow-y: scroll;
+}
+
+.modal-p{
+  margin-top:1em;
+}
+
+.modal-p:first-child{
+  margin-top:0;
+}
+
+.button-link{
+  color:#00f;
+  text-decoration:underline;
+}
+
+.button-link:hover{
+  cursor:pointer;
+  color:#f00;
+}
+/** Modal Calender */
+table.calendar{
+  width:100%;
+  text-align: center;
+  table-layout: fixed;
+}
+table.calendar th{
+  text-align: center;
+}
+table.calendar tbody td.sun,
+table.calendar tbody tr th:nth-of-type(1) {
+  color: @sunday-red;
+}
+table.calendar tbody td.sat,
+table.calendar tbody tr th:nth-of-type(7) {
+  color: @saturday-blue;
 }
