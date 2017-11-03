@@ -42,7 +42,9 @@ class EventsController extends Controller
 		}
 		// 日付指定アリの場合
 		if(isset($_GET['schedule']))$Events = $Apartment->events()->where('schedule', 'LIKE', $_GET['schedule'])->get();
-		return view('events.list', ['events' =>$Events, 'calendar' => $calendar, 'title' => $title]);
+
+		$Event = new \App\Event;
+		return view('events.list', ['events' =>$Events, 'calendar' => $calendar, 'title' => $title, 'event' => $Event]);
 	}
 	public function join()
 	{
