@@ -11,7 +11,7 @@
                         </figure>
                     </section>
                     <section class="menu-header__title">
-                        <p>ユーザネーム</p>
+                        <p>{{Auth::user()->nickname}}</p>
                     </section>
                 </div>
             </li>
