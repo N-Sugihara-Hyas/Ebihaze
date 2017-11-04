@@ -25,7 +25,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/events/list';
 
     /**
      * Create a new controller instance.
@@ -45,4 +45,8 @@ class LoginController extends Controller
 		return 'tel';
 	}
 
+	protected function redirectTo()
+	{
+		return '/events/list';
+	}
 }
