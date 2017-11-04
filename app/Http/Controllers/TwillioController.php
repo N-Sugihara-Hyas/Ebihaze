@@ -34,6 +34,28 @@ class TwillioController extends Controller
 		);
 		return $token;
 	}
+	public function invite($to, $type='str', $user_id)
+	{
+		$url = route('users-certificate', $user_id);
+		$token = self::makeAuthToken($type);
+		if(preg_match('/0[7-9]0[0-9]+/',$to))
+		{
+			$to = preg_replace('/0([7-9]0)([0-9]+)/', '+81$1$2', $to);
+		}
+		// Use the client to do fun stuff like send text messages!
+		$client = new Client(self::$accountSid, self::$AuthToken);
+		$client->messages->create(
+		// the number you'd like to send the message to '+15205829627',
+			$to,
+			array(
+				// A Twilio phone number you purchased at twilio.com/console
+				'from' => '+15205829627',
+				// the body of the text message you'd like to send
+				'body' => "This is Ebihaze! Your AuthToken is $token .\rClick here! $url"
+			)
+		);
+		return $token;
+	}
 	private function makeAuthToken($type = 'num'){
 		static $chars = 'ABCDEFGHIJLKMNOPQRSTUVWXYZ';
 		static $nums = '123456789';
