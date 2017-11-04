@@ -46,6 +46,8 @@ class UsersController extends Controller
 		$id = $request->input('user_id');
 		$auth_token = $request->input('user_auth_token');
 		$type = $request->input('user_type');
+		// 権限分け
+		$type = (strlen($auth_token)==8) ? 'common' : $type;
 
 		$User = \App\User::find($id);
 
@@ -78,6 +80,7 @@ class UsersController extends Controller
 				return view('users.add_officer', ['user' => $User, 'apartment' => $Apartment, 'title' => $title]);
 			break;
 			case 'common':
+				return view('users.add_common', ['user' => $User, 'apartment' => $Apartment, 'title' => $title]);
 			break;
 		}
 		return view('users.add');
@@ -169,6 +172,27 @@ class UsersController extends Controller
 		$route = ['url' => route('statics-menu'), 'title' => 'メニュー'];
 
 		return view('users.invite_form', ['route' => $route, 'title' => $title]);
+	}
+	public function postInviteForm(Request $request)
+	{
+		$tel = $request->input('user_tel');
+		$User = \App\User::updateOrCreate(
+			['tel' => $tel],
+			['tel' => $tel, 'password' => bcrypt('secret')]
+		);
+
+		// SMS認証
+		$twillioController = app()->make('\App\Http\Controllers\TwillioController');
+		try{
+			$auth_token = $twillioController->invite($tel, 'str', $User->id);
+
+			$User->auth_token = $auth_token;
+			$User->save();
+		}catch (Exception $e){
+			echo "エラーが発生しました。戻るボタンを押して下さい。";
+		}
+
+		return redirect()->route('users-invite-complete', $User->id);
 	}
 	public function inviteComplete()
 	{
