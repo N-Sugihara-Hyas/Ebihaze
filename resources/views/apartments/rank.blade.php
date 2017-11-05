@@ -16,7 +16,7 @@
                             ★
                         </span>
                             <span class="apartments-item-rank__score">
-                            4.3
+                                {{round($apart->rank, 1)}}
                         </span>
                     </p>
                 </section>
