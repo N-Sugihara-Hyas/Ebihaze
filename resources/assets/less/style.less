@@ -1,6 +1,6 @@
 @font-normal: 14px;  @font-middle: 17px; @font-large: 18px;
 @cream: #FFF9EB; @darkgrey:#818181; @bordergrey:#686868;
-@blue-grey: #004B6D; @light-blue:#2377D9; @orange:#FFB100; @red-orange:#FF5800; @dark-blue:#004C6E; @pale-blue:#004C6E;
+@blue-grey: #004B6D; @light-blue:#2377D9; @orange:#FFB100; @red-orange:#FF5800; @dark-blue:#004C6E; @pale-blue:#004C6E; @sky-blue:#00AFFF;
 @red: #D81921; @pink: #FF4081;
 @sunday-red: #FF3636; @saturday-blue: #0099FF;
 
@@ -29,6 +29,9 @@ a:hover,a:focus{
 }
 input[type="file"]{
   display: none;
+}
+img{
+  max-width:100%;
 }
 
 .top{
@@ -899,9 +902,13 @@ nav.navbar {
   width:270px;
   height:50px;
 }
-.c-btn--small{
+.c-btn--medium{
   width:150px;
   height:50px;
+}
+.c-btn--small{
+  width:120px;
+  height:40px;
 }
 .c-btn--xsmall{
   width:60px;
@@ -912,6 +919,11 @@ nav.navbar {
 .c-btn--blue{
   background-color: @light-blue;
   color: white;
+}
+.c-btn--skyblue{
+  background-color: @sky-blue;
+  border-color: @sky-blue;
+  color:white;
 }
 .c-btn--red{
   background-color: @red;
@@ -1119,6 +1131,11 @@ nav.navbar {
   display: inline-block;
   padding-left: 10px;
 }
+img.c-circle{
+  border-radius: 50%;
+  //-moz-border-image: border-radius: 50%;
+  //-webkit-border-image: border-radius: 50%;
+}
 
 /** ModalWindow */
 #modal-overlay{
@@ -1169,6 +1186,22 @@ nav.navbar {
   position: fixed;
   left: 5%;
   right:5%;
+  top:25%;
+  bottom:25%;
+  display: none;
+  overflow-y: scroll;
+}
+#modal-content-img{
+  width:100%;
+  height:100%;
+  margin:1.5em auto 0;
+  padding:10px 20px;
+  //border:2px solid #aaa;
+  background:transparent;
+  z-index:1002;
+  position: fixed;
+  left: 0;
+  right:0;
   top:25%;
   bottom:25%;
   display: none;
