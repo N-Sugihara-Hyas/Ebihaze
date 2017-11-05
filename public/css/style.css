@@ -25,6 +25,9 @@ a:focus {
 input[type="file"] {
   display: none;
 }
+img {
+  max-width: 100%;
+}
 .top {
   height: 667px;
   position: relative;
@@ -841,9 +844,13 @@ nav.navbar {
   width: 270px;
   height: 50px;
 }
-.c-btn--small {
+.c-btn--medium {
   width: 150px;
   height: 50px;
+}
+.c-btn--small {
+  width: 120px;
+  height: 40px;
 }
 .c-btn--xsmall {
   width: 60px;
@@ -853,6 +860,11 @@ nav.navbar {
 }
 .c-btn--blue {
   background-color: #2377D9;
+  color: white;
+}
+.c-btn--skyblue {
+  background-color: #00AFFF;
+  border-color: #00AFFF;
   color: white;
 }
 .c-btn--red {
@@ -1057,6 +1069,9 @@ nav.navbar {
   display: inline-block;
   padding-left: 10px;
 }
+img.c-circle {
+  border-radius: 50%;
+}
 /** ModalWindow */
 #modal-overlay {
   z-index: 1001;
@@ -1103,6 +1118,21 @@ nav.navbar {
   position: fixed;
   left: 5%;
   right: 5%;
+  top: 25%;
+  bottom: 25%;
+  display: none;
+  overflow-y: scroll;
+}
+#modal-content-img {
+  width: 100%;
+  height: 100%;
+  margin: 1.5em auto 0;
+  padding: 10px 20px;
+  background: transparent;
+  z-index: 1002;
+  position: fixed;
+  left: 0;
+  right: 0;
   top: 25%;
   bottom: 25%;
   display: none;

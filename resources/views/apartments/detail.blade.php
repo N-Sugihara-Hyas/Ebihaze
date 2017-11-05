@@ -6,7 +6,7 @@
         <section class="apartments-detail__header">
             <div class="apartments-detail__header--top">
                 <figure class="apartments-detail__mv">
-                    <img width="120px" height="120px" src="{{asset('img/resources/apartment/'.$apartment->id.'/icon')}}" alt="アパート登録画像">
+                    <img class="c-circle" width="120px" height="120px" src="{{asset('img/resources/apartment/'.$apartment->id.'/icon')}}" alt="アパート登録画像">
                 </figure>
             </div>
             <div class="apartments-detail__header--bottom">

@@ -8,12 +8,39 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Ebihaze') }}</title>
 
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+    <!-- BxSlider -->
+    <link rel="stylesheet" href="{{asset('css/slick.css')}}">
+    <link rel="stylesheet" href="{{asset('css/slick-theme.css')}}">
+    <script src="{{asset('js/slick.min.js')}}"></script>
+    <style>
+        .slick-prev:before{
+            content: '';
+        }
+        .slick-prev{
+            border-top: 14px solid transparent;
+            border-left: 14px solid transparent;
+            border-right: 20px solid rgba(60,60,60,100);
+            border-bottom: 14px solid transparent;
+            z-index: 2;
+        }
+        .slick-next:before {
+            content: '';
+        }
+        .slick-next{
+            border-top: 14px solid transparent;
+            border-left: 20px solid rgba(60,60,60,100);
+            border-right: 14px solid transparent;
+            border-bottom: 14px solid transparent;
+            z-index: 2;
+        }
+    </style>
 </head>
 <body>
     <div id="app">
@@ -67,7 +94,7 @@
                                 <img src="{{asset('img/nav_rank.png')}}" alt="ナビランク"><br>ランク
                             </li>
                         </a>
-                        <a class="navbar-footer__tab navbar-footer--watch" href="{{route('events-watch')}}">
+                        <a class="navbar-footer__tab navbar-footer--watch" href="{{route('flyers-list')}}">
                             <li>
                                 <img src="{{asset('img/nav_flyer.png')}}" alt="ナビチラシ"><br>チラシ
                             </li>
@@ -79,7 +106,9 @@
     </div>
 
     <!-- Scripts -->
+    @section('scripts')
+    @show
     <script src="{{ asset('js/form.js') }}"></script>
-    <script src="{{ asset('js/app.js') }}"></script>
+    {{--<script src="{{ asset('js/app.js') }}"></script>--}}
 </body>
 </html>

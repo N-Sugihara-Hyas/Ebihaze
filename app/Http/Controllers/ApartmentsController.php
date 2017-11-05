@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Intervention\Image\Facades\Image as Img;
 
 class ApartmentsController extends Controller
 {
@@ -42,7 +43,34 @@ class ApartmentsController extends Controller
 		$route = ['url' => route('apartments-detail', $id), 'title' => 'マンション詳細'];
 
 		$Apartment = \App\Apartment::find($id);
-		return view('apartments.detail', ['apartment' => $Apartment, 'route' => $route, 'title' => $title]);
+		$Apartment->facilities = unserialize($Apartment->facilities);
+		$Apartment->insurance = unserialize($Apartment->insurance);
+		return view('apartments.edit', ['apartment' => $Apartment, 'route' => $route, 'title' => $title]);
+	}
+	public function postEdit(Request $request)
+	{
+		$apartment = $request->input('apartment');
+		$Apartment = \App\Apartment::find($apartment['id']);
+		foreach($apartment as $name => $value)
+		{
+			if(is_array($value))$value = serialize($value);
+			$Apartment->{$name} = $value;
+		}
+		$Apartment->save();
+		if ($request->hasFile('apartment_icon'))
+		{
+			$icon = $request->file('apartment_icon');
+			$icon = Img::make($icon);
+			$icon->fit(240,240);
+			$dir = public_path('img/resources/apartment/'.$Apartment->id);
+			if(!is_dir($dir))
+			{
+				exec('mkdir -p '.$dir);
+				exec('chmod -R 777 img/resources');
+			}
+			$icon->save($dir.'/icon');
+		}
+		return redirect()->route('apartments-detail', $apartment['id']);
 	}
 	public function rank()
 	{
