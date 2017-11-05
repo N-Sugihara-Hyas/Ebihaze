@@ -75,5 +75,9 @@ Route::post('/accounts/edit', 'AccountsController@postEdit')->name('post.account
 // CommentsRoute
 Route::post('/comments', 'CommentsController@postMessage')->name('post.comments')->middleware('auth');
 
+// FlyersRoute
+Route::get('/flyers/list', 'FlyersController@list')->name('flyers-list')->middleware('auth');
+Route::post('/flyers/list', 'FlyersController@postList')->name('post.flyers-list')->middleware('auth');
+
 // TwillioRoute
 Route::get('/twillio/{tel}', 'TwillioController@create')->name('twillio-create')->middleware('auth');

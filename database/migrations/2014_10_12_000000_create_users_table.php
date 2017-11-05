@@ -38,7 +38,7 @@ class CreateUsersTable extends Migration
 	        $table->integer('apartment_id')->nullable();
 	        $table->integer('building_id')->nullable();
 	        $table->integer('room_id')->nullable();
-
+	        $table->string('flyer_ids')->nullable()->commnet('保存チラシのIDs');
             $table->rememberToken();
             $table->timestamps();
         });
