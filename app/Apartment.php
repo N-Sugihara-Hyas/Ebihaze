@@ -22,4 +22,8 @@ class Apartment extends Model
 	{
 		return $this->hasMany('App\Event')->orderBy('schedule', 'desc');
 	}
+	public function ranks()
+	{
+		return $this->morphMany('App\Rank', 'rankable');
+	}
 }

@@ -78,6 +78,10 @@ class ApartmentsController extends Controller
 		$route = ['url' => route('statics-menu'), 'title' => 'メニュー'];
 
 		$Apartments = \App\Apartment::all();
+		foreach($Apartments as $Apart)
+		{
+			$Apart->rank = $Apart->ranks()->avg('rate');
+		}
 		return view('apartments.rank', ['apartments' => $Apartments, 'route' => $route, 'title' => $title]);
 	}
 }
