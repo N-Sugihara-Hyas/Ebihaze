@@ -70,6 +70,8 @@ Route::get('/menu', 'StaticsController@menu')->name('statics-menu')->middleware(
 
 // AccountsRoute
 Route::get('/accounts/list', 'AccountsController@list')->name('accounts-list')->middleware('auth');
+Route::get('/accounts/add', 'AccountsController@add')->name('accounts-add')->middleware('auth');
+Route::post('/accounts/add', 'AccountsController@postAdd')->name('post.accounts-add')->middleware('auth');
 Route::get('/accounts/edit/{account}', 'AccountsController@edit')->name('accounts-edit')->middleware('auth');
 Route::post('/accounts/edit', 'AccountsController@postEdit')->name('post.accounts-edit')->middleware('auth');
 
