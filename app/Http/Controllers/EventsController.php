@@ -23,6 +23,9 @@ class EventsController extends Controller
 			$Apartments = \App\User::find(Auth::id())->apartments;
 			$Apartment = $Apartments[0];
 		}
+		// マンション名表示
+		$title = $Apartment->name;
+
 		$Events = $Apartment->events;
 		$calendar = [];
 		foreach($Events as &$event)

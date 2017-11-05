@@ -57,6 +57,7 @@ Route::get('/apartments/switch', 'ApartmentsController@switch')->name('apartment
 Route::post('/apartments/switch', 'ApartmentsController@postSwitch')->name('post.apartments-switch')->middleware('auth');
 Route::get('/apartments/detail/{apartment}', 'ApartmentsController@detail')->name('apartments-detail')->middleware('auth');
 Route::get('/apartments/edit/{apartment}', 'ApartmentsController@edit')->name('apartments-edit')->middleware('auth');
+Route::post('/apartments/edit', 'ApartmentsController@postEdit')->name('post.apartments-edit')->middleware('auth');
 Route::get('/apartments/rank', 'ApartmentsController@rank')->name('apartments-rank')->middleware('auth');
 
 // ContactsRoute
