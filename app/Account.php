@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Account extends Model
 {
+	protected $fillable = [
+		'amount', 'schedule', 'category', 'name', 'sub_id'
+	];
+
 	static $alert = [
 		'5%以上' => '推奨される額を上回っています',
 		'-5%～5%' => '推奨される額の範囲です',
