@@ -49,7 +49,10 @@ Route::post('/events/review/{event}', 'EventsController@postReview')->name('post
 // TradersRoute
 Route::get('/traders/list', 'TradersController@list')->name('traders-list')->middleware('auth');
 Route::get('/traders/add', 'TradersController@add')->name('traders-add')->middleware('auth');
+Route::post('/traders/add', 'TradersController@postAdd')->name('post.traders-add')->middleware('auth');
 Route::get('/traders/detail/{trader}', 'TradersController@detail')->name('traders-detail')->middleware('auth');
+Route::get('/traders/edit/{trader}', 'TradersController@edit')->name('traders-edit')->middleware('auth');
+Route::post('/traders/edit', 'TradersController@postEdit')->name('post.traders-edit')->middleware('auth');
 
 // ApartmentsRoute
 Route::get('/apartments/list', 'ApartmentsController@list')->name('apartments-list')->middleware('auth');

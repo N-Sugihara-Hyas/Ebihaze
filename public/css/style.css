@@ -477,6 +477,21 @@ nav.navbar {
   padding: 10px 5px;
   display: table-cell;
 }
+.trader-add_form__container .trader-add_form__list dd {
+  width: 270px;
+  border-bottom: 1px solid #818181;
+  margin-left: 30px;
+  padding: 5px 10px;
+}
+.trader-add_form__container .trader-add_form__list dd input:not([type=checkbox]):not([type=radio]) {
+  width: 270px;
+  background: transparent;
+  border: none;
+}
+.trader-add_form__container .trader-add_form__list .trader-add_list-form__user-tel {
+  text-align: center;
+  border: none;
+}
 /*
 * UsersPage
 */
