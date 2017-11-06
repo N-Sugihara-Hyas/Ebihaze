@@ -9,9 +9,6 @@
             <figure>
                 <img id="modal-target-img" src="" alt="">
             </figure>
-            <div class="" style="text-align: center;margin-top:15px;">
-                <button class="c-btn--small c-btn--skyblue">保存</button>
-            </div>
         </form>
     </section>
 
@@ -19,7 +16,6 @@
         <ul class="flyers-mv-list slick-slider">
             @foreach($flyers as $flyer)
             <li data-id="{{$flyer->id}}" class="modal-open-img">
-                {{--<img src="{{asset('img/resources/flyer').'/'.$flyer->id.'.png'}}" alt="">--}}
                 <img src="{{asset("img/resources/flyer/$flyer->id")}}" alt="">
             </li>
             @endforeach
@@ -27,17 +23,6 @@
     </section>
     <ul class="flyers-list c-list" style="margin-top:30px;">
         <form action="{{route('post.flyers-list')}}" method="post">{{csrf_field()}}</form>
-        <li class="flyers-list__item c-list__item">
-            <div class="flyers-item-container">
-                <a href="{{route('flyers-saved')}}">
-                    <section class="flyers-item-main">
-                        <p class="flyers-item-title">
-                            保存したチラシ
-                        </p>
-                    </section>
-                </a>
-            </div>
-        </li>
     </ul>
 </div>
 @endsection
