@@ -3,6 +3,15 @@
 @section('content')
 <div class="container" id="event-form">
     <h1>案件登録</h1>
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <form method="post" action="{{route('post.events-add')}}" enctype="multipart/form-data">
     {{ csrf_field() }}
         <dl class="event-form">
@@ -10,7 +19,7 @@
                 タイトル
             </dt>
             <dd class="event-form__input">
-                <input type="text" name="title">
+                <input type="text" name="title" value="{{old('title')}}">
             </dd>
         </dl>
         <dl class="event-form">
@@ -18,7 +27,18 @@
                 施工日時
             </dt>
             <dd class="event-form__input">
-                <input type="text" name="schedule">
+                日時：<input type="text" name="schedule[Ymd]" id="datepicker" value="{{old('schedule.Ymd')}}">
+                時間：<select name="schedule[Hi]" id="datepicker">
+                    @foreach(range(0, 23) as $hour)
+                        @if(empty(old('schedule.Hi')) && $hour==12)
+                        <option value="{{sprintf("%02d", $hour)}}:00" selected>{{sprintf("%02d", $hour)}}:00</option>
+                        <option value="{{sprintf("%02d", $hour)}}:30">{{sprintf("%02d", $hour)}}:30</option>
+                        @else
+                        <option value="{{sprintf("%02d", $hour)}}:00" {{(old('schedule.Hi') == sprintf("%02d", $hour).":00") ? 'selected' : ''}}>{{sprintf("%02d", $hour)}}:00</option>
+                        <option value="{{sprintf("%02d", $hour)}}:30" {{(old('schedule.Hi') == sprintf("%02d", $hour).":30") ? 'selected' : ''}}>{{sprintf("%02d", $hour)}}:30</option>
+                        @endif
+                    @endforeach
+                </select>
             </dd>
         </dl>
         <dl class="event-form">
@@ -28,7 +48,7 @@
             <dd class="event-form__input">
                 <select name="category" id="category">
                     @foreach($main_category = array_keys($event::$category) as $cate)
-                        <option value="{{$cate}}">{{$cate}}</option>
+                        <option value="{{$cate}}" {{(old('category')==$cate) ? 'selected' : ''}}>{{$cate}}</option>
                     @endforeach
                 </select>
             </dd>
@@ -40,7 +60,7 @@
             <dd class="event-form__input">
                 <select name="subcategory" id="subcategory">
                     @foreach($event::$category[$main_category[0]] as $subcate)
-                        <option value="{{$subcate}}">{{$subcate}}</option>
+                        <option value="{{$subcate}}" {{(old('subcategory')==$subcate) ? 'selected' : ''}}>{{$subcate}}</option>
                     @endforeach
                 </select>
             </dd>
@@ -50,7 +70,7 @@
                 業者
             </dt>
             <dd class="event-form__input">
-                <input type="text" name="suppliers">
+                <input type="text" name="suppliers" value="{{old('suppliers')}}">
             </dd>
         </dl>
         <dl class="event-form">
@@ -58,7 +78,7 @@
                 内容
             </dt>
             <dd class="event-form__input">
-                <input type="text" name="content">
+                <input type="text" name="content" value="{{old('content')}}">
             </dd>
         </dl>
         <dl class="event-form">
@@ -66,7 +86,7 @@
                 関係者
             </dt>
             <dd class="event-form__input">
-                <input type="text" name="parties">
+                <input type="text" name="parties" value="{{old('parties')}}">
             </dd>
         </dl>
 
@@ -107,4 +127,11 @@
             });
         });
     </script>
+@endsection
+@section('scripts')
+<script>
+    $(function(){
+        $('#datepicker').datepicker();
+    });
+</script>
 @endsection

@@ -81,9 +81,31 @@ class EventsController extends Controller
 	}
 	public function postAdd(Request $request)
 	{
-		// TODO::Validate
+		$error_rules = [
+			'formats' => [
+				'title' => 'required',
+				'schedule.Ymd' => 'required|date_format:Y/m/d',
+				'schedule.Hi' => 'required|date_format:H:i',
+				'category' => 'in:'.implode(',', array_keys(\App\Event::$category)),
+				'subcategory' => 'in:'.implode(',', array_collapse(\App\Event::$category)),
+				'event_thumb' => 'image'
+			],
+			'messages' => [
+				'title.required' => 'タイトルを入力して下さい',
+				'schedule.Ymd.required'  => '施工日時：日付を入力して下さい',
+				'schedule.Ymd.date_format'  => '施工日時：日付の形式が正しくありません',
+				'schedule.Hi.required'  => '施工日時：時間を入力して下さい',
+				'schedule.Hi.date_format'  => '施工日時：時間の形式が正しくありません',
+				'category.in'  => '種類１はいずれかをお選び下さい',
+				'subcategory.in'  => '種類２はいずれかをお選び下さい',
+				'event_thumb.image' => '画像登録は画像のみとなります'
+			]
+		];
+
 		$all = $request->all();
 		$Event = new \App\Event;
+		// Validate
+		$request->validate($error_rules['formats'], $error_rules['messages']);
 		$Event->title = $request->input('title');
 		$Event->category = $request->input('category');
 		$Event->subcategory = $request->input('subcategory');
@@ -181,5 +203,13 @@ class EventsController extends Controller
 		$Event = \App\Event::find($id);
 		$comments = $Event->comments;
 		return view('events.message', ['event' => $Event, 'route' => $route, 'title' => $title]);
+	}
+
+	public function messages()
+	{
+		return [
+			'title.required' => 'タイトルは必須です',
+			'body.required'  => 'A message is required',
+		];
 	}
 }
