@@ -1,4 +1,4 @@
-@extends('layouts.globalheader')
+@extends('layouts.traders_edit')
 
 @section('content')
 <div class="container">
@@ -6,7 +6,7 @@
         <section class="trader-detail__header">
             <div class="trader-detail__header--top">
                 <figure class="trader-detail__mv">
-                    <img width="120px" height="120px" src="{{asset('img/icon.png')}}" alt="">
+                    <img class="c-circle" width="120px" height="120px" src="{{asset("img/resources/trader/$trader->id/icon")}}" alt="">
                 </figure>
             </div>
             <div class="trader-detail__header--bottom">
@@ -15,11 +15,11 @@
         </section>
         <table class="trader-detail__rank">
             <tr>
-                <th></th>
-                <th>★</th>
-                <th>★</th>
-                <th>★</th>
-                <th>★</th>
+                <th class="c-star-unit"><span class="c-start-cell">{{($trader->rank < 1) ? '☆' : '★'}}</span></th>
+                <th class="c-star-unit"><span class="c-start-cell">{{($trader->rank < 2) ? '☆' : '★'}}</span></th>
+                <th class="c-star-unit"><span class="c-start-cell">{{($trader->rank < 3) ? '☆' : '★'}}</span></th>
+                <th class="c-star-unit"><span class="c-start-cell">{{($trader->rank < 4) ? '☆' : '★'}}</span></th>
+                <th class="c-star-unit"><span class="c-start-cell">{{($trader->rank < 5) ? '☆' : '★'}}</span></th>
             </tr>
             <tr>
                 <td>不満</td>

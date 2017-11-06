@@ -1,4 +1,4 @@
-@extends('layouts.globalheader')
+@extends('layouts.tradersheader')
 
 @section('content')
 <div class="container">
@@ -17,12 +17,12 @@
                             ★
                         </span>
                         <span class="trader-item-rank__score">
-                            4.3
+                            {{round($trader->rank,1)}}
                         </span>
                     </section>
                     <section class="trader-item-icon">
                         <figure>
-                            <img width="100%" src="{{asset('img/icon.png')}}" alt="">
+                            <img class="c-circle" width="41px" height="41px" src="{{asset("img/resources/trader/$trader->id/icon")}}" alt="">
                         </figure>
                     </section>
                 </div>

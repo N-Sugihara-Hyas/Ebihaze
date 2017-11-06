@@ -28,6 +28,7 @@ class User extends Authenticatable
     ];
 
 	static $job = ['自営業', '会社役員', '会社員', '公務員', 'パートアルバイト', 'その他'];
+	static $type_display = ['officer' => '理事長', 'app' => 'アプリ'];
 
 	public function accounts()
 	{

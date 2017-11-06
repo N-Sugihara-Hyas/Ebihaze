@@ -408,8 +408,14 @@ nav.navbar {
   .trader-item-title{
     float: left;
     font-size: @font-middle;
-    width:240px;
-    padding: 20px;
+    width:60%;
+    padding: 20px 10px;
+    word-break: break-all;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    white-space: nowrap;
   }
   .trader-item-rank{
     float: left;
@@ -429,7 +435,7 @@ nav.navbar {
   }
   .trader-item-icon{
     float: right;
-    padding:5px;
+    padding:10px 5px;
     width:60px;
   }
 }
@@ -465,12 +471,15 @@ nav.navbar {
     background: white;
     padding: 15px 90px 15px 15px;
     text-align: center;
+    table-layout: fixed;
     th{
       font-size:@font-large;
       color: @pink;
+      text-align: center;
     }
     td{
       font-size: smaller;
+      text-align: center;
     }
   }
   .trader-detail__body{
@@ -492,6 +501,31 @@ nav.navbar {
         padding: 10px 5px;
         display: table-cell;
       }
+    }
+  }
+}
+.trader-add_form__container{
+  .trader-add_form__list{
+    dl{
+
+    }
+    dt{
+
+    }
+    dd{
+      width: 270px;
+      border-bottom: 1px solid #818181;
+      margin-left: 30px;
+      padding: 5px 10px;
+    }
+    dd input:not([type=checkbox]):not([type=radio]){
+      width:270px;
+      background: transparent;
+      border: none;
+    }
+    .trader-add_list-form__user-tel{
+      text-align: center;
+      border: none;
     }
   }
 }
@@ -658,12 +692,15 @@ nav.navbar {
     background: white;
     padding: 15px 90px 15px 15px;
     text-align: center;
+    table-layout: fixed;
     th{
       font-size:@font-large;
       color: @pink;
+      text-align: center;
     }
     td{
       font-size: smaller;
+      text-align: center;
     }
   }
   .apartments-detail__body{
@@ -1131,6 +1168,15 @@ nav.navbar {
   display: inline-block;
   padding-left: 10px;
 }
+//.c-star-unit{
+//  margin: 0 10%;
+//}
+//.c-star-cell{
+//  display: inline-block;
+//  overflow: hidden;
+//  font-size: 18px;
+//  color: #FF4081;
+//}
 img.c-circle{
   border-radius: 50%;
   //-moz-border-image: border-radius: 50%;

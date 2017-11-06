@@ -15,11 +15,14 @@
         </section>
         <table class="apartments-detail__rank">
             <tr>
-                <th></th>
-                <th>★</th>
-                <th>★</th>
-                <th>★</th>
-                <th>★</th>
+                <td colspan="5"><small>管理状況　{{round($apartment->rank, 1)}}</small></td>
+            </tr>
+            <tr>
+                <th><span class="c-star-cell">{{($apartment->rank < 1) ? '☆' : '★'}}</span></th>
+                <th><span class="c-star-cell">{{($apartment->rank < 2) ? '☆' : '★'}}</span></th>
+                <th><span class="c-star-cell">{{($apartment->rank < 3) ? '☆' : '★'}}</span></th>
+                <th><span class="c-star-cell">{{($apartment->rank < 4) ? '☆' : '★'}}</span></th>
+                <th><span class="c-star-cell">{{($apartment->rank < 5) ? '☆' : '★'}}</span></th>
             </tr>
             <tr>
                 <td>不満</td>
