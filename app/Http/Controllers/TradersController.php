@@ -27,6 +27,7 @@ class TradersController extends Controller
 		$route = ['url' => route('statics-menu'), 'title' => 'メニュー'];
 
 		$Trader = \App\Trader::find($id);
+		$Trader->rank = $Trader->ranks()->avg('rate');
 		return view('traders.detail', ['trader' => $Trader, 'route' => $route, 'title' => $title]);
 	}
 }

@@ -408,8 +408,14 @@ nav.navbar {
   .trader-item-title{
     float: left;
     font-size: @font-middle;
-    width:240px;
-    padding: 20px;
+    width:60%;
+    padding: 20px 10px;
+    word-break: break-all;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    white-space: nowrap;
   }
   .trader-item-rank{
     float: left;
@@ -429,7 +435,7 @@ nav.navbar {
   }
   .trader-item-icon{
     float: right;
-    padding:5px;
+    padding:10px 5px;
     width:60px;
   }
 }
@@ -465,12 +471,15 @@ nav.navbar {
     background: white;
     padding: 15px 90px 15px 15px;
     text-align: center;
+    table-layout: fixed;
     th{
       font-size:@font-large;
       color: @pink;
+      text-align: center;
     }
     td{
       font-size: smaller;
+      text-align: center;
     }
   }
   .trader-detail__body{

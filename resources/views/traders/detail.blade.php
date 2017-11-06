@@ -15,11 +15,11 @@
         </section>
         <table class="trader-detail__rank">
             <tr>
-                <th></th>
-                <th>★</th>
-                <th>★</th>
-                <th>★</th>
-                <th>★</th>
+                <th class="c-star-unit"><span class="c-start-cell">{{($trader->rank < 1) ? '☆' : '★'}}</span></th>
+                <th class="c-star-unit"><span class="c-start-cell">{{($trader->rank < 2) ? '☆' : '★'}}</span></th>
+                <th class="c-star-unit"><span class="c-start-cell">{{($trader->rank < 3) ? '☆' : '★'}}</span></th>
+                <th class="c-star-unit"><span class="c-start-cell">{{($trader->rank < 4) ? '☆' : '★'}}</span></th>
+                <th class="c-star-unit"><span class="c-start-cell">{{($trader->rank < 5) ? '☆' : '★'}}</span></th>
             </tr>
             <tr>
                 <td>不満</td>
