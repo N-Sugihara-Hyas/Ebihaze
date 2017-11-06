@@ -35,6 +35,7 @@ class ApartmentsController extends Controller
 		$route = ['url' => route('apartments-list'), 'title' => 'マンション一覧'];
 
 		$Apartment = \App\Apartment::find($id);
+		$Apartment->rank = $Apartment->ranks()->avg('rate');
 		return view('apartments.detail', ['apartment' => $Apartment, 'route' => $route, 'title' => $title]);
 	}
 	public function edit($id)

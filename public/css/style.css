@@ -605,13 +605,16 @@ nav.navbar {
   background: white;
   padding: 15px 90px 15px 15px;
   text-align: center;
+  table-layout: fixed;
 }
 .apartments-detail table.apartments-detail__rank th {
   font-size: 18px;
   color: #FF4081;
+  text-align: center;
 }
 .apartments-detail table.apartments-detail__rank td {
   font-size: smaller;
+  text-align: center;
 }
 .apartments-detail .apartments-detail__body {
   background: white;
