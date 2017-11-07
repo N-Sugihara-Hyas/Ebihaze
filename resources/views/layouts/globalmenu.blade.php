@@ -21,7 +21,7 @@
 <body>
   <div id="app">
       <section id="modal-content-add">
-          <div class="container" id="event-form">
+          <div class="container modal-content-container" id="event-form">
               <h1>案件登録</h1>
               <form method="post" action="{{route('post.events-add')}}" enctype="multipart/form-data">
                   {{ csrf_field() }}
@@ -96,8 +96,8 @@
                           <input type="file" name="event_thumb">
                       </div>
                       <div class="c-btn-area__small" style="text-align: center">
-                          <button class="c-btn c-btn--small c-btn--white action" style="width:115px;" data-method="cancel" id="modal-close-add">キャンセル</button>
-                          <button class="c-btn c-btn--small c-btn--blue action" style="width:115px;" data-method="post">登録</button>
+                          <button class="c-btn c-btn--small c-btn--white action" style="width:44%;" data-method="cancel" id="modal-close-add">キャンセル</button>
+                          <button class="c-btn c-btn--small c-btn--blue action" style="width:44%;" data-method="post">登録</button>
                       </div>
                   </section>
 

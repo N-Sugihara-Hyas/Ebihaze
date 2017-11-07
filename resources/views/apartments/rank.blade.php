@@ -10,7 +10,7 @@
                     <p class="apartments-item-batch">{{++$num}}</p>
                 </section>
                 <section class="apartments-item-main">
-                    <p class="apartments-item-title">
+                    <p class="apartments-item-ranktitle">
                         {{$apart->name}}<br>
                         <span class="apartments-item-rank__fav">
                             ★

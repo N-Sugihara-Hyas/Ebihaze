@@ -29,6 +29,11 @@ console.log('click');
                     $('form').append('<input type="hidden" name="apartment_id" value="'+id+'">').submit();
                     return false;
                     break;
+                case 'link':
+                    var href = $(this).data('href');
+                    window.location.href = href;
+                    return false;
+                    break;
                 default:
                     return false;
                     break;

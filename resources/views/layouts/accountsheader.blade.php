@@ -44,18 +44,19 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-default navbar-static-top">
+        <nav class="navbar navbar-default navbar-static-top accountsheaderbar">
             <div class="container">
-                <div class="navbar-header">
+                <div class="navbar-header accountsheaderbar-header">
                     <!-- Branding Image -->
-                    <a class="navbar-left" href="{{ $route['url'] }}">
-                        ＜ <small>{{$route['title']}}</small>
+                    <a class="navbar-left accountsheaderbar-left" href="{{ $route['url'] }}">
+                        ＜
+                        {{--<small>{{$route['title']}}</small>--}}
                     </a>
-                    <a class="navbar-brand" href="#">
+                    <a class="navbar-brand accountsheaderbar-brand" href="#">
                         {{ $title }}
                     </a>
-                    <a class="navbar-right" href="{{route('accounts-add') }}">
-                        ＋
+                    <a class="navbar-right accountsheaderbar-right" href="{{route('accounts-add') }}">
+                        ＋<br>
                         <small>追加</small>
                     </a>
                 </div>

@@ -99,7 +99,7 @@
             </dl>
             <dl class="users-add_form__list">
                 <dt class="users-add_list-title__apartment-facilities">マンション画像登録</dt>
-                <dd class="users-add_list-form__apartment-facilities">
+                <dd class="users-add_list-form__apartment-facilities" style="border-bottom:none;">
                     <button class="c-btn c-btn--large c-btn--blue action" data-method="file">画像登録</button>
                     <input type="file" name="apartment_icon">
                 </dd>

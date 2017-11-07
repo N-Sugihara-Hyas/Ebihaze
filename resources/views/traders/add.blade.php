@@ -51,7 +51,7 @@
                 </dl>
                 <dl class="trader-add_form__list">
                     <dt class="trader-add_list-title__trader-icon">業者画像登録</dt>
-                    <dd class="trader-add_list-form__trader-icon">
+                    <dd class="trader-add_list-form__trader-icon" style="border-bottom: none;">
                         <button class="c-btn c-btn--large c-btn--blue action" data-method="file">画像登録</button>
                         <input type="file" name="trader_icon">
                     </dd>

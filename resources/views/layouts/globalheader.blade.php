@@ -47,21 +47,21 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-default navbar-static-top">
+        <nav class="navbar navbar-default navbar-static-top globalheaderbar">
             <div class="container">
-                <div class="navbar-header">
+                <div class="navbar-header globalheaderbar-header">
                     <!-- Branding Image -->
-                    <a class="navbar-left" href="{{ $route['url'] }}">
-                        ＜ <small>{{$route['title']}}</small>
+                    <a class="navbar-left globalheaderbar-left" href="{{ $route['url'] }}">
+                        ＜ {{--<span>{{$route['title']}}</span>--}}
                     </a>
-                    <a class="navbar-brand" href="{{ url('/') }}">
+                    <a class="navbar-brand globalheader-brand" href="{{ url('/') }}">
                         {{ $title }}
 {{--                        {{ config('app.name', 'Laravel') }}--}}
                     </a>
-                    {{--<a class="navbar-right" href="{{route('events-search') }}">--}}
+                    <a class="navbar-right globalheader-right" href="#">
                         {{--<img src="{{asset('img/nav_flag.png')}}" alt="カレンダー"><br>--}}
                         {{--<small>カレンダー</small>--}}
-                    {{--</a>--}}
+                    </a>
                 </div>
                 {{--<div class="navbar-footer">--}}
                     {{--<ul class="navbar-footer__list">--}}
