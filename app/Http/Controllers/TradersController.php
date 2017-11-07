@@ -29,6 +29,23 @@ class TradersController extends Controller
 	}
 	public function postAdd(Request $request)
 	{
+		$error_rules = [
+			'formats' => [
+				'trader.name' => 'required',
+				'trader.tel' => 'required',
+				'trader.address' => 'required',
+				'trader.area' => 'required',
+				'trader_icon' => 'image'
+			],
+			'messages' => [
+				'trader.name.required' => '業者名を入力して下さい',
+				'trader.tel.required' => '電話番号を入力して下さい',
+				'trader.address.required' => '住所を入力して下さい',
+				'trader.area.required' => 'サービス提供エリアを入力して下さい',
+				'trader_icon.image' => '画像登録は画像のみとなります'
+			]
+		];
+		$request->validate($error_rules['formats'], $error_rules['messages']);
 		$trader_tel = $request->input('trader.tel');
 		$trader_name = $request->input('trader.name');
 		$trader_address = $request->input('trader.address');
@@ -92,6 +109,23 @@ class TradersController extends Controller
 	}
 	public function postEdit(Request $request)
 	{
+		$error_rules = [
+			'formats' => [
+				'trader.name' => 'required',
+				'trader.tel' => 'required',
+				'trader.address' => 'required',
+				'trader.area' => 'required',
+				'trader_icon' => 'image'
+			],
+			'messages' => [
+				'trader.name.required' => '業者名を入力して下さい',
+				'trader.tel.required' => '電話番号を入力して下さい',
+				'trader.address.required' => '住所を入力して下さい',
+				'trader.area.required' => 'サービス提供エリアを入力して下さい',
+				'trader_icon.image' => '画像登録は画像のみとなります'
+			]
+		];
+		$request->validate($error_rules['formats'], $error_rules['messages']);
 		$trader_id = $request->input('trader.id');
 		$trader_tel = $request->input('trader.tel');
 		$trader_name = $request->input('trader.name');

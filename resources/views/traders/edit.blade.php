@@ -7,6 +7,15 @@
                 業者を追加します
             </p>
         </div>
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <form action="{{route('post.traders-edit')}}" method="post" enctype="multipart/form-data">
             {{ csrf_field() }}
             <input type="hidden" name="trader[id]" value="{{$trader->id}}">
