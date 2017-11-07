@@ -78,15 +78,95 @@ class UsersController extends Controller
 		switch ($User->type){
 			case 'officer':
 				return view('users.add_officer', ['user' => $User, 'apartment' => $Apartment, 'title' => $title]);
-			break;
+				break;
+			case 'app':
+				return view('users.add_officer', ['user' => $User, 'apartment' => $Apartment, 'title' => $title]);
+				break;
 			case 'common':
 				return view('users.add_common', ['user' => $User, 'apartment' => $Apartment, 'title' => $title]);
-			break;
+				break;
+			default:
+				return view('users.add_common', ['user' => $User, 'apartment' => $Apartment, 'title' => $title]);
+				break;
 		}
-		return view('users.add');
+		return view('users.add_common');
 	}
 	public function postAdd(Request $request)
 	{
+		$type = $request->input('user.type');
+		$owned = array_keys(\App\User::$owned);
+		switch ($type)
+		{
+			case 'officer':
+				$error_rules = [
+					'formats' => [
+						'user.nickname' => 'required',
+						'room.room_number' => 'required',
+						'user.owned' => 'in:'.implode(',', array_keys(\App\User::$owned)),
+						'user.gender' => 'in:1,2,9',
+						'user.birthday' => 'numeric',
+						'user.job' => 'in:'.implode(',', \App\User::$job),
+						'apartment.name' => 'required',
+						'apartment.address' => 'required',
+						'apartment.control' => 'in:'.implode(',', \App\Apartment::$control),
+						'apartment.construction' => 'in:'.implode(',', \App\Apartment::$construction),
+						'apartment.total_units' => 'numeric',
+						'apartment_icon' => 'image'
+					],
+					'messages' => [
+						'user.nickname.required' => 'ニックネームを入力して下さい',
+						'room.room_number.required' => '部屋番号を入力して下さい',
+						'user.owned.in' => '所有形態はいずれかをお選び下さい',
+				'user.gender.in' => '性別はいずれかをお選び下さい',
+						'user.birthday.numeric' => '生まれ年は半角数字で入力下さい',
+						'user.job.in' => '職業はいずれかをお選び下さい',
+						'apartment.name.required' => 'マンション名は必須です',
+						'apartment.address.required' => 'マンション住所を入力下さい',
+						'apartment.control.in' => '管理形態はいずれかをお選び下さい',
+						'apartment.construction.in' => '構造はいずれかをお選び下さい',
+						'apartment.total_units.numeric' => '総戸数は半角数字で入力して下さい',
+						'apartment_icon.image' => '画像登録は画像のみとなります'
+					]
+				];
+				break;
+			case 'common':
+				$error_rules = [
+					'formats' => [
+						'user.nickname' => 'required',
+						'room.room_number' => 'required',
+						'user.gender' => 'in:1,2,9',
+						'user.birthday' => 'numeric',
+						'user.job' => 'in:'.implode(',', \App\User::$job)
+					],
+					'messages' => [
+						'user.nickname.required' => 'ニックネームを入力して下さい',
+						'room.room_number.required' => '部屋番号を入力して下さい',
+						'user.gender.in' => '性別はいずれかをお選び下さい',
+						'user.birthday.numeric' => '生まれ年は半角数字で入力下さい',
+						'user.job.in' => '職業はいずれかをお選び下さい'
+					]
+				];
+				break;
+			default:
+				$error_rules = [
+					'formats' => [
+						'user.nickname' => 'required',
+						'room.room_number' => 'required',
+						'user.gender' => 'in:1,2,9',
+						'user.birthday' => 'numeric',
+						'user.job' => 'in:'.implode(',', \App\User::$job)
+					],
+					'messages' => [
+						'user.nickname.required' => 'ニックネームを入力して下さい',
+						'room.room_number.required' => '部屋番号を入力して下さい',
+						'user.gender.in' => '性別はいずれかをお選び下さい',
+						'user.birthday.numeric' => '生まれ年は半角数字で入力下さい',
+						'user.job.in' => '職業はいずれかをお選び下さい'
+					]
+				];
+				break;
+		}
+		$request->validate($error_rules['formats'], $error_rules['messages']);
 		$all = $request->all();
 		$User = \App\User::find($all['user']['id']);
 		$Apartment = new \App\Apartment;
@@ -125,9 +205,9 @@ class UsersController extends Controller
 		$Apartment->user_id = $User->id;
 		$Apartment->public = 1;
 		$Apartment->save();
-		if ($request->hasFile('user_icon'))
+		if ($request->hasFile('apartment_icon'))
 		{
-			$icon = $request->file('user_icon');
+			$icon = $request->file('apartment_icon');
 			$icon = Img::make($icon);
 			$icon->fit(240,240);
 			$dir = '/home/vagrant/ebihaze/public/img/resources/apartment/'.$Apartment->id;
