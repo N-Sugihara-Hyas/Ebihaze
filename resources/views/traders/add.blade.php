@@ -7,6 +7,15 @@
                 業者を追加します
             </p>
         </div>
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <form action="{{route('post.traders-add')}}" method="post" enctype="multipart/form-data">
             {{ csrf_field() }}
             <div class="trader-add_form__container">
@@ -42,7 +51,7 @@
                 </dl>
                 <dl class="trader-add_form__list">
                     <dt class="trader-add_list-title__trader-icon">業者画像登録</dt>
-                    <dd class="trader-add_list-form__trader-icon">
+                    <dd class="trader-add_list-form__trader-icon" style="border-bottom: none;">
                         <button class="c-btn c-btn--large c-btn--blue action" data-method="file">画像登録</button>
                         <input type="file" name="trader_icon">
                     </dd>

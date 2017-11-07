@@ -13,13 +13,6 @@ class FlyersController extends Controller
 		$route = ['url' => route('statics-menu'), 'title' => 'メニュー'];
 
 		$Flyers = \App\Flyer::all();
-		// 拡張子確認
-//		foreach($Flyers as &$flyer)
-//		{
-//			$path = asset("img/resources/flyer/$flyer->id");
-//			$info = new \SplFileInfo($path);
-//			$flyer->ext = $info->getExtension();
-//		}
 
 		return view('flyers.list', ['flyers' => $Flyers, 'title' => $title, 'route' => $route]);
 	}
@@ -32,5 +25,15 @@ class FlyersController extends Controller
 		$User->save();
 
 		return redirect()->route('flyers-list');
+	}
+	public function saved()
+	{
+		$title = '保存したチラシ';
+		$route = ['url' => route('flyers-list'), 'title' => 'チラシ一覧'];
+
+		$flyer_ids = unserialize(Auth::user()->flyer_ids);
+		$Flyers = \App\Flyer::find($flyer_ids);
+
+		return view('flyers.saved', ['flyers' => $Flyers, 'title' => $title, 'route' => $route]);
 	}
 }

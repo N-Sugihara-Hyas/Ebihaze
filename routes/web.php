@@ -56,6 +56,8 @@ Route::post('/traders/edit', 'TradersController@postEdit')->name('post.traders-e
 
 // ApartmentsRoute
 Route::get('/apartments/list', 'ApartmentsController@list')->name('apartments-list')->middleware('auth');
+Route::get('/apartments/add', 'ApartmentsController@add')->name('apartments-add')->middleware('auth');
+Route::post('/apartments/add', 'ApartmentsController@postAdd')->name('post.apartments-add')->middleware('auth');
 Route::get('/apartments/switch', 'ApartmentsController@switch')->name('apartments-switch')->middleware('auth');
 Route::post('/apartments/switch', 'ApartmentsController@postSwitch')->name('post.apartments-switch')->middleware('auth');
 Route::get('/apartments/detail/{apartment}', 'ApartmentsController@detail')->name('apartments-detail')->middleware('auth');
@@ -84,6 +86,7 @@ Route::post('/comments', 'CommentsController@postMessage')->name('post.comments'
 // FlyersRoute
 Route::get('/flyers/list', 'FlyersController@list')->name('flyers-list')->middleware('auth');
 Route::post('/flyers/list', 'FlyersController@postList')->name('post.flyers-list')->middleware('auth');
+Route::get('/flyers/saved', 'FlyersController@saved')->name('flyers-saved')->middleware('auth');
 
 // TwillioRoute
 Route::get('/twillio/{tel}', 'TwillioController@create')->name('twillio-create')->middleware('auth');

@@ -47,20 +47,21 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-default navbar-static-top globalheaderbar">
-            <div class="container">
-                <div class="navbar-header globalheaderbar-header">
+        <nav class="navbar navbar-default navbar-static-top apartmentheaderbar">
+            <div class="container apartmentheaderbar-container">
+                <div class="navbar-header apartmentheaderbar-header">
                     <!-- Branding Image -->
-                    <a class="navbar-left globalheaderbar-left" href="{{ $route['url'] }}">
-                        ＜ {{--<span>{{$route['title']}}</span>--}}
+                    <a class="navbar-left apartmentheaderbar-left" href="{{ $route['url'] }}">
+                        ＜
+                        {{--<small>{{$route['title']}}</small>--}}
                     </a>
-                    <a class="navbar-brand globalheader-brand" href="{{ url('/') }}">
+                    <a class="navbar-brand apartmentheaderbar-brand" href="#">
                         {{ $title }}
 {{--                        {{ config('app.name', 'Laravel') }}--}}
                     </a>
-                    <a class="navbar-right globalheader-right" href="#">
-                        {{--<img src="{{asset('img/nav_flag.png')}}" alt="カレンダー"><br>--}}
-                        {{--<small>カレンダー</small>--}}
+                    <a class="navbar-right apartmentheaderbar-right" href="{{route('apartments-add') }}">
+                        ＋<br>
+                        <small>追加</small>
                     </a>
                 </div>
                 {{--<div class="navbar-footer">--}}

@@ -60,11 +60,16 @@ nav.navbar {
   width: 70%;
   text-align: center;
   float: left;
-  padding: 14px 15px;
+  padding: 14px 0px;
   font-size: 18px;
   line-height: 22px;
   height: 50px;
   color: white;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .navbar-header .navbar-left {
   width: 15%;
@@ -91,6 +96,34 @@ nav.navbar {
 }
 .navbar-header .navbar-right small {
   font-size: 60%;
+}
+.globalheaderbar-header .globalheaderbar-left {
+  width: 15%;
+  line-height: 38px;
+}
+.globalheaderbar-header .globalheaderbar-right {
+  width: 15%;
+}
+.tradersheaderbar-header .tradersheaderbar-left {
+  width: 15%;
+  line-height: 38px;
+}
+.tradersheaderbar-header .tradersheaderbar-right {
+  width: 15%;
+}
+.apartmentheaderbar-header .apartmentheaderbar-left {
+  width: 15%;
+  line-height: 38px;
+}
+.apartmentheaderbar-header .apartmentheaderbar-right {
+  width: 15%;
+}
+.accountsheaderbar-header .accountsheaderbar-left {
+  width: 15%;
+  line-height: 38px;
+}
+.accountsheaderbar-header .accountsheaderbar-right {
+  width: 15%;
 }
 .navbar-footer {
   margin-right: -15px;
@@ -252,7 +285,7 @@ nav.navbar {
   text-align: right;
 }
 .event-form {
-  width: 320px;
+  width: 100%;
   height: 30px;
   display: table;
   border-bottom: 1px solid #004B6D;
@@ -395,7 +428,7 @@ nav.navbar {
 }
 .trader-item-container .trader-item-rank {
   float: left;
-  width: 50px;
+  width: 15%;
   padding: 20px 5px;
   display: table;
 }
@@ -492,6 +525,13 @@ nav.navbar {
   text-align: center;
   border: none;
 }
+.trader-add_form__container .trader-add_form__list textarea {
+  background: none;
+  border: none;
+}
+.trader-add_form__container .trader-add_form__submit {
+  text-align: center;
+}
 /*
 * UsersPage
 */
@@ -558,6 +598,13 @@ nav.navbar {
   text-align: center;
   border: none;
 }
+.users-add_form__container .users-add_form__list textarea {
+  background: none;
+  border: none;
+}
+.users-add_form__container .users-add_form__submit {
+  text-align: center;
+}
 /*
 * ApartmentsPage
 */
@@ -578,6 +625,11 @@ nav.navbar {
   margin-top: 10px;
 }
 .apartments-list .apartments-list__item .apartments-item-title {
+  float: left;
+  padding-left: 15px;
+  line-height: 46px;
+}
+.apartments-list .apartments-list__item .apartments-item-ranktitle {
   float: left;
   padding-left: 15px;
 }
@@ -857,8 +909,7 @@ nav.navbar {
 .c-btn {
   border: 1px solid #2377D9;
   border-radius: 5px;
-  padding: 16px 0;
-  margin: 15px;
+  margin: 5px;
   text-align: center;
 }
 .c-btn--max {
@@ -868,7 +919,7 @@ nav.navbar {
   text-align: center;
 }
 .c-btn--large {
-  width: 270px;
+  width: 79.5%;
   height: 50px;
 }
 .c-btn--medium {
@@ -876,7 +927,7 @@ nav.navbar {
   height: 50px;
 }
 .c-btn--small {
-  width: 120px;
+  width: 44%;
   height: 40px;
 }
 .c-btn--xsmall {
@@ -1120,13 +1171,16 @@ img.c-circle {
   position: fixed;
   display: none;
 }
+.container.modal-content-container {
+  padding: 0;
+}
 #modal-content-add {
   width: 90%;
   height: 90%;
   margin: 1.5em auto 0;
   padding: 10px 20px;
   border: 2px solid #aaa;
-  background: #fff;
+  background: #FFF9EB;
   z-index: 1002;
   position: fixed;
   left: 5%;
