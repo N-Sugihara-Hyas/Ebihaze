@@ -109,16 +109,22 @@ class EventsController extends Controller
 				'title' => 'required',
 				'schedule.Ymd' => 'required|date_format:Y/m/d',
 				'schedule.Hi' => 'required|date_format:H:i',
+				'schedule_end.Ymd' => 'required|date_format:Y/m/d',
+				'schedule_end.Hi' => 'required|date_format:H:i',
 				'category' => 'in:'.implode(',', array_keys(\App\Event::$category)),
 				'subcategory' => 'in:'.implode(',', array_collapse(\App\Event::$category)),
 				'event_thumb' => 'image'
 			],
 			'messages' => [
 				'title.required' => 'タイトルを入力して下さい',
-				'schedule.Ymd.required'  => '施工日時：日付を入力して下さい',
-				'schedule.Ymd.date_format'  => '施工日時：日付の形式が正しくありません',
-				'schedule.Hi.required'  => '施工日時：時間を入力して下さい',
-				'schedule.Hi.date_format'  => '施工日時：時間の形式が正しくありません',
+				'schedule.Ymd.required'  => '開始施工日時：日付を入力して下さい',
+				'schedule.Ymd.date_format'  => '開始施工日時：日付の形式が正しくありません',
+				'schedule.Hi.required'  => '開始施工日時：時間を入力して下さい',
+				'schedule.Hi.date_format'  => '開始施工日時：時間の形式が正しくありません',
+				'schedule_end.Ymd.required'  => '終了施工日時：日付を入力して下さい',
+				'schedule_end.Ymd.date_format'  => '終了施工日時：日付の形式が正しくありません',
+				'schedule_end.Hi.required'  => '終了施工日時：時間を入力して下さい',
+				'schedule_end.Hi.date_format'  => '終了施工日時：時間の形式が正しくありません',
 				'category.in'  => '種類１はいずれかをお選び下さい',
 				'subcategory.in'  => '種類２はいずれかをお選び下さい',
 				'event_thumb.image' => '画像登録は画像のみとなります'
@@ -126,13 +132,15 @@ class EventsController extends Controller
 		];
 
 		$Event = new \App\Event;
-		$schedule = $request->input('schedule.Ymd').$request->input('schedule.Hi');
+		$schedule = $request->input('schedule.Ymd').' '.$request->input('schedule.Hi');
+		$schedule_end = $request->input('schedule_end.Ymd').' '.$request->input('schedule_end.Hi');
 		// Validate
 		$request->validate($error_rules['formats'], $error_rules['messages']);
 		$Event->title = $request->input('title');
 		$Event->category = $request->input('category');
 		$Event->subcategory = $request->input('subcategory');
 		$Event->schedule = $schedule;
+		$Event->schedule_end = $schedule_end;
 		$Event->notification = 0;
 		$Event->content = $request->input('content');
 		$Event->suppliers = $request->input('suppliers');

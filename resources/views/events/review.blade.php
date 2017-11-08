@@ -49,11 +49,11 @@
                 <p class="event-review__notes">{{$event->updated_at}}更新</p>
             </div>
             <div class="event-review__body">
-                <p class="event-review__schedule">{{date('m月d日 H:i〜', strtotime($event->schedule))}}</p>
+                <p class="event-review__schedule">{{date('m月d日 H:i', strtotime($event->schedule))}}〜{{date('m月d日 H:i', strtotime($event->schedule_end))}}</p>
                 <p class="event-review__suppliers">{{$event->suppliers}}</p>
                 <p class="event-review__parties">{{$event->parties}}</p>
                 <p class="event-review__message">
-                    {{$event->document}}
+                    {{$event->content}}
                 </p>
                 <figure class="event-review__picture">
                     <img width="100%" src="{{asset('img/detail_pic.png')}}" alt="案件画像">

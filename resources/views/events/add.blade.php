@@ -91,16 +91,39 @@
         </dl>
         <dl class="event-form">
             <dt class="event-form__title">
-                施工日時
+                開始施工日時
             </dt>
             <dd class="event-form__input">
                 <div style="display:inline-block;padding-left: 5px;width:60%;">
-                    <small>日時：</small><br><input style="margin-left: 1em;width:75%;" type="text" name="schedule[Ymd]" id="datepicker" value="{{old('schedule.Ymd')}}">
+                    <small>日時：</small><br><input style="margin-left: 1em;width:75%;" type="text" name="schedule[Ymd]" id="datepicker1" value="{{old('schedule.Ymd')}}">
                 </div>
                 <div style="display:inline-block;width:35%;">
                     <small>時間：</small><br><select name="schedule[Hi]" id="datepicker">
                         @foreach(range(0, 23) as $hour)
                             @if(empty(old('schedule.Hi')) && $hour==12)
+                            <option value="{{sprintf("%02d", $hour)}}:00" selected>{{sprintf("%02d", $hour)}}:00</option>
+                            <option value="{{sprintf("%02d", $hour)}}:30">{{sprintf("%02d", $hour)}}:30</option>
+                            @else
+                            <option value="{{sprintf("%02d", $hour)}}:00" {{(old('schedule.Hi') == sprintf("%02d", $hour).":00") ? 'selected' : ''}}>{{sprintf("%02d", $hour)}}:00</option>
+                            <option value="{{sprintf("%02d", $hour)}}:30" {{(old('schedule.Hi') == sprintf("%02d", $hour).":30") ? 'selected' : ''}}>{{sprintf("%02d", $hour)}}:30</option>
+                            @endif
+                        @endforeach
+                    </select>
+                </div>
+            </dd>
+        </dl>
+        <dl class="event-form">
+            <dt class="event-form__title">
+                終了施工日時
+            </dt>
+            <dd class="event-form__input">
+                <div style="display:inline-block;padding-left: 5px;width:60%;">
+                    <small>日時：</small><br><input style="margin-left: 1em;width:75%;" type="text" name="schedule_end[Ymd]" id="datepicker2" value="{{old('schedule_end.Ymd')}}">
+                </div>
+                <div style="display:inline-block;width:35%;">
+                    <small>時間：</small><br><select name="schedule_end[Hi]" id="datepicker">
+                        @foreach(range(0, 23) as $hour)
+                            @if(empty(old('schedule_end.Hi')) && $hour==12)
                             <option value="{{sprintf("%02d", $hour)}}:00" selected>{{sprintf("%02d", $hour)}}:00</option>
                             <option value="{{sprintf("%02d", $hour)}}:30">{{sprintf("%02d", $hour)}}:30</option>
                             @else
@@ -211,7 +234,8 @@
 @section('scripts')
 <script>
     $(function(){
-        $('#datepicker').datepicker();
+        $('#datepicker1').datepicker();
+        $('#datepicker2').datepicker();
     });
 </script>
 <script>
