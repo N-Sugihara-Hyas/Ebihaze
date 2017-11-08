@@ -30,10 +30,29 @@ class EventsController extends Controller
 		$calendar = [];
 		foreach($Events as &$event)
 		{
-			// TODO::Test
 			$event->title = mb_strimwidth($event->title, 0, 10, '...');
 			$event->parties = mb_strimwidth($event->parties, 0, 10, '...');
-
+			/** 業者 / 関係者 表示 */
+//			$suppliers_ids = $event->suppliers;
+//			if(preg_match('/([1-9]+,?)+/', $suppliers_ids)){
+//				$suppliers_ids = explode(',', $suppliers_ids);
+//				$suppliers = [];
+//				foreach($suppliers_ids as $trader_id){
+//					$suppliers[] = \App\Trader::where('id', $trader_id)->value('name');
+//				}
+//				$event->suppliers = implode('/', $suppliers);
+//			}
+			$event = $event->suppliersName($event);
+//			$parties_ids = $event->parties;
+//			if(preg_match('/([1-9]+,?)+/', $parties_ids)) {
+//				$parties_ids = explode(',', $parties_ids);
+//				$parties = [];
+//				foreach($parties_ids as $user_id){
+//					$parties[] = \App\User::where('id', $user_id)->value('nickname');
+//				}
+//				$event->parties = implode('/', $parties);
+//			}
+			$event = $event->partiesName($event);
 			/** イベントステータス付け **/
 			// 完了
 			if($event->approval==1 && strtotime($event->schedule)<time())$event->status = 'done';
@@ -77,7 +96,11 @@ class EventsController extends Controller
 		$title = "案件登録";
 
 		$Event = new \App\Event;
-		return view('events.add', ['event' => $Event, 'route' => $route, 'title' => $title]);
+		// 業者選択用
+		$Traders = \App\Trader::all();
+		$Users = \App\User::all();
+
+		return view('events.add', ['event' => $Event, 'route' => $route, 'title' => $title, 'traders' => $Traders, 'users' => $Users]);
 	}
 	public function postAdd(Request $request)
 	{
@@ -102,14 +125,14 @@ class EventsController extends Controller
 			]
 		];
 
-		$all = $request->all();
 		$Event = new \App\Event;
+		$schedule = $request->input('schedule.Ymd').$request->input('schedule.Hi');
 		// Validate
 		$request->validate($error_rules['formats'], $error_rules['messages']);
 		$Event->title = $request->input('title');
 		$Event->category = $request->input('category');
 		$Event->subcategory = $request->input('subcategory');
-		$Event->schedule = $request->input('schedule');
+		$Event->schedule = $schedule;
 		$Event->notification = 0;
 		$Event->content = $request->input('content');
 		$Event->suppliers = $request->input('suppliers');
@@ -155,6 +178,9 @@ class EventsController extends Controller
 		$title = "案件詳細";
 
 		$Event = \App\Event::find($id);
+		// 業者・関係者取得
+		$Event = $Event->suppliersName($Event);
+		$Event = $Event->partiesName($Event);
 		return view('events.detail', ['event' => $Event, 'route' => $route, 'title' => $title]);
 	}
 	public function review($id)
@@ -163,6 +189,9 @@ class EventsController extends Controller
 		$title = "案件評価";
 
 		$Event = \App\Event::find($id);
+		// 業者・関係者取得
+		$Event = $Event->suppliersName($Event);
+		$Event = $Event->partiesName($Event);
 		// Rankレートを取得してラジオを選択
 		$rate=[];
 		foreach($Event->ranks as $rank)

@@ -50,8 +50,8 @@
             </div>
             <div class="event-review__body">
                 <p class="event-review__schedule">{{date('m月d日 H:i〜', strtotime($event->schedule))}}</p>
-                <p class="event-review__suppliers">{{$event->suppliers}}/{{$event->suppliers}}</p>
-                <p class="event-review__parties">{{$event->parties}}/{{$event->parties}}</p>
+                <p class="event-review__suppliers">{{$event->suppliers}}</p>
+                <p class="event-review__parties">{{$event->parties}}</p>
                 <p class="event-review__message">
                     {{$event->document}}
                 </p>

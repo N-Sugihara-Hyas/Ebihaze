@@ -1,6 +1,6 @@
 @font-normal: 14px;  @font-middle: 17px; @font-large: 18px;
 @cream: #FFF9EB; @darkgrey:#818181; @bordergrey:#686868;
-@blue-grey: #004B6D; @light-blue:#2377D9; @orange:#FFB100; @red-orange:#FF5800; @dark-blue:#004C6E; @pale-blue:#004C6E; @sky-blue:#00AFFF;
+@blue-grey: #004B6D; @light-blue:#2377D9; @orange:#FFB100; @red-orange:#FF5800; @dark-blue:#004C6E; @pale-blue:#004C6E; @sky-blue:#00AFFF; @pale-yellow:#FCC979;
 @red: #D81921; @pink: #FF4081;
 @sunday-red: #FF3636; @saturday-blue: #0099FF;
 
@@ -607,7 +607,8 @@ nav.navbar {
   overflow: hidden;
   .users-item-main{
     float: left;
-    width:240px;
+    //width:240px;
+    width:65%;
   }
   .users-item-title{
     font-size: @font-middle;
@@ -991,7 +992,9 @@ nav.navbar {
     margin-bottom:10px;
   }
 }
-
+.c-list__item.selected{
+  background-color: @pale-yellow;
+}
 .c-btn-area__large{
   width:100%;
   text-align: center;
@@ -1289,6 +1292,34 @@ img.c-circle{
 #modal-content-add{
   width:90%;
   height:90%;
+  margin:1.5em auto 0;
+  padding:10px 20px;
+  border:2px solid #aaa;
+  background:@cream;
+  z-index:1002;
+  position: fixed;
+  left: 5%;
+  right:5%;
+  display: none;
+  overflow-y: scroll;
+}
+#modal-content-traders{
+  width:90%;
+  max-height: 75%;
+  margin:1.5em auto 0;
+  padding:10px 20px;
+  border:2px solid #aaa;
+  background:@cream;
+  z-index:1002;
+  position: fixed;
+  left: 5%;
+  right:5%;
+  display: none;
+  overflow-y: scroll;
+}
+#modal-content-users{
+  width:90%;
+  max-height: 75%;
   margin:1.5em auto 0;
   padding:10px 20px;
   border:2px solid #aaa;

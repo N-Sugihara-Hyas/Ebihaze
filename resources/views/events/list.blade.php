@@ -22,7 +22,7 @@
                                 @if($event->status=='done')
                                 <span>(完了)</span>
                                 @endif
-                                <br><small>{{$event->parties}}/{{$event->parties}}</small>
+                                <br><small>{{$event->parties}}</small>
                             </p>
                             <figure class="event-item-main__icon">
                                 <img src="{{asset('img/icon.png')}}" alt="">

@@ -545,7 +545,7 @@ nav.navbar {
 }
 .users-item-container .users-item-main {
   float: left;
-  width: 240px;
+  width: 65%;
 }
 .users-item-container .users-item-title {
   font-size: 17px;
@@ -902,6 +902,9 @@ nav.navbar {
   padding: 10px;
   margin-bottom: 10px;
 }
+.c-list__item.selected {
+  background-color: #FCC979;
+}
 .c-btn-area__large {
   width: 100%;
   text-align: center;
@@ -1177,6 +1180,34 @@ img.c-circle {
 #modal-content-add {
   width: 90%;
   height: 90%;
+  margin: 1.5em auto 0;
+  padding: 10px 20px;
+  border: 2px solid #aaa;
+  background: #FFF9EB;
+  z-index: 1002;
+  position: fixed;
+  left: 5%;
+  right: 5%;
+  display: none;
+  overflow-y: scroll;
+}
+#modal-content-traders {
+  width: 90%;
+  max-height: 75%;
+  margin: 1.5em auto 0;
+  padding: 10px 20px;
+  border: 2px solid #aaa;
+  background: #FFF9EB;
+  z-index: 1002;
+  position: fixed;
+  left: 5%;
+  right: 5%;
+  display: none;
+  overflow-y: scroll;
+}
+#modal-content-users {
+  width: 90%;
+  max-height: 75%;
   margin: 1.5em auto 0;
   padding: 10px 20px;
   border: 2px solid #aaa;

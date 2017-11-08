@@ -27,4 +27,31 @@ class Event extends Model
 	{
 		return $this->belongsTo('App\Apartment');
 	}
+
+	public function suppliersName(Event $event)
+	{
+		$suppliers_ids = $event->suppliers;
+		if(preg_match('/([1-9]+,?)+/', $suppliers_ids)){
+			$suppliers_ids = explode(',', $suppliers_ids);
+			$suppliers = [];
+			foreach($suppliers_ids as $trader_id){
+				$suppliers[] = \App\Trader::where('id', $trader_id)->value('name');
+			}
+			$event->suppliers = implode('/', $suppliers);
+		}
+		return $event;
+	}
+	public function partiesName(Event $event)
+	{
+		$parties_ids = $event->parties;
+		if(preg_match('/([1-9]+,?)+/', $parties_ids)) {
+			$parties_ids = explode(',', $parties_ids);
+			$parties = [];
+			foreach($parties_ids as $user_id){
+				$parties[] = \App\User::where('id', $user_id)->value('nickname');
+			}
+			$event->parties = implode('/', $parties);
+		}
+		return $event;
+	}
 }
