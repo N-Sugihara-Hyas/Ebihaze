@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\EventUser;
 use Faker\Provider\Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -189,7 +190,9 @@ class EventsController extends Controller
 		// 業者・関係者取得
 		$Event = $Event->suppliersName($Event);
 		$Event = $Event->partiesName($Event);
-		return view('events.detail', ['event' => $Event, 'route' => $route, 'title' => $title]);
+
+		$watched = \App\EventUser::where('event_id', $Event->id)->where('user_id', Auth()->id())->value('watched');
+		return view('events.detail', ['event' => $Event, 'route' => $route, 'title' => $title, 'watched' => $watched]);
 	}
 	public function review($id)
 	{
@@ -248,5 +251,33 @@ class EventsController extends Controller
 			'title.required' => 'タイトルは必須です',
 			'body.required'  => 'A message is required',
 		];
+	}
+
+	public function eventuser(Request $request)
+	{
+		$event_id = $request->input('event_id');
+		$user_id = $request->input('user_id');
+		$watched = $request->input('watched');
+		if($watched==1)
+		{ // 登録
+			\App\EventUser::updateOrCreate([
+				'event_id' => $event_id,
+				'user_id' => $user_id
+			],[
+				'event_id' => $event_id,
+				'user_id' => $user_id,
+				'watched' => $watched
+			]);
+		}else
+		{
+			\App\EventUser::where('event_id', $event_id)->where('user_id', $user_id)->delete();
+		}
+		return response()->json(
+			[
+				'data' => $watched
+			],
+			200,[],
+			JSON_UNESCAPED_UNICODE
+		);
 	}
 }
