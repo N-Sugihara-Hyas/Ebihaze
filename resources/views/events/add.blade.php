@@ -91,7 +91,7 @@
         </dl>
         <dl class="event-form">
             <dt class="event-form__title">
-                開始施工日時
+                開始<br>施工日時
             </dt>
             <dd class="event-form__input">
                 <div style="display:inline-block;padding-left: 5px;width:60%;">
@@ -114,7 +114,7 @@
         </dl>
         <dl class="event-form">
             <dt class="event-form__title">
-                終了施工日時
+                終了<br>施工日時
             </dt>
             <dd class="event-form__input">
                 <div style="display:inline-block;padding-left: 5px;width:60%;">

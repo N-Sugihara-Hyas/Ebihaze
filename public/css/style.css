@@ -292,6 +292,7 @@ nav.navbar {
 }
 .event-form .event-form__title {
   display: table-cell;
+  vertical-align: middle;
 }
 .event-form .event-form__input {
   display: table-cell;

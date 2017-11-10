@@ -13,7 +13,7 @@ class EventsController extends Controller
 {
 	public function list()
 	{
-		$title = '案件一覧';
+//		$title = '案件一覧';
 
 		if(session()->has('apartment_id'))
 		{
@@ -32,27 +32,10 @@ class EventsController extends Controller
 		foreach($Events as &$event)
 		{
 			$event->title = mb_strimwidth($event->title, 0, 10, '...');
-			$event->parties = mb_strimwidth($event->parties, 0, 10, '...');
+			/** 参加イベントフラグ */
+			if(in_array(Auth::id(), explode(',', $event->parties)))$event->join = true;
 			/** 業者 / 関係者 表示 */
-//			$suppliers_ids = $event->suppliers;
-//			if(preg_match('/([1-9]+,?)+/', $suppliers_ids)){
-//				$suppliers_ids = explode(',', $suppliers_ids);
-//				$suppliers = [];
-//				foreach($suppliers_ids as $trader_id){
-//					$suppliers[] = \App\Trader::where('id', $trader_id)->value('name');
-//				}
-//				$event->suppliers = implode('/', $suppliers);
-//			}
 			$event = $event->suppliersName($event);
-//			$parties_ids = $event->parties;
-//			if(preg_match('/([1-9]+,?)+/', $parties_ids)) {
-//				$parties_ids = explode(',', $parties_ids);
-//				$parties = [];
-//				foreach($parties_ids as $user_id){
-//					$parties[] = \App\User::where('id', $user_id)->value('nickname');
-//				}
-//				$event->parties = implode('/', $parties);
-//			}
 			$event = $event->partiesName($event);
 			/** イベントステータス付け **/
 			// 完了
@@ -71,25 +54,93 @@ class EventsController extends Controller
 	}
 	public function join()
 	{
-		$Events = \App\Event::all();
+		if(session()->has('apartment_id'))
+		{
+			$Apartment = \App\Apartment::find(session('apartment_id'));
+		}
+		else
+		{
+			$Apartments = \App\User::find(Auth::id())->apartments;
+			$Apartment = $Apartments[0];
+		}
+		// マンション名表示
+		$title = $Apartment->name;
+
+		$Events = $Apartment->events;
+		$calendar = [];
+		$join_events = [];
 		foreach($Events as &$event)
 		{
-			// TODO::Test
-			$event->title = mb_strimwidth($event->title, 0, 10, '...');
-			$event->parties = mb_strimwidth($event->parties, 0, 10, '...');
+			if(in_array(Auth::id(), explode(',', $event->parties)))
+			{
+				$event->title = mb_strimwidth($event->title, 0, 10, '...');
+				/** 参加イベントフラグ */
+				$event->join = true;
+				/** 業者 / 関係者 表示 */
+				$event = $event->suppliersName($event);
+				$event = $event->partiesName($event);
+				/** イベントステータス付け **/
+				// 完了
+				if($event->approval==1 && strtotime($event->schedule)<time())$event->status = 'done';
+				elseif ($event->approval==0 && strtotime($event->schedule)<time())$event->status = 'required';
+				else $event->status = '';
+				/** カレンダー用付け **/
+				$calendar[] = $event->schedule;
+				$calendar = array_unique($calendar);
+				// 表示用に格納
+				$join_events[] = $event;
+			}
 		}
-		return view('events.list', ['events' =>$Events]);
+		// 日付指定アリの場合
+		if(isset($_GET['schedule']))$Events = $Apartment->events()->where('schedule', 'LIKE', $_GET['schedule'])->get();
+
+		$Event = new \App\Event;
+		return view('events.list', ['events' =>$join_events, 'calendar' => $calendar, 'title' => $title, 'event' => $Event]);
 	}
 	public function watch()
 	{
-		$Events = \App\Event::all();
+		if(session()->has('apartment_id'))
+		{
+			$Apartment = \App\Apartment::find(session('apartment_id'));
+		}
+		else
+		{
+			$Apartments = \App\User::find(Auth::id())->apartments;
+			$Apartment = $Apartments[0];
+		}
+		// マンション名表示
+		$title = $Apartment->name;
+
+		$Events = $Apartment->events;
+		$calendar = [];
+		$watchEventsId = \App\EventUser::where('user_id', Auth::id())->pluck('event_id')->toArray();
 		foreach($Events as &$event)
 		{
-			// TODO::Test
-			$event->title = mb_strimwidth($event->title, 0, 10, '...');
-			$event->parties = mb_strimwidth($event->parties, 0, 10, '...');
+			if(in_array($event->id, $watchEventsId))
+			{
+				/** 参加イベントフラグ */
+				if(in_array(Auth::id(), explode(',', $event->parties)))$event->join = true;
+				$event->title = mb_strimwidth($event->title, 0, 10, '...');
+				/** 業者 / 関係者 表示 */
+				$event = $event->suppliersName($event);
+				$event = $event->partiesName($event);
+				/** イベントステータス付け **/
+				// 完了
+				if($event->approval==1 && strtotime($event->schedule)<time())$event->status = 'done';
+				elseif ($event->approval==0 && strtotime($event->schedule)<time())$event->status = 'required';
+				else $event->status = '';
+				/** カレンダー用付け **/
+				$calendar[] = $event->schedule;
+				$calendar = array_unique($calendar);
+				// 表示用に格納
+				$join_events[] = $event;
+			}
 		}
-		return view('events.list', ['events' =>$Events]);
+		// 日付指定アリの場合
+		if(isset($_GET['schedule']))$Events = $Apartment->events()->where('schedule', 'LIKE', $_GET['schedule'])->get();
+
+		$Event = new \App\Event;
+		return view('events.list', ['events' =>$join_events, 'calendar' => $calendar, 'title' => $title, 'event' => $Event]);
 	}
 	public function add()
 	{

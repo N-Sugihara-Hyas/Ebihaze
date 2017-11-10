@@ -14,7 +14,7 @@
     <ul class="event-list c-list">
         @foreach($events as $event)
         <a href="{{route('events-detail', $event->id)}}">
-            <li class="event-list__item c-list__item {{($event->status=='required') ? 'event-list__item--required' : ''}}{{($event->status=='done') ? 'event-list__item--done' : ''}}">
+            <li class="event-list__item c-list__item {{($event->status=='required') ? 'event-list__item--required' : ''}}{{($event->status=='done') ? 'event-list__item--done' : ''}} {{($event->join==true) ? 'selected' : ''}}">
                 <div class="event-item-container">
                     <section class="event-item-thumb">
                         <figure>

@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Ebihaze') }}</title>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -36,7 +36,7 @@
                   </dl>
                   <dl class="event-form">
                       <dt class="event-form__title">
-                          開始施工日時
+                          開始<br>施工日時
                       </dt>
                       <dd class="event-form__input">
                           <div style="display:inline-block;padding-left: 5px;width:60%;">
@@ -59,7 +59,7 @@
                   </dl>
                   <dl class="event-form">
                       <dt class="event-form__title">
-                          終了施工日時
+                          終了<br>施工日時
                       </dt>
                       <dd class="event-form__input">
                           <div style="display:inline-block;padding-left: 5px;width:60%;">
@@ -184,13 +184,13 @@
                 </div>
                 <div class="navbar-footer">
                     <ul class="navbar-footer__list">
-                        <a class="navbar-footer__tab navbar-footer--list navbar-footer__tab--active" href="{{route('events-list')}}">
+                        <a class="navbar-footer__tab navbar-footer--list {{(preg_match('/list/',url()->current())) ? 'navbar-footer__tab--active' : ''}}" href="{{route('events-list')}}">
                             <li>案件一覧</li>
                         </a>
-                        <a class="navbar-footer__tab navbar-footer--join" href="{{route('events-join')}}">
+                        <a class="navbar-footer__tab navbar-footer--join {{(preg_match('/join/',url()->current())) ? 'navbar-footer__tab--active' : ''}}" href="{{route('events-join')}}">
                             <li>参加一覧</li>
                         </a>
-                        <a class="navbar-footer__tab navbar-footer--watch" href="{{route('events-watch')}}">
+                        <a class="navbar-footer__tab navbar-footer--watch {{(preg_match('/watch/',url()->current())) ? 'navbar-footer__tab--active' : ''}}" href="{{route('events-watch')}}">
                             <li>ウォッチ一覧</li>
                         </a>
                     </ul>
