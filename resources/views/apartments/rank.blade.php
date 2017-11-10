@@ -22,7 +22,7 @@
                 </section>
                 <section class="apartments-item-icon">
                     <figure>
-                        <img width="100%" src="{{asset('img/icon.png')}}" alt="">
+                        <img class="c-circle" width="40px" height="40px" src="{{asset('img/resources/apartment/'.$apart->id.'/icon')}}" alt="">
                     </figure>
                 </section>
             </div>

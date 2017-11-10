@@ -8,24 +8,27 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Ebihaze') }}</title>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-default navbar-static-top">
-            <div class="container">
-                <div class="navbar-header">
+        <nav class="navbar navbar-default navbar-static-top tradersheaderbar">
+            <div class="container tradersheaderbar-container">
+                <div class="navbar-header tradersheaderbar-header">
                     <!-- Branding Image -->
-                    <a class="navbar-left" href="{{ $route['url'] }}">
-                        ＜ <small>{{$route['title']}}</small>
+                    <a class="navbar-left tradersheaderbar-left" href="{{ $route['url'] }}">
+                        ＜
+                        {{--<small>{{$route['title']}}</small>--}}
                     </a>
-                    <a class="navbar-brand" href="#">
+                    <a class="navbar-brand tradersheaderbar-brand" href="#">
                         {{ $title }}
+                    </a>
+                    <a class="navbar-right tradersheaderbar-right" href="#">
                     </a>
                 </div>
             </div>

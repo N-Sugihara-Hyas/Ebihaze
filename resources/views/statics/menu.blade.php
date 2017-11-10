@@ -7,11 +7,11 @@
                 <div class="menu-header">
                     <section class="menu-header__thumb">
                         <figure>
-                            <img src="{{asset('img/icon.png')}}" alt="">
+                            <img class="c-circle" src="{{asset('img/resources/user/'.Auth::id().'/icon')}}" alt="">
                         </figure>
                     </section>
                     <section class="menu-header__title">
-                        <p>{{Auth::user()->nickname}}</p>
+                        <p>　{{Auth::user()->nickname}}</p>
                     </section>
                 </div>
             </li>
@@ -29,6 +29,7 @@
                     </div>
                 </li>
             </a>
+            @if(Auth::user()->type=='officer')
             <a href="{{route('traders-list')}}">
                 <li class="menu-list__item c-menu__item c-list__item">
                     <div class="menu-item-container">
@@ -40,6 +41,7 @@
                     </div>
                 </li>
             </a>
+            @endif
         </ul>
         <h2 class="menu-list__title">ユーザー</h2>
         <ul class="menu-list c-menu c-list">
@@ -66,6 +68,7 @@
                 </li>
             </a>
         </ul>
+        @if(Auth::user()->type=='officer')
         <h2 class="menu-list__title">マンション</h2>
         <ul class="menu-list c-menu c-list">
             <a href="{{route('apartments-list')}}">
@@ -113,6 +116,7 @@
                 </li>
             </a>
         </ul>
+        @endif
         <ul class="menu-list c-menu c-list">
             <a href="{{route('contacts-top')}}">
                 <li class="menu-list__item c-menu__item c-list__item">

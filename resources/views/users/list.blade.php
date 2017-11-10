@@ -24,7 +24,7 @@
                 </section>
                 <section class="users-item-icon">
                     <figure>
-                        <img width="100%" src="{{asset('img/icon.png')}}" alt="">
+                        <img class="c-circle" width="45px" height="45px" src="{{asset('img/resources/user/'.Auth::id().'/icon')}}" alt="">
                     </figure>
                 </section>
             </div>

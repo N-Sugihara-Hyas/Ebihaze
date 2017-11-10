@@ -5,7 +5,7 @@
     <ul class="apartments-list c-list">
         <form action="{{route('post.apartments-switch')}}" method="post">{{csrf_field()}}</form>
         @foreach($apartments as $apart)
-        <a href="{{route('apartments-edit', $apart->id)}}" class="action" data-method="switch" data-id="{{$apart->id}}">
+        <a href="#" class="action" data-method="switch" data-id="{{$apart->id}}">
             <li class="apartments-list__item c-list__item">
                 <div class="apartments-item-container">
                     <section class="apartments-item-main">
@@ -15,7 +15,7 @@
                     </section>
                     <section class="apartments-item-icon">
                         <figure>
-                            <img width="100%" src="{{asset('img/icon.png')}}" alt="">
+                            <img class="c-circle" width="40px" height="40px" src="{{asset('img/resources/apartment/'.$apart->id.'/icon')}}" alt="">
                         </figure>
                     </section>
                 </div>

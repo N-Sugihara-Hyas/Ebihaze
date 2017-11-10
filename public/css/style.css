@@ -292,6 +292,7 @@ nav.navbar {
 }
 .event-form .event-form__title {
   display: table-cell;
+  vertical-align: middle;
 }
 .event-form .event-form__input {
   display: table-cell;
@@ -545,7 +546,7 @@ nav.navbar {
 }
 .users-item-container .users-item-main {
   float: left;
-  width: 240px;
+  width: 65%;
 }
 .users-item-container .users-item-title {
   font-size: 17px;
@@ -902,6 +903,9 @@ nav.navbar {
   padding: 10px;
   margin-bottom: 10px;
 }
+.c-list__item.selected {
+  background-color: #FCC979;
+}
 .c-btn-area__large {
   width: 100%;
   text-align: center;
@@ -1147,12 +1151,33 @@ nav.navbar {
   display: inline-block;
   padding-left: 10px;
 }
+.c-favstar-container {
+  position: absolute;
+  top: 18px;
+  right: 10%;
+}
+.c-fabstar-item {
+  font-size: 18px;
+}
+.c-fabstar-item.active {
+  color: #FCC979;
+}
 img.c-circle {
   border-radius: 50%;
 }
 /** ModalWindow */
 #modal-overlay {
   z-index: 1001;
+  display: none;
+  width: 100%;
+  height: 120%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+}
+#modal-overlay-inner {
+  z-index: 1003;
   display: none;
   width: 100%;
   height: 120%;
@@ -1177,6 +1202,34 @@ img.c-circle {
 #modal-content-add {
   width: 90%;
   height: 90%;
+  margin: 1.5em auto 0;
+  padding: 10px 20px;
+  border: 2px solid #aaa;
+  background: #FFF9EB;
+  z-index: 1002;
+  position: fixed;
+  left: 5%;
+  right: 5%;
+  display: none;
+  overflow-y: scroll;
+}
+#modal-content-traders {
+  width: 90%;
+  max-height: 75%;
+  margin: 1.5em auto 0;
+  padding: 10px 20px;
+  border: 2px solid #aaa;
+  background: #FFF9EB;
+  z-index: 1002;
+  position: fixed;
+  left: 5%;
+  right: 5%;
+  display: none;
+  overflow-y: scroll;
+}
+#modal-content-users {
+  width: 90%;
+  max-height: 75%;
   margin: 1.5em auto 0;
   padding: 10px 20px;
   border: 2px solid #aaa;

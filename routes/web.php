@@ -90,3 +90,6 @@ Route::get('/flyers/saved', 'FlyersController@saved')->name('flyers-saved')->mid
 
 // TwillioRoute
 Route::get('/twillio/{tel}', 'TwillioController@create')->name('twillio-create')->middleware('auth');
+
+// EventUserRoute
+Route::post('/eventuser', 'EventsController@eventuser')->name('events-eventuser')->middleware('auth');

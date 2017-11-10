@@ -2,14 +2,23 @@
 
 @section('content')
 <div class="container">
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <ul class="event-list c-list">
         @foreach($events as $event)
         <a href="{{route('events-detail', $event->id)}}">
-            <li class="event-list__item c-list__item {{($event->status=='required') ? 'event-list__item--required' : ''}}{{($event->status=='done') ? 'event-list__item--done' : ''}}">
+            <li class="event-list__item c-list__item {{($event->status=='required') ? 'event-list__item--required' : ''}}{{($event->status=='done') ? 'event-list__item--done' : ''}} {{($event->join==true) ? 'selected' : ''}}">
                 <div class="event-item-container">
                     <section class="event-item-thumb">
                         <figure>
-                            <img width="60px" heihgt="60px" src="{{asset('img/resources/event/'.$event->id.'/thumb')}}" alt="">
+                            <img width="60px" heihgt="60px" src="" alt="">
                         </figure>
                     </section>
                     <section class="event-item-main">
@@ -22,10 +31,10 @@
                                 @if($event->status=='done')
                                 <span>(完了)</span>
                                 @endif
-                                <br><small>{{$event->parties}}/{{$event->parties}}</small>
+                                <br><small>{{$event->parties}}</small>
                             </p>
                             <figure class="event-item-main__icon">
-                                <img src="{{asset('img/icon.png')}}" alt="">
+                                <img class="c-circle" src="{{asset('img/resources/trader/'.explode(',', $event->suppliers_id)[0].'/icon')}}" width="40px" height="40px" alt="">
                             </figure>
                         </div>
                         <div class="event-item-main__detail">

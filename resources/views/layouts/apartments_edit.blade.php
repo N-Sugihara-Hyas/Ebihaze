@@ -17,21 +17,22 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-default navbar-static-top">
+        <nav class="navbar navbar-default navbar-static-top apartmentheaderbar">
             <div class="container">
-                <div class="navbar-header">
+                <div class="navbar-header apartmentheaderbar-header">
                     <!-- Branding Image -->
-                    <a class="navbar-left" href="{{ $route['url'] }}">
-                        ＜ <small>{{$route['title']}}</small>
+                    <a class="navbar-left apartmentheaderbar-left" href="{{ $route['url'] }}">
+                        ＜
+                        {{--<small>{{$route['title']}}</small>--}}
                     </a>
-                    <a class="navbar-brand" href="{{ url('/') }}">
+                    <a class="navbar-brand apartmentheaderbar-brand" href="#">
                         {{ $title }}
                         {{--                        {{ config('app.name', 'Laravel') }}--}}
                     </a>
-                    {{--<a class="navbar-right" href="{{route('events-search') }}">--}}
+                    <a class="navbar-right apartmentheaderbar-right" href="#">
                     {{--<img src="{{asset('img/nav_flag.png')}}" alt="カレンダー"><br>--}}
                     {{--<small>カレンダー</small>--}}
-                    {{--</a>--}}
+                    </a>
                 </div>
                 {{--<div class="navbar-footer">--}}
                 {{--<ul class="navbar-footer__list">--}}

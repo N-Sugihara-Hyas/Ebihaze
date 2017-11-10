@@ -210,8 +210,20 @@ class UsersController extends Controller
 			$icon = $request->file('apartment_icon');
 			$icon = Img::make($icon);
 			$icon->fit(240,240);
-			$dir = '/home/vagrant/ebihaze/public/img/resources/apartment/'.$Apartment->id;
 			$dir = public_path('img/resources/apartment/'.$Apartment->id);
+			if(!is_dir($dir))
+			{
+				exec('mkdir -p '.$dir);
+				exec('chmod -R 777 img/resources');
+			}
+			$icon->save($dir.'/icon');
+		}
+		if ($request->hasFile('user_icon'))
+		{
+			$icon = $request->file('user_icon');
+			$icon = Img::make($icon);
+			$icon->fit(240,240);
+			$dir = public_path('img/resources/user/'.$User->id);
 			if(!is_dir($dir))
 			{
 				exec('mkdir -p '.$dir);
@@ -243,7 +255,18 @@ class UsersController extends Controller
 		$title = 'ユーザー一覧';
 		$route = ['url' => route('statics-menu'), 'title' => 'メニュー'];
 
-		$Users = \App\User::all();
+		// 該当するアパートメントのユーザー一覧
+		if(session()->has('apartment_id'))
+		{
+			$Apartment = \App\Apartment::find(session('apartment_id'));
+		}
+		else
+		{
+			$Apartments = \App\User::find(Auth::id())->apartments;
+			$Apartment = $Apartments[0];
+		}
+		$Users = \App\User::where('apartment_id', $Apartment->id)->get();
+//		$Users = \App\User::all();
 		return view('users.list', ['users' => $Users, 'route' => $route, 'title' => $title]);
 	}
 	public function inviteForm()
