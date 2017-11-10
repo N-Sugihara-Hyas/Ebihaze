@@ -255,7 +255,18 @@ class UsersController extends Controller
 		$title = 'ユーザー一覧';
 		$route = ['url' => route('statics-menu'), 'title' => 'メニュー'];
 
-		$Users = \App\User::all();
+		// 該当するアパートメントのユーザー一覧
+		if(session()->has('apartment_id'))
+		{
+			$Apartment = \App\Apartment::find(session('apartment_id'));
+		}
+		else
+		{
+			$Apartments = \App\User::find(Auth::id())->apartments;
+			$Apartment = $Apartments[0];
+		}
+		$Users = \App\User::where('apartment_id', $Apartment->id)->get();
+//		$Users = \App\User::all();
 		return view('users.list', ['users' => $Users, 'route' => $route, 'title' => $title]);
 	}
 	public function inviteForm()
