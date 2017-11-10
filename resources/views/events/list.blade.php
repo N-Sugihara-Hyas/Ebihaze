@@ -34,7 +34,7 @@
                                 <br><small>{{$event->parties}}</small>
                             </p>
                             <figure class="event-item-main__icon">
-                                <img src="{{asset('img/icon.png')}}" alt="">
+                                <img class="c-circle" src="{{asset('img/resources/trader/'.explode(',', $event->suppliers_id)[0].'/icon')}}" width="40px" height="40px" alt="">
                             </figure>
                         </div>
                         <div class="event-item-main__detail">

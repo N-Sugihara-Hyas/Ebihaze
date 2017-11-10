@@ -35,6 +35,7 @@ class EventsController extends Controller
 			/** 参加イベントフラグ */
 			if(in_array(Auth::id(), explode(',', $event->parties)))$event->join = true;
 			/** 業者 / 関係者 表示 */
+			$event->suppliers_id = $event->suppliers;
 			$event = $event->suppliersName($event);
 			$event = $event->partiesName($event);
 			/** イベントステータス付け **/
@@ -77,6 +78,7 @@ class EventsController extends Controller
 				/** 参加イベントフラグ */
 				$event->join = true;
 				/** 業者 / 関係者 表示 */
+				$event->suppliers_id = $event->suppliers;
 				$event = $event->suppliersName($event);
 				$event = $event->partiesName($event);
 				/** イベントステータス付け **/
@@ -122,6 +124,7 @@ class EventsController extends Controller
 				if(in_array(Auth::id(), explode(',', $event->parties)))$event->join = true;
 				$event->title = mb_strimwidth($event->title, 0, 10, '...');
 				/** 業者 / 関係者 表示 */
+				$event->suppliers_id = $event->suppliers;
 				$event = $event->suppliersName($event);
 				$event = $event->partiesName($event);
 				/** イベントステータス付け **/
