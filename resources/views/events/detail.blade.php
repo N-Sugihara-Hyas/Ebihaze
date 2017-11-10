@@ -28,6 +28,7 @@
                 <img width="100%" src="{{asset('img/resources/event/'.$event->id.'/thumb')}}" alt="案件画像">
             </figure>
         </section>
+        @if(Auth::user()->type=='officer')
         <section class="event-detail__footer">
             <div class="c-btn-area__large">
                 <a href="{{route('events-review', $event->id)}}">
@@ -35,6 +36,7 @@
                 </a>
             </div>
         </section>
+        @endif
     </div>
 </div>
 @endsection

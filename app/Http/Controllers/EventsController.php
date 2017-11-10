@@ -31,7 +31,7 @@ class EventsController extends Controller
 		$calendar = [];
 		foreach($Events as &$event)
 		{
-			$event->title = mb_strimwidth($event->title, 0, 10, '...');
+			$event->title = mb_strimwidth($event->title, 0, 15, '...');
 			/** 参加イベントフラグ */
 			if(in_array(Auth::id(), explode(',', $event->parties)))$event->join = true;
 			/** 業者 / 関係者 表示 */
@@ -43,6 +43,8 @@ class EventsController extends Controller
 			if($event->approval==1 && strtotime($event->schedule)<time())$event->status = 'done';
 			elseif ($event->approval==0 && strtotime($event->schedule)<time())$event->status = 'required';
 			else $event->status = '';
+			// ユーザー権限
+			if(Auth::user()->type!='officer')$event->status = '';
 			/** カレンダー用付け **/
 			$calendar[] = $event->schedule;
 			$calendar = array_unique($calendar);
@@ -77,7 +79,7 @@ class EventsController extends Controller
 		{
 			if(in_array(Auth::id(), explode(',', $event->parties)))
 			{
-				$event->title = mb_strimwidth($event->title, 0, 10, '...');
+				$event->title = mb_strimwidth($event->title, 0, 15, '...');
 				/** 参加イベントフラグ */
 				$event->join = true;
 				/** 業者 / 関係者 表示 */
@@ -89,6 +91,8 @@ class EventsController extends Controller
 				if($event->approval==1 && strtotime($event->schedule)<time())$event->status = 'done';
 				elseif ($event->approval==0 && strtotime($event->schedule)<time())$event->status = 'required';
 				else $event->status = '';
+				// ユーザー権限
+				if(Auth::user()->type!='officer')$event->status = '';
 				/** カレンダー用付け **/
 				$calendar[] = $event->schedule;
 				$calendar = array_unique($calendar);
@@ -100,7 +104,10 @@ class EventsController extends Controller
 		if(isset($_GET['schedule']))$Events = $Apartment->events()->where('schedule', 'LIKE', $_GET['schedule'])->get();
 
 		$Event = new \App\Event;
-		return view('events.list', ['events' =>$join_events, 'calendar' => $calendar, 'title' => $title, 'event' => $Event]);
+		// 業者選択用
+		$Traders = \App\Trader::all();
+		$Users = \App\User::all();
+		return view('events.list', ['events' =>$join_events, 'calendar' => $calendar, 'title' => $title, 'event' => $Event, 'traders' => $Traders, 'users' => $Users]);
 	}
 	public function watch()
 	{
@@ -125,7 +132,7 @@ class EventsController extends Controller
 			{
 				/** 参加イベントフラグ */
 				if(in_array(Auth::id(), explode(',', $event->parties)))$event->join = true;
-				$event->title = mb_strimwidth($event->title, 0, 10, '...');
+				$event->title = mb_strimwidth($event->title, 0, 15, '...');
 				/** 業者 / 関係者 表示 */
 				$event->suppliers_id = $event->suppliers;
 				$event = $event->suppliersName($event);
@@ -135,6 +142,8 @@ class EventsController extends Controller
 				if($event->approval==1 && strtotime($event->schedule)<time())$event->status = 'done';
 				elseif ($event->approval==0 && strtotime($event->schedule)<time())$event->status = 'required';
 				else $event->status = '';
+				// ユーザー権限
+				if(Auth::user()->type!='officer')$event->status = '';
 				/** カレンダー用付け **/
 				$calendar[] = $event->schedule;
 				$calendar = array_unique($calendar);
@@ -146,7 +155,10 @@ class EventsController extends Controller
 		if(isset($_GET['schedule']))$Events = $Apartment->events()->where('schedule', 'LIKE', $_GET['schedule'])->get();
 
 		$Event = new \App\Event;
-		return view('events.list', ['events' =>$join_events, 'calendar' => $calendar, 'title' => $title, 'event' => $Event]);
+		// 業者選択用
+		$Traders = \App\Trader::all();
+		$Users = \App\User::all();
+		return view('events.list', ['events' =>$join_events, 'calendar' => $calendar, 'title' => $title, 'event' => $Event, 'traders' => $Traders, 'users' => $Users]);
 	}
 	public function add()
 	{
@@ -295,6 +307,12 @@ class EventsController extends Controller
 		{
 			$route = ['title' => '案件一覧', 'url' => route('events-review', $id)];
 			$title = "案件評価";
+		}
+		// ユーザー権限
+		if(Auth::user()->type!='officer')
+		{
+			$route = ['title' => '案件一覧', 'url' => route('events-detail', $id)];
+			$title = "案件詳細";
 		}
 
 		$Event = \App\Event::find($id);

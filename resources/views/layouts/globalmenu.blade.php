@@ -291,11 +291,13 @@
                                 <img src="{{asset('img/nav_menu.png')}}" alt="ナビメニュー"><br>メニュー
                             </li>
                         </a>
+                        @if(Auth::user()->type=='officer')
                         <a class="navbar-footer__tab navbar-footer--join" href="{{route('apartments-rank')}}">
                             <li>
                                 <img src="{{asset('img/nav_rank.png')}}" alt="ナビランク"><br>ランク
                             </li>
                         </a>
+                        @endif
                         <a class="navbar-footer__tab navbar-footer--watch" href="{{route('flyers-list')}}">
                             <li>
                                 <img src="{{asset('img/nav_flyer.png')}}" alt="ナビチラシ"><br>チラシ
