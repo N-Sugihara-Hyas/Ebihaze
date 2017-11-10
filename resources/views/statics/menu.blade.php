@@ -7,11 +7,11 @@
                 <div class="menu-header">
                     <section class="menu-header__thumb">
                         <figure>
-                            <img src="{{asset('img/icon.png')}}" alt="">
+                            <img class="c-circle" src="{{asset('img/resources/user/'.Auth::id().'/icon')}}" alt="">
                         </figure>
                     </section>
                     <section class="menu-header__title">
-                        <p>{{Auth::user()->nickname}}</p>
+                        <p>　{{Auth::user()->nickname}}</p>
                     </section>
                 </div>
             </li>

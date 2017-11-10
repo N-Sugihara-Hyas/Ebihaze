@@ -81,7 +81,12 @@
             <dl class="users-add_form__list">
                 <dt class="users-add_list-title__user-birthday">生まれ年</dt>
                 <dd class="users-add_list-form__user-birthday">
-                    <input type="text" value="{{old('user.birthday')}}" name="user[birthday]">年
+                    <select name="user[birthday]" id="">
+                        @foreach(range(date('Y', strtotime('-100 year')), date('Y')) as $year)
+                            <option value="{{$year}}" {{($year==date('Y', strtotime('-50Year'))) ? 'selected' : ''}}>{{$year}}</option>
+                        @endforeach
+                    </select>年
+                    {{--<input type="text" value="{{old('user.birthday')}}" name="user[birthday]">年--}}
                 </dd>
             </dl>
             <dl class="users-add_form__list">
@@ -182,6 +187,13 @@
                 <dt class="users-add_list-title__apartment-introduction">マンション紹介テキスト(1,000文字まで)</dt>
                 <dd class="users-add_list-form__apartment-introduction">
                     <textarea name="apartment[introduction]" id="" cols="30" rows="10">{{old('apartment.introduction')}}</textarea>
+                </dd>
+            </dl>
+            <dl class="users-add_form__list">
+                <dt class="users-add_list-title__apartment-facilities">ユーザー画像登録</dt>
+                <dd class="users-add_list-form__apartment-facilities">
+                    <button class="c-btn c-btn--large c-btn--blue action" data-method="file">画像登録</button>
+                    <input type="file" name="user_icon">
                 </dd>
             </dl>
             <dl class="users-add_form__list">
