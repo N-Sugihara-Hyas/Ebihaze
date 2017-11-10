@@ -18,7 +18,7 @@
                 <div class="event-item-container">
                     <section class="event-item-thumb">
                         <figure>
-                            <img width="60px" heihgt="60px" src="{{asset('img/resources/event/'.$event->id.'/thumb')}}" alt="">
+                            <img width="60px" heihgt="60px" src="" alt="">
                         </figure>
                     </section>
                     <section class="event-item-main">

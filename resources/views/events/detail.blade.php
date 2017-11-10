@@ -2,6 +2,9 @@
 
 @section('content')
 <div class="container" style="position: relative">
+    <div id="modal-content-img">
+        <img width="100%" src="{{asset('img/resources/event/'.$event->id.'/thumb')}}" alt="案件画像">
+    </div>
     <section class="c-favstar-container">
         @if($watched==1)
             <span id="fabstar" class="c-fabstar-item active" data-eventuser_event_id="{{$event->id}}" data-eventuser_user_id="{{Auth::id()}}">★</span>
@@ -21,8 +24,8 @@
             <p class="event-detail__message">
                 {{$event->content}}
             </p>
-            <figure class="event-detail__picture">
-                <img width="100%" src="{{asset('img/detail_pic.png')}}" alt="案件画像">
+            <figure id="modal-open-img" class="event-detail__picture">
+                <img width="100%" src="{{asset('img/resources/event/'.$event->id.'/thumb')}}" alt="案件画像">
             </figure>
         </section>
         <section class="event-detail__footer">
@@ -79,5 +82,33 @@ console.log(errorThrown)
             })
         })
     })
+    $(function() {
+        // イベント登録
+        $("#modal-open-img").click(function (t) {
+            t.preventDefault();
+            $(this).blur(); //ボタンからフォーカスを外す
+            if ($("#modal-overlay")[0]) return false; //新しくモーダルウィンドウを起動しない
+            //オーバーレイ用のHTMLコードを、[body]内の最後に生成する
+            $("#container").append('<div id="modal-overlay"></div>');
+            // img Src を動的に変更
+            var flyer_id = $(this).data('id');
+            $('[name=flyer_id]').val(flyer_id);
+            $('#modal-target-img').attr('src', "{{asset('img/resources/flyer')}}"+"/"+flyer_id);
+
+            //[$modal-overlay]をフェードインさせる
+            $("#modal-overlay").fadeIn("slow");
+            $("#modal-content-img").fadeIn("slow");
+            $('#container').css({'overflow': 'hidden'});
+            $("#modal-overlay,#modal-close,#modal-close-img").unbind().click(function (t) {
+                t.preventDefault();
+                //[#modal-overlay]と[#modal-close]をフェードアウトする
+                $("#modal-content-img,#modal-overlay").fadeOut("slow", function () {
+                    //フェードアウト後、[#modal-overlay]をHTML(DOM)上から削除
+                    $("#modal-overlay").remove();
+                });
+                $('#container').css({'overflow': 'visible'});
+            });
+        });
+    });
 </script>
 @endsection
