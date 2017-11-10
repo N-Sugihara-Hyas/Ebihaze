@@ -51,7 +51,10 @@ class EventsController extends Controller
 		if(isset($_GET['schedule']))$Events = $Apartment->events()->where('schedule', 'LIKE', $_GET['schedule'])->get();
 
 		$Event = new \App\Event;
-		return view('events.list', ['events' =>$Events, 'calendar' => $calendar, 'title' => $title, 'event' => $Event]);
+		// 業者選択用
+		$Traders = \App\Trader::all();
+		$Users = \App\User::all();
+		return view('events.list', ['events' =>$Events, 'calendar' => $calendar, 'title' => $title, 'event' => $Event, 'traders' => $Traders, 'users' => $Users]);
 	}
 	public function join()
 	{
