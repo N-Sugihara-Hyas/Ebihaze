@@ -25,11 +25,11 @@
                         ＜
                         {{--<small>{{$route['title']}}</small>--}}
                     </a>
-                    <a class="navbar-brand globalheaderbar-brand" href="#">
+                    <a class="navbar-brand globalheader-brand" href="#">
                         {{ $title }}
 {{--                        {{ config('app.name', 'Laravel') }}--}}
                     </a>
-                    <a class="navbar-right globalheaderbar-right" href="#">
+                    <a class="navbar-right globalheader-right" href="#">
                         {{--<img src="{{asset('img/nav_flag.png')}}" alt="カレンダー"><br>--}}
                         {{--<small>カレンダー</small>--}}
                     </a>
