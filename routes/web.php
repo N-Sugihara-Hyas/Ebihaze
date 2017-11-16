@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('top');
+    return redirect()->route('event-list');
 })->middleware('auth');
 
 Auth::routes(
