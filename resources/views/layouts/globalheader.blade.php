@@ -54,7 +54,7 @@
                     <a class="navbar-left globalheaderbar-left" href="{{ $route['url'] }}">
                         ＜ {{--<span>{{$route['title']}}</span>--}}
                     </a>
-                    <a class="navbar-brand globalheader-brand" href="{{ url('/') }}">
+                    <a class="navbar-brand globalheader-brand" href="#">
                         {{ $title }}
 {{--                        {{ config('app.name', 'Laravel') }}--}}
                     </a>
