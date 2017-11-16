@@ -13,19 +13,19 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 </head>
 <body>
     <div id="app">
         <nav class="navbar navbar-default navbar-static-top globalheaderbar">
-            <div class="container">
+            <div class="container globalheaderbar-container">
                 <div class="navbar-header globalheaderbar-header">
                     <!-- Branding Image -->
                     <a class="navbar-left globalheaderbar-left" href="{{ $route['url'] }}">
                         ＜
                         {{--<small>{{$route['title']}}</small>--}}
                     </a>
-                    <a class="navbar-brand" href="{{ url('/') }}">
+                    <a class="navbar-brand globalheaderbar-brand" href="#">
                         {{ $title }}
 {{--                        {{ config('app.name', 'Laravel') }}--}}
                     </a>
