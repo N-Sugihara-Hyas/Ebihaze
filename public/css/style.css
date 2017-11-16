@@ -316,6 +316,7 @@ nav.navbar {
 }
 .event-detail .event-detail__body {
   padding: 15px 0;
+  word-wrap: break-word;
 }
 .event-detail .event-detail__body .event-detail__schedule {
   font-weight: bold;
