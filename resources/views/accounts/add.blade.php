@@ -2,6 +2,15 @@
 
 @section('content')
 <div class="container">
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <ul class="accounts-list accounts-nav">
         <li class="accounts-nav__item accounts-nav__item--active tab" data-id="1">口座１</li>
         <li class="accounts-nav__item accounts-nav__item--inactive tab" data-id="2">口座２</li>
@@ -30,7 +39,7 @@
                     <p>金額</p>
                 </section>
                 <section class="accounts-item__category">
-                    <input type="number" class="accounts-item__input" name="account_amount" value="" placeholder="0">円
+                    <input type="number" class="accounts-item__input" name="account_amount" value="{{old('account_amount')}}" placeholder="0">円
                 </section>
             </div>
         </li>
@@ -40,7 +49,7 @@
                     <p>記帳する日付</p>
                 </section>
                 <section class="accounts-item__date">
-                    <input type="text" id="datepicker" name="account_schedule" value="">
+                    <input type="text" id="datepicker" name="account_schedule" value="{{old('account_schedule')}}">
                 </section>
             </div>
         </li>
@@ -50,7 +59,7 @@
                     <p>記帳する項目</p>
                 </section>
                 <section class="accounts-item__category">
-                    <input type="text" class="accounts-item__input" name="account_category" placeholder="タップして入力して下さい">
+                    <input type="text" class="accounts-item__input" name="account_category" placeholder="タップして入力して下さい" value="{{old('account_category')}}">
                 </section>
             </div>
         </li>

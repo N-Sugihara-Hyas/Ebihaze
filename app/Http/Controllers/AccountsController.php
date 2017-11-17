@@ -40,6 +40,21 @@ class AccountsController extends Controller
 
 	public function postAdd(Request $request)
 	{
+		$error_rules = [
+			'formats' => [
+				'account_amount' => 'required|numeric',
+				'account_schedule' => 'required|date_format:Y/m/d',
+				'account_category' => 'required',
+			],
+			'messages' => [
+				'account_amount.required' => '金額を入力して下さい',
+				'account_amount.numeric' => '金額を数字で入力して下さい',
+				'account_schedule.required' => '日付を入力して下さい',
+				'account_schedule.date_format' => '日付の形式が不正です',
+				'account_category.required' => '項目を入力して下さい',
+			]
+		];
+		$request->validate($error_rules['formats'], $error_rules['messages']);
 		$amount = $request->input('account_amount');
 		$schedule = $request->input('account_schedule');
 		$category = $request->input('account_category');
@@ -71,6 +86,21 @@ class AccountsController extends Controller
 
 	public function postEdit(Request $request)
 	{
+		$error_rules = [
+			'formats' => [
+				'account_amount' => 'required|numeric',
+				'account_schedule' => 'required|date_format:Y/m/d',
+				'account_category' => 'required',
+			],
+			'messages' => [
+				'account_amount.required' => '金額を入力して下さい',
+				'account_amount.numeric' => '金額を数字で入力して下さい',
+				'account_schedule.required' => '日付を入力して下さい',
+				'account_schedule.date_format' => '日付の形式が不正です',
+				'account_category.required' => '項目を入力して下さい',
+			]
+		];
+		$request->validate($error_rules['formats'], $error_rules['messages']);
 		$id = $request->input('account_id');
 		$amount = $request->input('account_amount');
 		$schedule = $request->input('account_schedule');
