@@ -32,7 +32,7 @@ class TradersController extends Controller
 		$error_rules = [
 			'formats' => [
 				'trader.name' => 'required',
-				'trader.tel' => 'required',
+				'trader.tel' => 'required|regex:/^[0-9]+$/',
 				'trader.address' => 'required',
 				'trader.area' => 'required',
 				'trader_icon' => 'image'
@@ -40,6 +40,7 @@ class TradersController extends Controller
 			'messages' => [
 				'trader.name.required' => '業者名を入力して下さい',
 				'trader.tel.required' => '電話番号を入力して下さい',
+				'trader.tel.regex' => '電話番号は数字のみで入力して下さい',
 				'trader.address.required' => '住所を入力して下さい',
 				'trader.area.required' => 'サービス提供エリアを入力して下さい',
 				'trader_icon.image' => '画像登録は画像のみとなります'
