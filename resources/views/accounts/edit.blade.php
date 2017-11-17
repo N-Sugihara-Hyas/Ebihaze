@@ -2,6 +2,15 @@
 
 @section('content')
 <div class="container">
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <ul class="accounts-list accounts-nav">
         <li class="accounts-nav__item {{($account->sub_id==1) ? 'accounts-nav__item--active' : 'accounts-nav__item--inactive'}}">口座１</li>
         <li class="accounts-nav__item {{($account->sub_id==2) ? 'accounts-nav__item--active' : 'accounts-nav__item--inactive'}}">口座２</li>
@@ -22,7 +31,7 @@
                     <p>金額</p>
                 </section>
                 <section class="accounts-item__category">
-                    <input type="number" class="accounts-item__input" name="account_amount" value="{{$account->amount}}" placeholder="1000000">円
+                    <input type="number" class="accounts-item__input" name="account_amount" value="{{$account->amount}}" placeholder="0">円
                 </section>
             </div>
         </li>
