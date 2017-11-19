@@ -17,6 +17,17 @@ class UsersController extends Controller
 	}
 	public function postCreate(Request $request)
 	{
+		$error_rules = [
+			'formats' => [
+				'user_tel' => 'required|numeric'
+			],
+			'messages' => [
+				'user_tel.required' => 'SMS番号を入力して下さい',
+				'user_tel.numeric' => 'SMS番号は数字のみで入力して下さい'
+			]
+		];
+		$request->validate($error_rules['formats'], $error_rules['messages']);
+
 		$tel = $request->input('user_tel');
 
 		// SMS認証
@@ -111,7 +122,8 @@ class UsersController extends Controller
 						'apartment.control' => 'in:'.implode(',', \App\Apartment::$control),
 						'apartment.construction' => 'in:'.implode(',', \App\Apartment::$construction),
 						'apartment.total_units' => 'numeric',
-						'apartment_icon' => 'image'
+						'apartment_icon' => 'image',
+						'user_icon' => 'image'
 					],
 					'messages' => [
 						'user.nickname.required' => 'ニックネームを入力して下さい',
@@ -120,12 +132,13 @@ class UsersController extends Controller
 				'user.gender.in' => '性別はいずれかをお選び下さい',
 						'user.birthday.numeric' => '生まれ年は半角数字で入力下さい',
 						'user.job.in' => '職業はいずれかをお選び下さい',
-						'apartment.name.required' => 'マンション名は必須です',
-						'apartment.address.required' => 'マンション住所を入力下さい',
+						'apartment.name.required' => 'マンション名を入力して下さい',
+						'apartment.address.required' => 'マンション住所を入力して下さい',
 						'apartment.control.in' => '管理形態はいずれかをお選び下さい',
 						'apartment.construction.in' => '構造はいずれかをお選び下さい',
 						'apartment.total_units.numeric' => '総戸数は半角数字で入力して下さい',
-						'apartment_icon.image' => '画像登録は画像のみとなります'
+						'apartment_icon.image' => 'マンション画像登録は画像のみとなります',
+						'user_icon.image' => 'ユーザー画像登録は画像のみとなります'
 					]
 				];
 				break;
@@ -278,6 +291,17 @@ class UsersController extends Controller
 	}
 	public function postInviteForm(Request $request)
 	{
+		$error_rules = [
+			'formats' => [
+				'user_tel' => 'required|numeric'
+			],
+			'messages' => [
+				'user_tel.required' => 'SMS番号を入力して下さい',
+				'user_tel.numeric' => 'SMS番号は数字のみで入力して下さい'
+			]
+		];
+		$request->validate($error_rules['formats'], $error_rules['messages']);
+
 		$tel = $request->input('user_tel');
 		$User = \App\User::updateOrCreate(
 			['tel' => $tel],

@@ -4,6 +4,15 @@
 <div class="container">
     <form action="{{route('post.users-create')}}" method="post">
         {{ csrf_field() }}
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <div class="users-invite_form">
             <div class="users-invite_form__introduction">
                 <p class="error" style="color:red;">{{session('error')}}</p>
