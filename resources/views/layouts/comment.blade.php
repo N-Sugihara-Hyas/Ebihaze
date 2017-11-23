@@ -79,7 +79,7 @@
         </div>
             <div class="c-comments_submit_container">
                 <div class="c-btn-area__xsmall">
-                    <button style="margin:0;" class="c-btn c-btn--blue action" data-method="file-comment">＋</button>
+                    <button style="margin:0;" class="c-btn c-btn--blue action" data-method="file-comment">+</button>
                     <input type="file" name="comment_image">
                 </div>
                 <input type="text" class="c-comments_submit_text" name="body" id="required">
