@@ -12,12 +12,86 @@ class AccountsController extends Controller
 		$title = '残高一覧';
 		$route = ['url' => route('statics-menu'), 'title' => 'メニュー'];
 
-		$Account1 = \App\User::find(Auth::id())->accounts()->whereSubId(1)->get();
-		$Account1->total = \App\User::find(Auth::id())->accounts()->whereSubId(1)->sum('amount');
-		$Account2 = \App\User::find(Auth::id())->accounts()->whereSubId(2)->get();
-		$Account2->total = \App\User::find(Auth::id())->accounts()->whereSubId(2)->sum('amount');
-		$Account3 = \App\User::find(Auth::id())->accounts()->whereSubId(3)->get();
-		$Account3->total = \App\User::find(Auth::id())->accounts()->whereSubId(3)->sum('amount');
+		// 1. 修繕積立金
+		$Account1 = \App\User::find(Auth::id())->accounts('desc')->whereSubId(1)->get();
+		// 現残高プロパティ
+		$Account1->total = @$Account1[0]->amount;
+		// 差額計算用
+		$diff_Account1 = \App\User::find(Auth::id())->accounts('asc')->whereSubId(1)->get()->toArray();
+		// 差額計算結果配列
+		$diffs = [];
+		foreach ($diff_Account1 as $times => $dac1)
+		{
+			if($times==0)
+			{
+				$diffs[] = $dac1['amount'];
+			}
+			if($times!=0)
+			{
+				$diffs[] = $dac1['amount'] - $diff_Account1[$times-1]['amount'];
+			}
+		}
+		// Desc へソート
+		$diffs = array_reverse($diffs);
+		// 計算結果へ置き換え
+		foreach ($Account1 as $times => &$ac1)
+		{
+			$ac1->amount = $diffs[$times];
+		}
+
+		// 2. 管理費
+		$Account2 = \App\User::find(Auth::id())->accounts('desc')->whereSubId(2)->get();
+		// 現残高プロパティ
+		$Account2->total = @$Account2[0]->amount;
+		// 差額計算用
+		$diff_Account2 = \App\User::find(Auth::id())->accounts('asc')->whereSubId(2)->get()->toArray();
+		// 差額計算結果配列
+		$diffs = [];
+		foreach ($diff_Account2 as $times => $dac2)
+		{
+			if($times==0)
+			{
+				$diffs[] = $dac2['amount'];
+			}
+			if($times!=0)
+			{
+				$diffs[] = $dac2['amount'] - $diff_Account2[$times-1]['amount'];
+			}
+		}
+		// Desc へソート
+		$diffs = array_reverse($diffs);
+		// 計算結果へ置き換え
+		foreach ($Account2 as $times => &$ac2)
+		{
+			$ac2->amount = $diffs[$times];
+		}
+
+		// 3. その他
+		$Account3 = \App\User::find(Auth::id())->accounts('desc')->whereSubId(3)->get();
+		// 現残高プロパティ
+		$Account3->total = @$Account3[0]->amount;
+		// 差額計算用
+		$diff_Account3 = \App\User::find(Auth::id())->accounts('asc')->whereSubId(3)->get()->toArray();
+		// 差額計算結果配列
+		$diffs = [];
+		foreach ($diff_Account3 as $times => $dac3)
+		{
+			if($times==0)
+			{
+				$diffs[] = $dac3['amount'];
+			}
+			if($times!=0)
+			{
+				$diffs[] = $dac3['amount'] - $diff_Account3[$times-1]['amount'];
+			}
+		}
+		// Desc へソート
+		$diffs = array_reverse($diffs);
+		// 計算結果へ置き換え
+		foreach ($Account3 as $times => &$ac3)
+		{
+			$ac3->amount = $diffs[$times];
+		}
 		$Accounts = [$Account1, $Account2, $Account3];
 		return view('accounts.list', ['accounts' => $Accounts, 'route' => $route, 'title' => $title]);
 	}
@@ -27,12 +101,86 @@ class AccountsController extends Controller
 		$title = '残高情報追加';
 		$route = ['url' => route('accounts-list'), 'title' => '残高一覧'];
 
-		$Account1 = \App\User::find(Auth::id())->accounts()->whereSubId(1)->get();
-		$Account1->total = \App\User::find(Auth::id())->accounts()->whereSubId(1)->sum('amount');
-		$Account2 = \App\User::find(Auth::id())->accounts()->whereSubId(2)->get();
-		$Account2->total = \App\User::find(Auth::id())->accounts()->whereSubId(2)->sum('amount');
-		$Account3 = \App\User::find(Auth::id())->accounts()->whereSubId(3)->get();
-		$Account3->total = \App\User::find(Auth::id())->accounts()->whereSubId(3)->sum('amount');
+		// 1. 修繕積立金
+		$Account1 = \App\User::find(Auth::id())->accounts('desc')->whereSubId(1)->get();
+		// 現残高プロパティ
+		$Account1->total = @$Account1[0]->amount;
+		// 差額計算用
+		$diff_Account1 = \App\User::find(Auth::id())->accounts('asc')->whereSubId(1)->get()->toArray();
+		// 差額計算結果配列
+		$diffs = [];
+		foreach ($diff_Account1 as $times => $dac1)
+		{
+			if($times==0)
+			{
+				$diffs[] = $dac1['amount'];
+			}
+			if($times!=0)
+			{
+				$diffs[] = $dac1['amount'] - $diff_Account1[$times-1]['amount'];
+			}
+		}
+		// Desc へソート
+		$diffs = array_reverse($diffs);
+		// 計算結果へ置き換え
+		foreach ($Account1 as $times => &$ac1)
+		{
+			$ac1->amount = $diffs[$times];
+		}
+
+		// 2. 管理費
+		$Account2 = \App\User::find(Auth::id())->accounts('desc')->whereSubId(2)->get();
+		// 現残高プロパティ
+		$Account2->total = @$Account2[0]->amount;
+		// 差額計算用
+		$diff_Account2 = \App\User::find(Auth::id())->accounts('asc')->whereSubId(2)->get()->toArray();
+		// 差額計算結果配列
+		$diffs = [];
+		foreach ($diff_Account2 as $times => $dac2)
+		{
+			if($times==0)
+			{
+				$diffs[] = $dac2['amount'];
+			}
+			if($times!=0)
+			{
+				$diffs[] = $dac2['amount'] - $diff_Account2[$times-1]['amount'];
+			}
+		}
+		// Desc へソート
+		$diffs = array_reverse($diffs);
+		// 計算結果へ置き換え
+		foreach ($Account2 as $times => &$ac2)
+		{
+			$ac2->amount = $diffs[$times];
+		}
+
+		// 3. その他
+		$Account3 = \App\User::find(Auth::id())->accounts('desc')->whereSubId(3)->get();
+		// 現残高プロパティ
+		$Account3->total = @$Account3[0]->amount;
+		// 差額計算用
+		$diff_Account3 = \App\User::find(Auth::id())->accounts('asc')->whereSubId(3)->get()->toArray();
+		// 差額計算結果配列
+		$diffs = [];
+		foreach ($diff_Account3 as $times => $dac3)
+		{
+			if($times==0)
+			{
+				$diffs[] = $dac3['amount'];
+			}
+			if($times!=0)
+			{
+				$diffs[] = $dac3['amount'] - $diff_Account3[$times-1]['amount'];
+			}
+		}
+		// Desc へソート
+		$diffs = array_reverse($diffs);
+		// 計算結果へ置き換え
+		foreach ($Account3 as $times => &$ac3)
+		{
+			$ac3->amount = $diffs[$times];
+		}
 		$Accounts = [$Account1, $Account2, $Account3];
 
 		return view('accounts.add', ['accounts' => $Accounts, 'route' => $route, 'title' => $title]);

@@ -32,9 +32,9 @@ class User extends Authenticatable
 	static $reside = ['residents' => '住民', 'rentout' => '貸している'];
 	static $type_display = ['officer' => '理事長', 'app' => 'アプリ'];
 
-	public function accounts()
+	public function accounts($sort='desc')
 	{
-		return $this->hasMany('App\Account')->orderBy('schedule', 'desc');
+		return $this->hasMany('App\Account')->orderBy('schedule', $sort);
 	}
 	public function ranks()
 	{

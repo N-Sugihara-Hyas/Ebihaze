@@ -12,12 +12,12 @@
         </div>
     @endif
     <ul class="accounts-list accounts-nav">
-        <li class="accounts-nav__item {{($account->sub_id==1) ? 'accounts-nav__item--active' : 'accounts-nav__item--inactive'}}">口座１</li>
-        <li class="accounts-nav__item {{($account->sub_id==2) ? 'accounts-nav__item--active' : 'accounts-nav__item--inactive'}}">口座２</li>
-        <li class="accounts-nav__item {{($account->sub_id==3) ? 'accounts-nav__item--active' : 'accounts-nav__item--inactive'}}">口座３</li>
+        <li class="accounts-nav__item {{($account->sub_id==1) ? 'accounts-nav__item--active' : 'accounts-nav__item--inactive'}}">修繕積立金</li>
+        <li class="accounts-nav__item {{($account->sub_id==2) ? 'accounts-nav__item--active' : 'accounts-nav__item--inactive'}}">管理費</li>
+        <li class="accounts-nav__item {{($account->sub_id==3) ? 'accounts-nav__item--active' : 'accounts-nav__item--inactive'}}">その他</li>
     </ul>
     <section class="accounts-total">
-        <p class="accounts-item-amount">資産</p>
+        <p class="accounts-item-amount">残高</p>
         <p class="accounts-item-price">¥{{$account->total}}</p>
     </section>
     <h2>コメント表示</h2>

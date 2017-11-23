@@ -30,6 +30,12 @@ a:hover,a:focus{
 input[type="file"]{
   display: none;
 }
+// PlaceHolder 消去
+input:focus::-webkit-input-placeholder,
+isindex:focus::-webkit-input-placeholder,
+textarea:focus::-webkit-input-placeholder {
+  color: transparent !important;
+}
 img{
   max-width:100%;
 }
@@ -867,7 +873,7 @@ nav.navbar {
 }
 .accounts-item-amount{
   color:@dark-blue;
-  font-size: 65%;
+  //font-size: 65%;
 }
 .accounts-item-price{
   font-size: 27px;
@@ -888,7 +894,7 @@ nav.navbar {
     float: left;
   }
   .accounts-item-status{
-    width:90px;
+    width:55%;
     font-size: smaller;
     line-height: 40px;
     float: left;
