@@ -29,10 +29,13 @@
                         {{ $title }}
 {{--                        {{ config('app.name', 'Laravel') }}--}}
                     </a>
-                    <a class="navbar-right globalheader-right" href="#">
+                    @if(Auth::id()==$event->etc)
+                    <a class="navbar-right globalheader-right" href="{{route('events-edit', $event->id)}}">
                         {{--<img src="{{asset('img/nav_flag.png')}}" alt="カレンダー"><br>--}}
                         {{--<small>カレンダー</small>--}}
+                        <span style="display:inline-block;line-height:38px;">編集</span>
                     </a>
+                    @endif
                 </div>
                 {{--<div class="navbar-footer">--}}
                     {{--<ul class="navbar-footer__list">--}}

@@ -414,7 +414,7 @@ console.log($(this).text())
   <script>
       $(function() {
           // イベント登録
-          $("#modal-open-traders").click(function (t) {
+          $("#modal-open-traders, p.suppliers_name").click(function (t) {
               t.preventDefault();
               $(this).blur(); //ボタンからフォーカスを外す
               if ($("#modal-overlay-inner")[0]) return false; //新しくモーダルウィンドウを起動しない
@@ -458,7 +458,7 @@ console.log($(this).text())
               $('#modal-close-traders').trigger('click');
           });
           // 関係者選択
-          $("#modal-open-users").click(function (t) {
+          $("#modal-open-users, p.parties").click(function (t) {
               t.preventDefault();
               $(this).blur(); //ボタンからフォーカスを外す
               if ($("#modal-overlay-inner")[0]) return false; //新しくモーダルウィンドウを起動しない

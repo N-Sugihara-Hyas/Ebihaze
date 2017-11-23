@@ -11,6 +11,7 @@
         @else
             <span id="fabstar" class="c-fabstar-item" data-eventuser_event_id="{{$event->id}}" data-eventuser_user_id="{{Auth::id()}}">☆</span>
         @endif
+        <br><span style="display: block;line-height: 0.5em;font-size: 0.7em;">ウォッチ</span>
     </section>
     <div class="event-detail">
         <section class="event-detail__header">
@@ -25,10 +26,11 @@
                 {{$event->content}}
             </p>
             <figure id="modal-open-img" class="event-detail__picture">
-                <img width="100%" src="{{asset('img/resources/event/'.$event->id.'/thumb')}}" alt="案件画像">
+                <img width="100%" src="{{asset('img/resources/event/'.$event->id.'/thumb')}}" alt="">
             </figure>
         </section>
         @if(Auth::user()->type=='officer')
+            @if($event->approval==0)
         <section class="event-detail__footer">
             <div class="c-btn-area__large">
                 <a href="{{route('events-review', $event->id)}}">
@@ -36,6 +38,7 @@
                 </a>
             </div>
         </section>
+            @endif
         @endif
     </div>
 </div>

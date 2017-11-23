@@ -172,6 +172,21 @@ class EventsController extends Controller
 
 		return view('events.add', ['event' => $Event, 'route' => $route, 'title' => $title, 'traders' => $Traders, 'users' => $Users]);
 	}
+	public function edit($id)
+	{
+		$route = ['title' => '案件一覧', 'url' => route('events-list')];
+		$title = "案件登録";
+
+		$Event = \App\Event::find($id);
+		// 業者・関係者取得
+		$Event = $Event->suppliersName($Event);
+		$Event = $Event->partiesName($Event);
+		// 業者選択用
+		$Traders = \App\Trader::all();
+		$Users = \App\User::all();
+
+		return view('events.edit', ['event' => $Event, 'route' => $route, 'title' => $title, 'traders' => $Traders, 'users' => $Users]);
+	}
 	public function postAdd(Request $request)
 	{
 		$error_rules = [
@@ -217,6 +232,8 @@ class EventsController extends Controller
 		$Event->parties = $request->input('parties');
 		$Event->approval = 0;
 		$Event->apartment_id = session('apartment_id');
+		// 作成者IDを保持
+		$Event->etc = Auth::id();
 
 		if($Event->save())
 		{
@@ -227,6 +244,74 @@ class EventsController extends Controller
 				$thumb->fit(240,240);
 //				$dir = asset('img/resources/event/'.$Event->id);
 				$dir = '/home/vagrant/ebihaze/public/img/resources/event/'.$Event->id;
+				$dir = public_path('img/resources/event/'.$Event->id);
+				if(!is_dir($dir))
+				{
+//					mkdir($dir, 0777);
+					exec('mkdir -p '.$dir);
+					exec('chmod -R 777 img/resources');
+//					exec('install -d -m=777 '.$dir);
+				}
+				$thumb->save($dir.'/thumb');
+//				$thumb->save(asset('img/resources/event/'.$Event->id.'/thumb.'.$thumb->getClientOriginalExtension()));
+			}
+			return redirect()->route('events-list');
+		}
+		else
+		{
+			//TODO::throw404
+		}
+	}
+	public function postEdit(Request $request)
+	{
+		$error_rules = [
+			'formats' => [
+				'title' => 'required',
+				'schedule.Ymd' => 'required|date_format:Y/m/d',
+				'schedule.Hi' => 'required|date_format:H:i',
+				'schedule_end.Ymd' => 'required|date_format:Y/m/d',
+				'schedule_end.Hi' => 'required|date_format:H:i',
+				'category' => 'in:'.implode(',', array_keys(\App\Event::$category)),
+				'subcategory' => 'in:'.implode(',', array_collapse(\App\Event::$category)),
+				'event_thumb' => 'image'
+			],
+			'messages' => [
+				'title.required' => 'タイトルを入力して下さい',
+				'schedule.Ymd.required'  => '開始施工日時：日付を入力して下さい',
+				'schedule.Ymd.date_format'  => '開始施工日時：日付の形式が正しくありません',
+				'schedule.Hi.required'  => '開始施工日時：時間を入力して下さい',
+				'schedule.Hi.date_format'  => '開始施工日時：時間の形式が正しくありません',
+				'schedule_end.Ymd.required'  => '終了施工日時：日付を入力して下さい',
+				'schedule_end.Ymd.date_format'  => '終了施工日時：日付の形式が正しくありません',
+				'schedule_end.Hi.required'  => '終了施工日時：時間を入力して下さい',
+				'schedule_end.Hi.date_format'  => '終了施工日時：時間の形式が正しくありません',
+				'category.in'  => '種類１はいずれかをお選び下さい',
+				'subcategory.in'  => '種類２はいずれかをお選び下さい',
+				'event_thumb.image' => '画像登録は画像のみとなります'
+			]
+		];
+
+		$Event = \App\Event::find($request->input('event_id'));
+		$schedule = $request->input('schedule.Ymd').' '.$request->input('schedule.Hi');
+		$schedule_end = $request->input('schedule_end.Ymd').' '.$request->input('schedule_end.Hi');
+		// Validate
+		$request->validate($error_rules['formats'], $error_rules['messages']);
+		$Event->title = $request->input('title');
+		$Event->category = $request->input('category');
+		$Event->subcategory = $request->input('subcategory');
+		$Event->schedule = $schedule;
+		$Event->schedule_end = $schedule_end;
+		$Event->content = $request->input('content');
+		$Event->suppliers = $request->input('suppliers');
+		$Event->parties = $request->input('parties');
+
+		if($Event->save())
+		{
+			if ($request->hasFile('event_thumb'))
+			{
+				$thumb = $request->file('event_thumb');
+				$thumb = Img::make($thumb);
+				$thumb->fit(240,240);
 				$dir = public_path('img/resources/event/'.$Event->id);
 				if(!is_dir($dir))
 				{
