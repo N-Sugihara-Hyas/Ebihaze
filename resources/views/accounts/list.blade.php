@@ -3,20 +3,20 @@
 @section('content')
 <div class="container hidden">
     <ul class="accounts-list accounts-nav">
-        <li class="accounts-nav__item accounts-nav__item--active tab" data-id="1">口座１</li>
-        <li class="accounts-nav__item accounts-nav__item--inactive tab" data-id="2">口座２</li>
-        <li class="accounts-nav__item accounts-nav__item--inactive tab" data-id="3">口座３</li>
+        <li class="accounts-nav__item accounts-nav__item--active tab" data-id="1">修繕積立金</li>
+        <li class="accounts-nav__item accounts-nav__item--inactive tab" data-id="2">管理費</li>
+        <li class="accounts-nav__item accounts-nav__item--inactive tab" data-id="3">その他</li>
     </ul>
     <section class="accounts-total" data-id="account1">
-        <p class="accounts-item-amount">資産</p>
+        <p class="accounts-item-amount">残高</p>
         <p class="accounts-item-price">¥{{number_format($accounts[0]->total)}}</p>
     </section>
     <section class="accounts-total" data-id="account2">
-        <p class="accounts-item-amount">資産</p>
+        <p class="accounts-item-amount">残高</p>
         <p class="accounts-item-price">¥{{number_format($accounts[1]->total)}}</p>
     </section>
     <section class="accounts-total" data-id="account3">
-        <p class="accounts-item-amount">資産</p>
+        <p class="accounts-item-amount">残高</p>
         <p class="accounts-item-price">¥{{number_format($accounts[2]->total)}}</p>
     </section>
     <h2 class="accounts-history">残高履歴</h2>

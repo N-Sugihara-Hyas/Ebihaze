@@ -1,5 +1,5 @@
 @font-normal: 14px;  @font-middle: 17px; @font-large: 18px;
-@cream: #FFF9EB; @darkgrey:#818181; @bordergrey:#686868;
+@cream: #FFF9EB; @darkgrey:#818181; @bordergrey:#686868; @lightgrey:#bcbcbc;
 @blue-grey: #004B6D; @light-blue:#2377D9; @orange:#FFB100; @red-orange:#FF5800; @dark-blue:#004C6E; @pale-blue:#004C6E; @sky-blue:#00AFFF; @pale-yellow:#FCC979;
 @red: #D81921; @pink: #FF4081;
 @sunday-red: #FF3636; @saturday-blue: #0099FF;
@@ -29,6 +29,12 @@ a:hover,a:focus{
 }
 input[type="file"]{
   display: none;
+}
+// PlaceHolder 消去
+input:focus::-webkit-input-placeholder,
+isindex:focus::-webkit-input-placeholder,
+textarea:focus::-webkit-input-placeholder {
+  color: transparent !important;
 }
 img{
   max-width:100%;
@@ -322,16 +328,42 @@ nav.navbar {
 
 .event-form{
   //width: 320px;
-  width: 100%;
-  height: 30px;
-  display: table;
-  border-bottom: 1px solid @blue-grey;
-  .event-form__title{
-    display: table-cell;
-    vertical-align: middle;
+  //width: 100%;
+  //height: 30px;
+  //display: table;
+  //border-bottom: 1px solid @blue-grey;
+  dl{
+
   }
+  dt{
+
+  }
+  dd{
+    //width: 270px;
+    border-bottom: 1px solid #818181;
+    margin-left: 30px;
+    padding: 5px 10px;
+  }
+  dd input:not([type=checkbox]):not([type=radio]){
+    //width:270px;
+    background: transparent;
+    border: none;
+  }
+  dd input::-webkit-input-placeholder{
+    color: @lightgrey;
+  }
+  dd input:-ms-input-placeholder{
+    color: @lightgrey;
+  }
+  dd input::-moz-placeholder{
+    color: @lightgrey;
+  }
+  //.event-form__title{
+  //  display: table-cell;
+  //  vertical-align: middle;
+  //}
   .event-form__input{
-    display: table-cell;
+    //display: table-cell;
     input{
       width: 100%;
       background-color: transparent;
@@ -841,7 +873,7 @@ nav.navbar {
 }
 .accounts-item-amount{
   color:@dark-blue;
-  font-size: 65%;
+  //font-size: 65%;
 }
 .accounts-item-price{
   font-size: 27px;
@@ -862,7 +894,7 @@ nav.navbar {
     float: left;
   }
   .accounts-item-status{
-    width:90px;
+    width:55%;
     font-size: smaller;
     line-height: 40px;
     float: left;

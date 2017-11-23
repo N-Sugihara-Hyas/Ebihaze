@@ -17,7 +17,6 @@
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1/i18n/jquery.ui.datepicker-ja.min.js"></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    {{--<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1/themes/redmond/jquery-ui.css" >--}}
 </head>
 <body>
   <div id="app">
@@ -177,9 +176,8 @@
                   </dl>
                   <dl class="event-form">
                       <dt class="event-form__title">
-                          <button style="width:auto;" class="c-btn c-btn--xsmall c-btn--skyblue" id="modal-open-traders">業者選択</button>
-                          <br>
                           業者&nbsp;
+                          <button style="width:auto;" class="c-btn c-btn--xsmall c-btn--skyblue" id="modal-open-traders">業者選択</button>
                       </dt>
                       <dd class="event-form__input">
                           <p class="suppliers_name" style="min-height: 24px;">{{old('suppliers_name')}}</p>
@@ -198,9 +196,8 @@
                   </dl>
                   <dl class="event-form">
                       <dt class="event-form__title">
+                          関係者&nbsp;
                           <button style="width:auto;" class="c-btn c-btn--xsmall c-btn--skyblue" id="modal-open-users">関係者選択</button>
-                          <br>
-                          関係者
                       </dt>
                       <dd class="event-form__input">
                           <p class="parties" style="min-height: 24px;">{{old('parties_name')}}</p>
@@ -291,7 +288,12 @@
                                 <img src="{{asset('img/nav_menu.png')}}" alt="ナビメニュー"><br>メニュー
                             </li>
                         </a>
-                        @if(Auth::user()->type=='officer')
+                        <a class="navbar-footer__tab navbar-footer--list" href="{{route('events-list')}}">
+                            <li>
+                                <img src="" alt="(画像アイコン)"><br>案件一覧
+                            </li>
+                        </a>
+                        @if(Auth::user()->type=='officer'||Auth::user()->type=='app')
                         <a class="navbar-footer__tab navbar-footer--join" href="{{route('apartments-rank')}}">
                             <li>
                                 <img src="{{asset('img/nav_rank.png')}}" alt="ナビランク"><br>ランク

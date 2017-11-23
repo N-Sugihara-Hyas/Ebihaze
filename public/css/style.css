@@ -25,6 +25,11 @@ a:focus {
 input[type="file"] {
   display: none;
 }
+input:focus::-webkit-input-placeholder,
+isindex:focus::-webkit-input-placeholder,
+textarea:focus::-webkit-input-placeholder {
+  color: transparent !important;
+}
 img {
   max-width: 100%;
 }
@@ -287,18 +292,23 @@ nav.navbar {
   font-size: smaller;
   text-align: right;
 }
-.event-form {
-  width: 100%;
-  height: 30px;
-  display: table;
-  border-bottom: 1px solid #004B6D;
+.event-form dd {
+  border-bottom: 1px solid #818181;
+  margin-left: 30px;
+  padding: 5px 10px;
 }
-.event-form .event-form__title {
-  display: table-cell;
-  vertical-align: middle;
+.event-form dd input:not([type=checkbox]):not([type=radio]) {
+  background: transparent;
+  border: none;
 }
-.event-form .event-form__input {
-  display: table-cell;
+.event-form dd input::-webkit-input-placeholder {
+  color: #bcbcbc;
+}
+.event-form dd input:-ms-input-placeholder {
+  color: #bcbcbc;
+}
+.event-form dd input::-moz-placeholder {
+  color: #bcbcbc;
 }
 .event-form .event-form__input input {
   width: 100%;
@@ -758,7 +768,6 @@ nav.navbar {
 }
 .accounts-item-amount {
   color: #004C6E;
-  font-size: 65%;
 }
 .accounts-item-price {
   font-size: 27px;
@@ -780,7 +789,7 @@ nav.navbar {
   float: left;
 }
 .accounts-list__item .accounts-item-status {
-  width: 90px;
+  width: 55%;
   font-size: smaller;
   line-height: 40px;
   float: left;
