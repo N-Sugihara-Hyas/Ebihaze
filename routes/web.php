@@ -40,6 +40,8 @@ Route::get('/events/join', 'EventsController@join')->name('events-join')->middle
 Route::get('/events/watch', 'EventsController@watch')->name('events-watch')->middleware('auth');
 Route::get('/events/add', 'EventsController@add')->name('events-add')->middleware('auth');
 Route::post('/events/add', 'EventsController@postAdd')->name('post.events-add')->middleware('auth');
+Route::get('/events/edit/{event}', 'EventsController@edit')->name('events-edit')->middleware('auth');
+Route::post('/events/edit', 'EventsController@postEdit')->name('post.events-edit')->middleware('auth');
 Route::get('/events/search', 'EventsController@search')->name('events-search')->middleware('auth');
 Route::get('/events/detail/{event}', 'EventsController@detail')->name('events-detail')->middleware('auth');
 Route::get('/events/message/{event}', 'EventsController@message')->name('events-message')->middleware('auth');

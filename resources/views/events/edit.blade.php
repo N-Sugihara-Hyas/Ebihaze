@@ -79,14 +79,15 @@
             </ul>
         </div>
     @endif
-    <form method="post" action="{{route('post.events-add')}}" enctype="multipart/form-data">
+    <form method="post" action="{{route('post.events-edit')}}" enctype="multipart/form-data">
     {{ csrf_field() }}
+        <input type="hidden" name="event_id" value="{{$event->id}}">
         <dl class="event-form">
             <dt class="event-form__title">
                 タイトル
             </dt>
             <dd class="event-form__input">
-                <input type="text" name="title" value="{{old('title')}}" placeholder="案件タイトル">
+                <input type="text" name="title" value="{{$event->title}}" placeholder="案件タイトル">
             </dd>
         </dl>
         <dl class="event-form">
@@ -95,18 +96,13 @@
             </dt>
             <dd class="event-form__input">
                 <div style="display:inline-block;padding-left: 5px;width:60%;">
-                    <small>日時：</small><br><input style="margin-left: 1em;width:75%;" type="text" name="schedule[Ymd]" id="datepicker1" value="{{old('schedule.Ymd')}}" placeholder="選択ください">
+                    <small>日時：</small><br><input style="margin-left: 1em;width:75%;" type="text" name="schedule[Ymd]" id="datepicker1" value="{{date('Y/m/d', strtotime($event->schedule))}}" placeholder="選択ください">
                 </div>
                 <div style="display:inline-block;width:35%;">
                     <small>時間：</small><br><select name="schedule[Hi]" id="datepicker">
                         @foreach(range(0, 23) as $hour)
-                            @if(empty(old('schedule.Hi')) && $hour==12)
-                            <option value="{{sprintf("%02d", $hour)}}:00" selected>{{sprintf("%02d", $hour)}}:00</option>
-                            <option value="{{sprintf("%02d", $hour)}}:30">{{sprintf("%02d", $hour)}}:30</option>
-                            @else
-                            <option value="{{sprintf("%02d", $hour)}}:00" {{(old('schedule.Hi') == sprintf("%02d", $hour).":00") ? 'selected' : ''}}>{{sprintf("%02d", $hour)}}:00</option>
-                            <option value="{{sprintf("%02d", $hour)}}:30" {{(old('schedule.Hi') == sprintf("%02d", $hour).":30") ? 'selected' : ''}}>{{sprintf("%02d", $hour)}}:30</option>
-                            @endif
+                            <option value="{{sprintf("%02d", $hour)}}:00" {{(date('H:i', strtotime($event->schedule)) == sprintf("%02d", $hour).":00") ? 'selected' : ''}}>{{sprintf("%02d", $hour)}}:00</option>
+                            <option value="{{sprintf("%02d", $hour)}}:30" {{(date('H:i', strtotime($event->schedule)) == sprintf("%02d", $hour).":30") ? 'selected' : ''}}>{{sprintf("%02d", $hour)}}:30</option>
                         @endforeach
                     </select>
                 </div>
@@ -118,18 +114,13 @@
             </dt>
             <dd class="event-form__input">
                 <div style="display:inline-block;padding-left: 5px;width:60%;">
-                    <small>日時：</small><br><input style="margin-left: 1em;width:75%;" type="text" name="schedule_end[Ymd]" id="datepicker2" value="{{old('schedule_end.Ymd')}}" placeholder="選択ください">
+                    <small>日時：</small><br><input style="margin-left: 1em;width:75%;" type="text" name="schedule_end[Ymd]" id="datepicker2" value="{{date('Y/m/d', strtotime($event->schedule_end))}}" placeholder="選択ください">
                 </div>
                 <div style="display:inline-block;width:35%;">
                     <small>時間：</small><br><select name="schedule_end[Hi]" id="datepicker">
                         @foreach(range(0, 23) as $hour)
-                            @if(empty(old('schedule_end.Hi')) && $hour==12)
-                            <option value="{{sprintf("%02d", $hour)}}:00" selected>{{sprintf("%02d", $hour)}}:00</option>
-                            <option value="{{sprintf("%02d", $hour)}}:30">{{sprintf("%02d", $hour)}}:30</option>
-                            @else
-                            <option value="{{sprintf("%02d", $hour)}}:00" {{(old('schedule_end.Hi') == sprintf("%02d", $hour).":00") ? 'selected' : ''}}>{{sprintf("%02d", $hour)}}:00</option>
-                            <option value="{{sprintf("%02d", $hour)}}:30" {{(old('schedule_end.Hi') == sprintf("%02d", $hour).":30") ? 'selected' : ''}}>{{sprintf("%02d", $hour)}}:30</option>
-                            @endif
+                            <option value="{{sprintf("%02d", $hour)}}:00" {{(date('H:i', strtotime($event->schedule_end)) == sprintf("%02d", $hour).":00") ? 'selected' : ''}}>{{sprintf("%02d", $hour)}}:00</option>
+                            <option value="{{sprintf("%02d", $hour)}}:30" {{(date('H:i', strtotime($event->schedule_end)) == sprintf("%02d", $hour).":30") ? 'selected' : ''}}>{{sprintf("%02d", $hour)}}:30</option>
                         @endforeach
                     </select>
                 </div>
@@ -142,7 +133,7 @@
             <dd class="event-form__input">
                 <select name="category" id="category">
                     @foreach($main_category = array_keys($event::$category) as $cate)
-                        <option value="{{$cate}}" {{(old('category')==$cate) ? 'selected' : ''}}>{{$cate}}</option>
+                        <option value="{{$cate}}" {{($event->category == $cate) ? 'selected' : ''}}>{{$cate}}</option>
                     @endforeach
                 </select>
             </dd>
@@ -152,9 +143,9 @@
                 種類２
             </dt>
             <dd class="event-form__input">
-                <select name="subcategory" id="subcategory">
+                <select name="subcategory" id="subcategory" data-selected="{{$event->subcategory}}">
                     @foreach($event::$category[$main_category[0]] as $subcate)
-                        <option value="{{$subcate}}" {{(old('subcategory')==$subcate) ? 'selected' : ''}}>{{$subcate}}</option>
+                        <option value="{{$subcate}}" {{($event->subcategory == $subcate) ? 'selected' : ''}}>{{$subcate}}</option>
                     @endforeach
                 </select>
             </dd>
@@ -165,10 +156,10 @@
                 <button style="width:auto;" class="c-btn c-btn--xsmall c-btn--skyblue" id="modal-open-traders">業者選択</button>
             </dt>
             <dd class="event-form__input">
-                <p class="suppliers_name" style="min-height: 24px;">{{old('suppliers_name')}}</p>
+                <p class="suppliers_name" style="min-height: 24px;">{{$event->suppliers_name}}</p>
                 {{--<input type="text" name="suppliers_name" value="{{old('suppliers_name')}}">--}}
-                <input class="suppliers" type="hidden" name="suppliers" value="{{old('suppliers')}}">
-                <input class="suppliers_name" type="hidden" name="suppliers_name" value="{{old('suppliers_name')}}">
+                <input class="suppliers" type="hidden" name="suppliers" value="{{$event->suppliers}}">
+                <input class="suppliers_name" type="hidden" name="suppliers_name" value="{{$event->suppliers_name}}">
             </dd>
         </dl>
         <dl class="event-form">
@@ -176,7 +167,7 @@
                 内容
             </dt>
             <dd class="event-form__input">
-                <input type="text" name="content" value="{{old('content')}}" placeholder="案件内容を記入ください">
+                <input type="text" name="content" value="{{ $event->content }}" placeholder="案件内容を記入ください">
             </dd>
         </dl>
         <dl class="event-form">
@@ -185,19 +176,22 @@
                 <button style="width:auto;" class="c-btn c-btn--xsmall c-btn--skyblue" id="modal-open-users">関係者選択</button>
             </dt>
             <dd class="event-form__input">
-                <p class="parties" style="min-height: 24px;">{{old('parties_name')}}</p>
-                <input type="hidden" name="parties_name" value="{{old('parties_name')}}">
-                <input class="parties" type="hidden" name="parties" value="{{old('parties')}}">
+                <p class="parties" style="min-height: 24px;">{{$event->parties_name}}</p>
+                <input type="hidden" name="parties_name" value="{{$event->parties_name}}">
+                <input class="parties" type="hidden" name="parties" value="{{$event->parties}}">
             </dd>
         </dl>
 
         <section class="c-btn-area">
             <div class="c-btn-area__large">
+                <figure>
+                    <img src="{{ asset('img/resources/event/'.$event->id.'/thumb') }}" alt="">
+                </figure>
                 <button class="c-btn c-btn--large c-btn--blue action" data-method="file">画像登録</button>
                 <input type="file" name="event_thumb">
             </div>
             <div class="c-btn-area__small">
-                <button class="c-btn c-btn--small c-btn--white action" data-method="link" data-href="{{route('events-list')}}">キャンセル</button>
+                <button class="c-btn c-btn--small c-btn--white action" data-method="link" data-href="{{route('events-detail', $event->id)}}">キャンセル</button>
                 <button class="c-btn c-btn--small c-btn--blue action" data-method="post">登録</button>
             </div>
         </section>
@@ -216,16 +210,19 @@
             'その他' : ['その他']
         };
         $(function(){
+            var subval = $('#subcategory').data('selected');
             $('#category').on('change', function(){
                 cate = $('#category').val();
                 subcate = category[cate];
                 $('#subcategory').empty();
                 $.each(subcate, function(){
+                    var selected = (this==subval) ? 'selected' : '';
                     $('#subcategory').append(
-                            '<option value="'+this+'">'+this+'</option>'
+                            '<option value="'+this+'" '+selected+'>'+this+'</option>'
                     );
                 });
             });
+            $('#category').trigger('change');
         });
     </script>
 @endsection
