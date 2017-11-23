@@ -4,7 +4,7 @@
 <div class="container">
     <div id="modal-content-img">
         <figure>
-            <img width="100%" src="{{asset('img/resources/event/'.$event->id.'/thumb')}}" alt="案件画像">
+            <img width="100%" src="{{asset('img/resources/event/'.$event->id.'/thumb')}}" alt="">
         </figure>
     </div>
     <div class="event-review">

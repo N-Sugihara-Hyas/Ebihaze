@@ -1166,8 +1166,9 @@ nav.navbar {
 }
 .c-favstar-container {
   position: absolute;
-  top: 18px;
+  top: 15px;
   right: 10%;
+  text-align: center;
 }
 .c-fabstar-item {
   font-size: 18px;
