@@ -92,11 +92,18 @@
                                 <img src="{{asset('img/nav_menu.png')}}" alt="ナビメニュー"><br>メニュー
                             </li>
                         </a>
+                        <a class="navbar-footer__tab navbar-footer--list" href="{{route('events-list')}}">
+                            <li>
+                                <img src="" alt="(画像アイコン)"><br>案件一覧
+                            </li>
+                        </a>
+                        @if(Auth::user()->type=='officer'||Auth::user()->type=='app')
                         <a class="navbar-footer__tab navbar-footer--join" href="{{route('apartments-rank')}}">
                             <li>
                                 <img src="{{asset('img/nav_rank.png')}}" alt="ナビランク"><br>ランク
                             </li>
                         </a>
+                        @endif
                         <a class="navbar-footer__tab navbar-footer--watch" href="{{route('flyers-list')}}">
                             <li>
                                 <img src="{{asset('img/nav_flyer.png')}}" alt="ナビチラシ"><br>チラシ

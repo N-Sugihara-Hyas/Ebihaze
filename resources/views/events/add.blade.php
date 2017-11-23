@@ -86,16 +86,16 @@
                 タイトル
             </dt>
             <dd class="event-form__input">
-                <input type="text" name="title" value="{{old('title')}}">
+                <input type="text" name="title" value="{{old('title')}}" placeholder="案件タイトル">
             </dd>
         </dl>
         <dl class="event-form">
             <dt class="event-form__title">
-                開始<br>施工日時
+                開始施工日時
             </dt>
             <dd class="event-form__input">
                 <div style="display:inline-block;padding-left: 5px;width:60%;">
-                    <small>日時：</small><br><input style="margin-left: 1em;width:75%;" type="text" name="schedule[Ymd]" id="datepicker1" value="{{old('schedule.Ymd')}}">
+                    <small>日時：</small><br><input style="margin-left: 1em;width:75%;" type="text" name="schedule[Ymd]" id="datepicker1" value="{{old('schedule.Ymd')}}" placeholder="選択ください">
                 </div>
                 <div style="display:inline-block;width:35%;">
                     <small>時間：</small><br><select name="schedule[Hi]" id="datepicker">
@@ -114,11 +114,11 @@
         </dl>
         <dl class="event-form">
             <dt class="event-form__title">
-                終了<br>施工日時
+                終了施工日時
             </dt>
             <dd class="event-form__input">
                 <div style="display:inline-block;padding-left: 5px;width:60%;">
-                    <small>日時：</small><br><input style="margin-left: 1em;width:75%;" type="text" name="schedule_end[Ymd]" id="datepicker2" value="{{old('schedule_end.Ymd')}}">
+                    <small>日時：</small><br><input style="margin-left: 1em;width:75%;" type="text" name="schedule_end[Ymd]" id="datepicker2" value="{{old('schedule_end.Ymd')}}" placeholder="選択ください">
                 </div>
                 <div style="display:inline-block;width:35%;">
                     <small>時間：</small><br><select name="schedule_end[Hi]" id="datepicker">
@@ -161,9 +161,8 @@
         </dl>
         <dl class="event-form">
             <dt class="event-form__title">
-                <button style="width:auto;" class="c-btn c-btn--xsmall c-btn--skyblue" id="modal-open-traders">業者選択</button>
-                <br>
                 業者&nbsp;
+                <button style="width:auto;" class="c-btn c-btn--xsmall c-btn--skyblue" id="modal-open-traders">業者選択</button>
             </dt>
             <dd class="event-form__input">
                 <p class="suppliers_name" style="min-height: 24px;">{{old('suppliers_name')}}</p>
@@ -177,14 +176,13 @@
                 内容
             </dt>
             <dd class="event-form__input">
-                <input type="text" name="content" value="{{old('content')}}">
+                <input type="text" name="content" value="{{old('content')}}" placeholder="案件内容を記入ください">
             </dd>
         </dl>
         <dl class="event-form">
             <dt class="event-form__title">
+                関係者&nbsp;
                 <button style="width:auto;" class="c-btn c-btn--xsmall c-btn--skyblue" id="modal-open-users">関係者選択</button>
-                <br>
-                関係者
             </dt>
             <dd class="event-form__input">
                 <p class="parties" style="min-height: 24px;">{{old('parties_name')}}</p>
@@ -241,7 +239,7 @@
 <script>
     $(function() {
         // イベント登録
-        $("#modal-open-traders").click(function (t) {
+        $("#modal-open-traders, p.suppliers_name").click(function (t) {
             t.preventDefault();
             $(this).blur(); //ボタンからフォーカスを外す
             if ($("#modal-overlay")[0]) return false; //新しくモーダルウィンドウを起動しない
@@ -285,7 +283,7 @@
             $('#modal-close-traders').trigger('click');
         });
         // 関係者選択
-        $("#modal-open-users").click(function (t) {
+        $("#modal-open-users, p.parties").click(function (t) {
             t.preventDefault();
             $(this).blur(); //ボタンからフォーカスを外す
             if ($("#modal-overlay")[0]) return false; //新しくモーダルウィンドウを起動しない
