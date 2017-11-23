@@ -24,41 +24,51 @@
                 <th><span class="c-star-cell">{{($apartment->rank < 4) ? '☆' : '★'}}</span></th>
                 <th><span class="c-star-cell">{{($apartment->rank < 5) ? '☆' : '★'}}</span></th>
             </tr>
-            <tr>
-                <td>不満</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>満足</td>
-            </tr>
+            {{--<tr>--}}
+                {{--<td>不満</td>--}}
+                {{--<td></td>--}}
+                {{--<td></td>--}}
+                {{--<td></td>--}}
+                {{--<td>満足</td>--}}
+            {{--</tr>--}}
         </table>
         <h2 class="apartments-detail__title">{{$apartment->name}}</h2>
         <section class="apartments-detail__body">
-            <dl class="apartments-detail__content">
-                <dt class="apartments-detail__address"></dt>
-                <dd class="apartments-detail__address">{{$apartment->address}}</dd>
-            </dl>
-            <dl class="apartments-detail__content">
-                <dt class="apartments-detail__address">竣工</dt>
-                <dd class="apartments-detail__address">{{$apartment->completion_date}}</dd>
-            </dl>
-            <dl class="apartments-detail__content">
-                <dt class="apartments-detail__address">管理形態</dt>
-                <dd class="apartments-detail__address">{{$apartment->control}}</dd>
-            </dl>
-            <dl class="apartments-detail__content">
-                <dt class="apartments-detail__address">構造</dt>
-                <dd class="apartments-detail__address">{{$apartment->construction}}</dd>
-            </dl>
-            <dl class="apartments-detail__content">
-                <dt class="apartments-detail__address">総戸数</dt>
-                <dd class="apartments-detail__address">{{$apartment->total_units}}</dd>
-            </dl>
-            <dl class="apartments-detail__content">
-                <dt class="apartments-detail__content"></dt>
-                <dd class="apartments-detail__content">{{$apartment->introduction}}</dd>
-            </dl>
-        </section>
+                <dl class="apartments-detail__content">
+                    <dt class="apartments-detail__address"></dt>
+                    <dd class="apartments-detail__address">{{$apartment->address}}</dd>
+                </dl>
+                <dl class="apartments-detail__content">
+                    <dt class="apartments-detail__address">竣工</dt>
+                    <dd class="apartments-detail__address">{{$apartment->completion_date}}</dd>
+                </dl>
+                <dl class="apartments-detail__content">
+                    <dt class="apartments-detail__address">管理形態</dt>
+                    <dd class="apartments-detail__address">{{$apartment->control}}</dd>
+                </dl>
+                <dl class="apartments-detail__content">
+                    <dt class="apartments-detail__address">構造</dt>
+                    <dd class="apartments-detail__address">{{$apartment->construction}}</dd>
+                </dl>
+                <dl class="apartments-detail__content">
+                    <dt class="apartments-detail__address">総戸数</dt>
+                    <dd class="apartments-detail__address">{{$apartment->total_units}}</dd>
+                </dl>
+                @if(Auth::user()->owned=='owner')
+                <dl class="apartments-detail__content">
+                    <dt class="apartments-detail__content">付帯設備</dt>
+                    <dd class="apartments-detail__content">{{implode(',', unserialize($apartment->facilities))}}</dd>
+                </dl>
+                <dl class="apartments-detail__content">
+                    <dt class="apartments-detail__content">保険情報</dt>
+                    <dd class="apartments-detail__content"></dd>
+                </dl>
+                @endif
+                <dl class="apartments-detail__content">
+                    <dt class="apartments-detail__content"></dt>
+                    <dd class="apartments-detail__content">{{$apartment->introduction}}</dd>
+                </dl>
+            </section>
     </div>
 </div>
 @endsection
