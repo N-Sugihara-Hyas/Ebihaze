@@ -16,7 +16,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 </head>
 <body>
-    <form action="{{route('post.comments')}}" method="post">
+    <form action="{{route('post.comments')}}" method="post" enctype="multipart/form-data">
     <div id="app">
         <nav class="navbar navbar-default navbar-static-top globalheaderbar">
             <div class="container globalheaderbar-container">
@@ -78,7 +78,11 @@
             @yield('content')
         </div>
             <div class="c-comments_submit_container">
-                <input type="text" class="c-comments_submit_text" name="body">
+                <div class="c-btn-area__xsmall">
+                    <button style="margin:0;" class="c-btn c-btn--blue action" data-method="file-comment">＋</button>
+                    <input type="file" name="comment_image">
+                </div>
+                <input type="text" class="c-comments_submit_text" name="body" id="required">
                 <figure class="c-comments_submit_btn action" data-method="post">
                     <img src="{{asset('img/up_arrow_bubble.png')}}" alt="送信ボタン">
                 </figure>
