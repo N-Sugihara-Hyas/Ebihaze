@@ -13,7 +13,9 @@ class CreateEventsTable extends Migration
      */
     public function up()
     {
-w            $table->increments('id');
+	    Schema::create('events', function (Blueprint $table) {
+
+		    $table->increments('id');
 
 	        $table->string('title')->nullable()->comment('案件名');
 	        $table->string('category')->comment('案件種類[管理業務, イベント, 会議, 共有、その他]');

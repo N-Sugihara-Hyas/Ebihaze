@@ -84,8 +84,15 @@ class UsersController extends Controller
 		$title = 'ユーザー登録';
 
 		$User = \App\User::find($id);
+		// suggest表示用
+		$Apartment = \App\Apartment::all();
+		foreach ($Apartment as $apart)
+		{
+			$names[] = "'".$apart->name."'";
+		}
 		// セレクト項目表示用
 		$Apartment = new \App\Apartment;
+		$Apartment->names = implode(',', $names);
 		switch ($User->type){
 			case 'officer':
 				return view('users.add_officer', ['user' => $User, 'apartment' => $Apartment, 'title' => $title]);
@@ -105,7 +112,6 @@ class UsersController extends Controller
 	public function postAdd(Request $request)
 	{
 		$type = $request->input('user.type');
-		$owned = array_keys(\App\User::$owned);
 		switch ($type)
 		{
 			case 'officer':
@@ -181,10 +187,21 @@ class UsersController extends Controller
 		}
 		$request->validate($error_rules['formats'], $error_rules['messages']);
 		$all = $request->all();
+		// 竣工年月
+		$all['apartment']['completion_date'] = $all['apartment']['completion_date--year'].$all['apartment']['completion_date--month'];
+		unset($all['apartment']['completion_date--year']);
+		unset($all['apartment']['completion_date--month']);
+		// 間取り
+		$all['room']['floor_plan'] = $all['room']['floor_plan--num'].$all['room']['floor_plan--type'];
+		unset($all['room']['floor_plan--num']);
+		unset($all['room']['floor_plan--type']);
 		$User = \App\User::find($all['user']['id']);
-		$Apartment = new \App\Apartment;
+		// 更新か上書きかを名前と住所で判断
+		$Apartment = \App\Apartment::where('name', 'LIKE', $all['apartment']['name'])->where('address', 'LIKE', $all['apartment']['address'])->first();
+		$Apartment = ($Apartment) ? $Apartment : new \App\Apartment;
 		$Building = new \App\Building;
 		$Room = new \App\Room;
+
 		foreach($all as $model => $attributes)
 		{
 			switch ($model){
@@ -253,6 +270,21 @@ class UsersController extends Controller
 		$User->building_id = $Building->id;
 		$User->room_id = $Room->id;
 		$User->save();
+		// 保険登録
+		$insurances = $request->input('insurance');
+		foreach($insurances as $num => $ins)
+		{
+			if(!empty($ins['name']) && !empty($ins['expired']))
+			{
+				$Insurance = \App\Insurance::where('sort_id', $num)->where('apartment_id', $Apartment->id)->first();
+				$Insurance = ($Insurance) ? $Insurance : new \App\Insurance;
+				$Insurance->name = $ins['name'];
+				$Insurance->expired = $ins['expired'];
+				$Insurance->apartment_id = $Apartment->id;
+				$Insurance->sort_id = $num;
+				$Insurance->save();
+			}
+		}
 		return redirect()->route('users-add-complete');
 	}
 

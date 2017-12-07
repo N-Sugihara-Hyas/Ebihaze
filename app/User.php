@@ -28,7 +28,8 @@ class User extends Authenticatable
     ];
 
 	static $job = ['自営業', '会社役員', '会社員', '公務員', 'パートアルバイト', 'その他'];
-	static $owned = ['owned' => 'オーナー', 'rent' => '借りている'];
+	static $owned = ['owner1' => 'オーナー（居住）', 'owner2' => 'オーナー（貸出）', 'rent' => '入居（賃借）'];
+	static $pet = ['犬' => '犬', '猫' => '猫', '小動物' => '小動物', '爬虫類' => '爬虫類', '鳥' => '鳥', 'その他' => 'その他'];
 	static $reside = ['residents' => '住民', 'rentout' => '貸している'];
 	static $type_display = ['officer' => '理事長', 'app' => 'アプリ'];
 
