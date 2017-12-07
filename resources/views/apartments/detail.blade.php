@@ -35,12 +35,12 @@
         <h2 class="apartments-detail__title">{{$apartment->name}}</h2>
         <section class="apartments-detail__body">
                 <dl class="apartments-detail__content">
-                    <dt class="apartments-detail__address"></dt>
+                    <dt class="apartments-detail__address">住所</dt>
                     <dd class="apartments-detail__address">{{$apartment->address}}</dd>
                 </dl>
                 <dl class="apartments-detail__content">
-                    <dt class="apartments-detail__address">竣工</dt>
-                    <dd class="apartments-detail__address">{{$apartment->completion_date}}</dd>
+                    <dt class="apartments-detail__address">コンタクト</dt>
+                    <dd class="apartments-detail__address">{{($apartment->contact==1) ? '可' : '不可'}}</dd>
                 </dl>
                 <dl class="apartments-detail__content">
                     <dt class="apartments-detail__address">管理形態</dt>
@@ -51,21 +51,29 @@
                     <dd class="apartments-detail__address">{{$apartment->construction}}</dd>
                 </dl>
                 <dl class="apartments-detail__content">
+                    <dt class="apartments-detail__address">竣工</dt>
+                    <dd class="apartments-detail__address">{{$apartment->completion_date}}</dd>
+                </dl>
+                <dl class="apartments-detail__content">
                     <dt class="apartments-detail__address">総戸数</dt>
                     <dd class="apartments-detail__address">{{$apartment->total_units}}</dd>
                 </dl>
-                @if(Auth::user()->owned=='owner')
+                <dl class="apartments-detail__content">
+                    <dt class="apartments-detail__address">ペット</dt>
+                    <dd class="apartments-detail__address">{{$apartment->total_units}}</dd>
+                </dl>
+                @if(Auth::user()->owned=='owner1' || Auth::user()->owned=='owner2')
                 <dl class="apartments-detail__content">
                     <dt class="apartments-detail__content">付帯設備</dt>
                     <dd class="apartments-detail__content">{{implode(',', unserialize($apartment->facilities))}}</dd>
                 </dl>
                 <dl class="apartments-detail__content">
                     <dt class="apartments-detail__content">保険情報</dt>
-                    <dd class="apartments-detail__content"></dd>
+                    <dd class="apartments-detail__content">{{$apartment->insurances_name}}</dd>
                 </dl>
                 @endif
                 <dl class="apartments-detail__content">
-                    <dt class="apartments-detail__content"></dt>
+                    <dt class="apartments-detail__content">マンション紹介</dt>
                     <dd class="apartments-detail__content">{{$apartment->introduction}}</dd>
                 </dl>
             </section>

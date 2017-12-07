@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image as Img;
@@ -85,11 +86,17 @@ class ApartmentsController extends Controller
 	}
 	public function detail($id)
 	{
-		$title = 'マンション詳細';
-		$route = ['url' => route('apartments-list'), 'title' => 'マンション一覧'];
+		$title = 'マンション一覧';
+		$route = ['url' => route('statics-menu'), 'title' => 'メニュー'];
 
 		$Apartment = \App\Apartment::find($id);
 		$Apartment->rank = $Apartment->ranks()->avg('rate');
+		$insurances_name = [];
+		foreach ($Apartment->insurances as $ins)
+		{
+			if($ins->name)$insurances_name[] = $ins->name;
+		}
+		$Apartment->insurances_name = implode(',', $insurances_name);
 		return view('apartments.detail', ['apartment' => $Apartment, 'route' => $route, 'title' => $title]);
 	}
 	public function edit($id)
@@ -99,7 +106,13 @@ class ApartmentsController extends Controller
 
 		$Apartment = \App\Apartment::find($id);
 		$Apartment->facilities = unserialize($Apartment->facilities);
-		$Apartment->insurance = unserialize($Apartment->insurance);
+//		$Apartment->insurance = unserialize($Apartment->insurance);
+		$Insurance = \App\Insurance::whereApartmentId($id)->get()->toArray();
+		$NewInsurance = ['name' => null, 'expired' => null];
+		$insurances = array_fill(1, 4, $NewInsurance);
+		$insurances = $Insurance + $insurances;
+		$Apartment->insurances_array = $insurances;
+
 		return view('apartments.edit', ['apartment' => $Apartment, 'route' => $route, 'title' => $title]);
 	}
 	public function postEdit(Request $request)
@@ -143,6 +156,21 @@ class ApartmentsController extends Controller
 				exec('chmod -R 777 img/resources');
 			}
 			$icon->save($dir.'/icon');
+		}
+		// 保険登録
+		$insurances = $request->input('insurance');
+		foreach($insurances as $num => $ins)
+		{
+//			if(!empty($ins['name']) && !empty($ins['expired']))
+//			{
+				$Insurance = \App\Insurance::where('sort_id', $num)->where('apartment_id', $Apartment->id)->first();
+				$Insurance = ($Insurance) ? $Insurance : new \App\Insurance;
+				$Insurance->name = $ins['name'];
+				$Insurance->expired = $ins['expired'];
+				$Insurance->apartment_id = $Apartment->id;
+				$Insurance->sort_id = $num;
+				$Insurance->save();
+//			}
 		}
 		return redirect()->route('apartments-detail', $apartment['id']);
 	}

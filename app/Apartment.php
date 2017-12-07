@@ -28,6 +28,6 @@ class Apartment extends Model
 	}
 	public function insurances()
 	{
-		return $this->hasMany('App\Insurance')->orderBy('schedule', 'asc');
+		return $this->hasMany('App\Insurance')->orderBy('expired', 'asc');
 	}
 }

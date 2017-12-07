@@ -274,8 +274,8 @@ class UsersController extends Controller
 		$insurances = $request->input('insurance');
 		foreach($insurances as $num => $ins)
 		{
-			if(!empty($ins['name']) && !empty($ins['expired']))
-			{
+//			if(!empty($ins['name']) && !empty($ins['expired']))
+//			{
 				$Insurance = \App\Insurance::where('sort_id', $num)->where('apartment_id', $Apartment->id)->first();
 				$Insurance = ($Insurance) ? $Insurance : new \App\Insurance;
 				$Insurance->name = $ins['name'];
@@ -283,7 +283,7 @@ class UsersController extends Controller
 				$Insurance->apartment_id = $Apartment->id;
 				$Insurance->sort_id = $num;
 				$Insurance->save();
-			}
+//			}
 		}
 		return redirect()->route('users-add-complete');
 	}
