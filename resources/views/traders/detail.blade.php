@@ -21,13 +21,13 @@
                 <th class="c-star-unit"><span class="c-start-cell">{{($trader->rank < 4) ? '☆' : '★'}}</span></th>
                 <th class="c-star-unit"><span class="c-start-cell">{{($trader->rank < 5) ? '☆' : '★'}}</span></th>
             </tr>
-            <tr>
-                <td>不満</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>満足</td>
-            </tr>
+            {{--<tr>--}}
+                {{--<td>不満</td>--}}
+                {{--<td></td>--}}
+                {{--<td></td>--}}
+                {{--<td></td>--}}
+                {{--<td>満足</td>--}}
+            {{--</tr>--}}
         </table>
         <h2 class="trader-detail__title">{{$trader->name}}</h2>
         <section class="trader-detail__body">
@@ -46,6 +46,10 @@
             <dl class="trader-detail__content">
                 <dt class="trader-detail__content">業務内容</dt>
                 <dd class="trader-detail__content">{{$trader->introduction}}</dd>
+            </dl>
+            <dl class="trader-detail__content">
+                <dt class="trader-detail__content">担当マンション</dt>
+                <dd class="trader-detail__content">{{$apartment_names}}</dd>
             </dl>
         </section>
     </div>

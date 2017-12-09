@@ -31,13 +31,39 @@
                     </div>
                 </li>
             </a>
-            @if(Auth::user()->type=='officer')
+        </ul>
+        <h2 class="menu-list__title">業者</h2>
+        <ul class="menu-list c-menu c-list">
+            <a href="{{route('traders-add')}}">
+                <li class="menu-list__item c-menu__item c-list__item">
+                    <div class="menu-item-container">
+                        <section class="menu-item-title">
+                            <p>
+                                業者登録
+                            </p>
+                        </section>
+                    </div>
+                </li>
+            </a>
+            @if(Auth::user()->membership==1)
             <a href="{{route('traders-list')}}">
                 <li class="menu-list__item c-menu__item c-list__item">
                     <div class="menu-item-container">
                         <section class="menu-item-title">
                             <p>
-                                業者一覧/登録
+                                業者ランキング
+                            </p>
+                        </section>
+                    </div>
+                </li>
+            </a>
+            @else
+            <a href="{{route('traders-list')}}">
+                <li class="menu-list__item c-menu__item c-list__item">
+                    <div class="menu-item-container">
+                        <section class="menu-item-title">
+                            <p>
+                                業者一覧
                             </p>
                         </section>
                     </div>

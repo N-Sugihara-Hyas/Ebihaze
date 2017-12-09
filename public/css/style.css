@@ -431,6 +431,31 @@ nav.navbar {
   clear: both;
   overflow: hidden;
 }
+.trader-item-container .trader-item-num {
+  float: left;
+  padding-top: 5px;
+}
+.trader-item-container .trader-item-batch {
+  width: 30px;
+  text-align: center;
+  color: white;
+  background: #2377D9;
+  border: 5px solid #2377D9;
+  border-radius: 15px;
+  margin-top: 10px;
+}
+.trader-item-container .trader-item-title-rank {
+  float: left;
+  font-size: 17px;
+  width: 50%;
+  padding: 20px 10px;
+  word-break: break-all;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  white-space: nowrap;
+}
 .trader-item-container .trader-item-title {
   float: left;
   font-size: 17px;
@@ -461,7 +486,7 @@ nav.navbar {
 }
 .trader-item-container .trader-item-icon {
   float: right;
-  padding: 10px 5px;
+  padding: 15px 5px;
   width: 60px;
 }
 .c-list .trader-list__item.c-list__item {

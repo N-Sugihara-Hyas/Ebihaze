@@ -34,7 +34,11 @@
                 <dl class="trader-add_form__list">
                     <dt class="trader-add_list-title__trader-address">住所</dt>
                     <dd class="trader-add_list-form__trader-address">
-                        <input type="text" name="trader[address]" value="{{old('trader.address')}}">
+                        <select name="trader[address]" id="">
+                            @foreach($trader::$prefecture as $pre)
+                            <option value="{{$pre}}" {{($pre==old('trader.address')) ? 'selected' : ''}}>{{$pre}}</option>
+                            @endforeach
+                        </select>
                     </dd>
                 </dl>
                 <dl class="trader-add_form__list">
@@ -46,7 +50,11 @@
                 <dl class="trader-add_form__list">
                     <dt class="trader-add_list-title__trader-introduction">業務内容</dt>
                     <dd class="trader-add_list-form__trader-introduction">
-                        <textarea name="trader[introduction]" id="" cols="30" rows="10">{{old('trader.introduction')}}</textarea>
+                        <select name="trader[introduction]" id="">
+                            @foreach($trader::$type as $t)
+                            <option value="{{$t}}" {{($t==old('trader.introduction')) ? 'selected' : ''}}>{{$t}}</option>
+                            @endforeach
+                        </select>
                     </dd>
                 </dl>
                 <dl class="trader-add_form__list">
@@ -57,7 +65,7 @@
                     </dd>
                 </dl>
                 <div class="trader-add_form__submit">
-                    <button class="c-btn c-btn--large c-btn--blue action" data-method="post">確認</button>
+                    <button class="c-btn c-btn--large c-btn--blue action" data-method="post">登録</button>
                 </div>
             </div>
         </form>

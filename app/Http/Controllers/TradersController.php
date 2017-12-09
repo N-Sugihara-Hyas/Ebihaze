@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image as Img;
+use Illuminate\Support\Facades\Auth;
 
 class TradersController extends Controller
 {
@@ -20,12 +21,28 @@ class TradersController extends Controller
 
 		return view('traders.list', ['traders' => $Traders, 'route' => $route, 'title' => $title]);
 	}
+	public function rank()
+	{
+		$title = '業者ランク';
+		$route = ['url' => route('statics-menu'), 'title' => 'メニュー'];
+
+		$Traders = \App\Trader::all();
+		foreach($Traders as $Trader)
+		{
+			$Trader->rank = $Trader->ranks()->avg('rate');
+		}
+
+		return view('traders.rank', ['traders' => $Traders, 'route' => $route, 'title' => $title]);
+	}
 	public function add()
 	{
 		$title = '業者追加';
-		$route = ['url' => route('traders-list'), 'title' => '業者一覧'];
+		$route = ['url' => route('statics-menu'), 'title' => 'メニュー'];
 
-		return view('traders.add', ['route' => $route, 'title' => $title]);
+		// セレクトボックス表示用
+		$Trader = new \App\Trader;
+
+		return view('traders.add', ['route' => $route, 'title' => $title, 'trader' => $Trader]);
 	}
 	public function postAdd(Request $request)
 	{
@@ -93,11 +110,40 @@ class TradersController extends Controller
 	public function detail($id)
 	{
 		$title = '業者詳細';
-		$route = ['url' => route('traders-list'), 'title' => '業者一覧'];
+		if(Auth::user()->membership==1)
+		{
+			$route = ['url' => route('traders-rank'), 'title' => '業者ランク'];
+		}
+		else
+		{
+			$route = ['url' => route('traders-list'), 'title' => '業者一覧'];
+		}
 
 		$Trader = \App\Trader::find($id);
 		$Trader->rank = $Trader->ranks()->avg('rate');
-		return view('traders.detail', ['trader' => $Trader, 'route' => $route, 'title' => $title]);
+		// 担当アパート成型
+		$Events = \App\Event::all();
+		$apartment_ids = [];
+		foreach($Events as $event)
+		{
+			if(in_array($id, explode(',', $event->suppliers)))
+			{
+				$apartment_ids[] = $event->apartment_id;
+			}
+		}
+		$apartment_names = [];
+		if(!empty($apartment_ids))
+		{
+			$Apartments = \App\Apartment::whereIn('id', $apartment_ids)->get();
+			foreach($Apartments as $apart)
+			{
+				$apartment_names[] = $apart->name;
+			}
+		}
+		$apartment_names = implode(',', $apartment_names);
+
+//		$apartment_names = \App\Apartment::whereIn('id', $apartment_ids)->value('name')->get();
+		return view('traders.detail', ['trader' => $Trader, 'route' => $route, 'title' => $title, 'apartment_names' => $apartment_names]);
 	}
 	public function edit($id)
 	{

@@ -498,6 +498,33 @@ nav.navbar {
 .trader-item-container{
   clear: both;
   overflow: hidden;
+  .trader-item-num{
+    float: left;
+    padding-top: 5px;
+  }
+  .trader-item-batch{
+    width:30px;
+    text-align: center;
+    color: white;
+    background: @light-blue;
+    border:5px solid @light-blue;
+    -webkit-border-radius:15px;
+    -moz-border-radius:15px;
+    border-radius:15px;
+    margin-top:10px;
+  }
+  .trader-item-title-rank{
+    float: left;
+    font-size: @font-middle;
+    width:50%;
+    padding: 20px 10px;
+    word-break: break-all;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    white-space: nowrap;
+  }
   .trader-item-title{
     float: left;
     font-size: @font-middle;
@@ -529,7 +556,7 @@ nav.navbar {
   }
   .trader-item-icon{
     float: right;
-    padding:10px 5px;
+    padding:15px 5px;
     width:60px;
   }
 }
