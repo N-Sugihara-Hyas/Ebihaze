@@ -1178,6 +1178,9 @@ nav.navbar {
 .c-fabstar-item.active {
   color: #FCC979;
 }
+.c-required {
+  color: red;
+}
 img.c-circle {
   border-radius: 50%;
 }

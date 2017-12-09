@@ -135,7 +135,7 @@ class UsersController extends Controller
 						'user.nickname.required' => 'ニックネームを入力して下さい',
 						'room.room_number.required' => '部屋番号を入力して下さい',
 						'user.owned.in' => '所有形態はいずれかをお選び下さい',
-				'user.gender.in' => '性別はいずれかをお選び下さい',
+						'user.gender.in' => '性別はいずれかをお選び下さい',
 						'user.birthday.numeric' => '生まれ年は半角数字で入力下さい',
 						'user.job.in' => '職業はいずれかをお選び下さい',
 						'apartment.name.required' => 'マンション名を入力して下さい',
@@ -210,26 +210,26 @@ class UsersController extends Controller
 					{
 						$User->{$attr} = $val;
 					}
-				break;
+					break;
 				case 'apartment':
 					foreach($attributes as $attr => $val)
 					{
 						if(is_array($val))$val = serialize($val);
 						$Apartment->{$attr} = $val;
 					}
-				break;
+					break;
 				case 'building':
 					foreach($attributes as $attr => $val)
 					{
 						$Building->{$attr} = $val;
 					}
-				break;
+					break;
 				case 'room':
 					foreach($attributes as $attr => $val)
 					{
 						$Room->{$attr} = $val;
 					}
-				break;
+					break;
 			}
 		}
 		$Apartment->user_id = $User->id;
@@ -276,16 +276,136 @@ class UsersController extends Controller
 		{
 //			if(!empty($ins['name']) && !empty($ins['expired']))
 //			{
-				$Insurance = \App\Insurance::where('sort_id', $num)->where('apartment_id', $Apartment->id)->first();
-				$Insurance = ($Insurance) ? $Insurance : new \App\Insurance;
-				$Insurance->name = $ins['name'];
-				$Insurance->expired = $ins['expired'];
-				$Insurance->apartment_id = $Apartment->id;
-				$Insurance->sort_id = $num;
-				$Insurance->save();
+			$Insurance = \App\Insurance::where('sort_id', $num)->where('apartment_id', $Apartment->id)->first();
+			$Insurance = ($Insurance) ? $Insurance : new \App\Insurance;
+			$Insurance->name = $ins['name'];
+			$Insurance->expired = $ins['expired'];
+			$Insurance->apartment_id = $Apartment->id;
+			$Insurance->sort_id = $num;
+			$Insurance->save();
 //			}
 		}
 		return redirect()->route('users-add-complete');
+	}
+	public function edit($id)
+	{
+		$title = 'ユーザー登録';
+		$route = ['url' => route('statics-menu'), 'title' => 'メニュー'];
+
+		$User = \App\User::find($id);
+		// suggest表示用
+		$Apartment = \App\Apartment::all();
+		foreach ($Apartment as $apart)
+		{
+			$names[] = "'".$apart->name."'";
+		}
+		// セレクト項目表示用
+		$Apartment = new \App\Apartment;
+		$Apartment->names = implode(',', $names);
+		switch ($User->type){
+			case 'officer':
+				return view('users.edit_officer', ['user' => $User, 'apartment' => $Apartment, 'title' => $title, 'route' => $route]);
+				break;
+			case 'app':
+				return view('users.edit_officer', ['user' => $User, 'apartment' => $Apartment, 'title' => $title, 'route' => $route]);
+				break;
+			case 'common':
+				return view('users.edit_common', ['user' => $User, 'apartment' => $Apartment, 'title' => $title, 'route' => $route]);
+				break;
+			default:
+				return view('users.edit_common', ['user' => $User, 'apartment' => $Apartment, 'title' => $title, 'route' => $route]);
+				break;
+		}
+		return view('users.edit_common', ['user' => $User, 'apartment' => $Apartment, 'title' => $title, 'route' => $route]);
+	}
+	public function postEdit(Request $request)
+	{
+		$type = $request->input('user.type');
+		switch ($type)
+		{
+			case 'officer':
+				$error_rules = [
+					'formats' => [
+						'user.nickname' => 'required',
+						'user.gender' => 'in:1,2,9',
+						'user.birthday' => 'numeric',
+						'user.job' => 'in:'.implode(',', \App\User::$job),
+						'user_icon' => 'image'
+					],
+					'messages' => [
+						'user.nickname.required' => 'ニックネームを入力して下さい',
+						'user.gender.in' => '性別はいずれかをお選び下さい',
+						'user.birthday.numeric' => '生まれ年は半角数字で入力下さい',
+						'user.job.in' => '職業はいずれかをお選び下さい',
+						'user_icon.image' => 'ユーザー画像登録は画像のみとなります'
+					]
+				];
+				break;
+			case 'common':
+				$error_rules = [
+					'formats' => [
+						'user.nickname' => 'required',
+						'room.room_number' => 'required',
+						'user.gender' => 'in:1,2,9',
+						'user.birthday' => 'numeric',
+						'user.job' => 'in:'.implode(',', \App\User::$job)
+					],
+					'messages' => [
+						'user.nickname.required' => 'ニックネームを入力して下さい',
+						'user.gender.in' => '性別はいずれかをお選び下さい',
+						'user.birthday.numeric' => '生まれ年は半角数字で入力下さい',
+						'user.job.in' => '職業はいずれかをお選び下さい'
+					]
+				];
+				break;
+			default:
+				$error_rules = [
+					'formats' => [
+						'user.nickname' => 'required',
+						'room.room_number' => 'required',
+						'user.gender' => 'in:1,2,9',
+						'user.birthday' => 'numeric',
+						'user.job' => 'in:'.implode(',', \App\User::$job)
+					],
+					'messages' => [
+						'user.nickname.required' => 'ニックネームを入力して下さい',
+						'user.gender.in' => '性別はいずれかをお選び下さい',
+						'user.birthday.numeric' => '生まれ年は半角数字で入力下さい',
+						'user.job.in' => '職業はいずれかをお選び下さい'
+					]
+				];
+				break;
+		}
+		$request->validate($error_rules['formats'], $error_rules['messages']);
+		$all = $request->all();
+		$User = \App\User::find($all['user']['id']);
+		foreach($all as $model => $attributes)
+		{
+			switch ($model){
+				case 'user':
+					foreach($attributes as $attr => $val)
+					{
+						$User->{$attr} = $val;
+					}
+					break;
+			}
+		}
+		if ($request->hasFile('user_icon'))
+		{
+			$icon = $request->file('user_icon');
+			$icon = Img::make($icon);
+			$icon->fit(240,240);
+			$dir = public_path('img/resources/user/'.$User->id);
+			if(!is_dir($dir))
+			{
+				exec('mkdir -p '.$dir);
+				exec('chmod -R 777 img/resources');
+			}
+			$icon->save($dir.'/icon');
+		}
+		$User->approval = 1;
+		$User->save();
+		return redirect()->route('statics-menu');
 	}
 
 	public function addComplete()

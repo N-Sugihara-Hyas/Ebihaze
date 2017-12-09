@@ -33,6 +33,8 @@ Route::get('/users/list', 'UsersController@list')->name('users-list')->middlewar
 Route::get('/users/invite/form', 'UsersController@inviteForm')->name('users-invite-form')->middleware('auth');
 Route::post('/users/invite/form', 'UsersController@postInviteForm')->name('post.users-invite-form')->middleware('auth');
 Route::get('/users/invite/complete', 'UsersController@inviteComplete')->name('users-invite-complete')->middleware('auth');
+Route::get('/users/edit/{id}', 'UsersController@edit')->name('users-edit')->middleware('auth');
+Route::post('/users/edit', 'UsersController@postEdit')->name('post.users-edit')->middleware('auth');
 
 // EventsRoute
 Route::get('/events/list', 'EventsController@list')->name('events-list')->middleware('auth');

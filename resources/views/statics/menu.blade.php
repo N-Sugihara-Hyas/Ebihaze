@@ -5,6 +5,7 @@
         <ul class="menu-list c-menu c-list">
             <li class="c-menu__item c-list__item">
                 <div class="menu-header">
+                    <a href="{{route('users-edit', Auth::id())}}">
                     <section class="menu-header__thumb">
                         <figure>
                             <img class="c-circle" src="{{asset('img/resources/user/'.Auth::id().'/icon')}}" alt="">
@@ -13,6 +14,7 @@
                     <section class="menu-header__title">
                         <p>　{{Auth::user()->nickname}}</p>
                     </section>
+                    </a>
                 </div>
             </li>
         </ul>

@@ -21,7 +21,7 @@
         {{ csrf_field() }}
         <div class="users-add_form__container">
             <dl class="users-add_form__list">
-                <dt class="users-add_list-title__user-tel">携帯電話番号 *</dt>
+                <dt class="users-add_list-title__user-tel">携帯電話番号 <span class="c-required">*</span></dt>
                 <dd class="users-add_list-form__user-tel">
                     {{$user->tel}}
                     <input type="hidden" name="user[id]" value="{{$user->id}}">
@@ -29,7 +29,7 @@
                 </dd>
             </dl>
             <dl class="users-add_form__list">
-                <dt class="users-add_list-title__user-nickname">ニックネーム *</dt>
+                <dt class="users-add_list-title__user-nickname">ニックネーム <span class="c-required">*</span></dt>
                 <dd class="users-add_list-form__user-nickname">
                     <input type="text" class="user-add_input" value="{{old('user.nickname')}}" name="user[nickname]">
                 </dd>
@@ -41,7 +41,7 @@
                 </dd>
             </dl>
             <dl class="users-add_form__list">
-                <dt class="users-add_list-title__room-room_number">部屋番号 *</dt>
+                <dt class="users-add_list-title__room-room_number">部屋番号 <span class="c-required">*</span></dt>
                 <dd class="users-add_list-form__room-room_number">
                     <input type="text" value="{{old('room.room_number')}}" name="room[room_number]">
                 </dd>
@@ -109,7 +109,7 @@
                 </dd>
             </dl>
             <dl class="users-add_form__list">
-                <dt class="users-add_list-title__apartment-name">マンション名 *</dt>
+                <dt class="users-add_list-title__apartment-name">マンション名 <span class="c-required">*</span></dt>
                 <dd class="users-add_list-form__apartment-name">
                     <input id="text" type="text" name="apartment[name]" value="{{old('apartment.name')}}" autocomplete="off" size="10" style="display: block">
                     <!-- 補完候補を表示するエリア -->
@@ -117,20 +117,20 @@
                 </dd>
             </dl>
             <dl class="users-add_form__list">
-                <dt class="users-add_list-title__apartment-address">マンション住所入力 *</dt>
+                <dt class="users-add_list-title__apartment-address">マンション住所入力 <span class="c-required">*</span></dt>
                 <dd class="users-add_list-form__apartment-address">
                     <input type="text" value="{{old('apartment.address')}}" name="apartment[address]">
                 </dd>
             </dl>
             <dl class="users-add_form__list">
-                <dt class="users-add_list-title__user-notification">他マンション管理人からのコンタクト *</dt>
+                <dt class="users-add_list-title__user-notification">他マンション管理人からのコンタクト <span class="c-required">*</span></dt>
                 <dd class="users-add_list-form__user-notification">
                     <input type="radio" name="user[notification]" value="1" {{(old('user.notification')==1||empty(old('user.notification'))) ? 'checked' : ''}}>はい
                     <input type="radio" name="user[notification]" value="0" {{(old('user.notification')==0) ? 'checked' : ''}}>いいえ
                 </dd>
             </dl>
             <dl class="users-add_form__list">
-                <dt class="users-add_list-title__user-reside">管理形態 *</dt>
+                <dt class="users-add_list-title__user-reside">管理形態 <span class="c-required">*</span></dt>
                 <dd class="users-add_list-form__user-reside">
                     <select name="apartment[control]" id="">
                         @foreach($apartment::$control as $ctrl)
@@ -140,7 +140,7 @@
                 </dd>
             </dl>
             <dl class="users-add_form__list">
-                <dt class="users-add_list-title__apartment-construction">構造 *</dt>
+                <dt class="users-add_list-title__apartment-construction">構造 <span class="c-required">*</span></dt>
                 <dd class="users-add_list-form__apartment-construction">
                     <select name="apartment[construction]" id="">
                         @foreach($apartment::$construction as $const)
@@ -214,7 +214,7 @@
                 </dd>
             </dl>
             <dl class="users-add_form__list">
-                <dt class="users-add_list-title__apartment-completion_date">竣工年月 *</dt>
+                <dt class="users-add_list-title__apartment-completion_date">竣工年月 <span class="c-required">*</span></dt>
                 <dd class="users-add_list-form__apartment-completion_date">
                     <select name="apartment[completion_date--year]" id="">
                     @foreach(range(date('Y', strtotime('-100 year')), date('Y')) as $year)
@@ -230,7 +230,7 @@
                 </dd>
             </dl>
             <dl class="users-add_form__list">
-                <dt class="users-add_list-title__apartment-total_units">総戸数 *</dt>
+                <dt class="users-add_list-title__apartment-total_units">総戸数 <span class="c-required">*</span></dt>
                 <dd class="users-add_list-form__apartment-total_units">
                     <input type="text" value="{{old('apartment.total_units')}}" name="apartment[total_units]">
                 </dd>
