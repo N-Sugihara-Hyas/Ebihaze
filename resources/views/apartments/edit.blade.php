@@ -67,13 +67,40 @@
             </dl>
             <dl class="users-add_form__list">
                 <dt class="users-add_list-title__apartment-insurance">保険情報</dt>
+            </dl>
+            <dl class="users-add_form__list">
+                <dt class="users-add_list-title__apartment-insurance">■保険１</dt>
                 <dd class="users-add_list-form__apartment-insurance">
-                    <input type="checkbox" name="apartment[insurance][]">
-                    <input type="checkbox" name="apartment[insurance][]">
-                    <input type="checkbox" name="apartment[insurance][]">
-                    <input type="checkbox" name="apartment[insurance][]">
-                    <input type="checkbox" name="apartment[insurance][]">
-                    <input type="checkbox" name="apartment[insurance][]">
+                    <label for="">保険名<input type="text" value="{{$apartment->insurances_array[0]['name']}}" name="insurance[1][name]"></label>
+                    <label for="">期日<input type="text" id="datepicker1" value="{{$apartment->insurances_array[0]['expired']}}" name="insurance[1][expired]"></label>
+                </dd>
+            </dl>
+            <dl class="users-add_form__list">
+                <dt class="users-add_list-title__apartment-insurance">■保険２</dt>
+                <dd class="users-add_list-form__apartment-insurance">
+                    <label for="">保険名<input type="text" value="{{$apartment->insurances_array[1]['name']}}" name="insurance[2][name]"></label>
+                    <label for="">期日<input type="text" id="datepicker2" value="{{$apartment->insurances_array[1]['expired']}}" name="insurance[2][expired]"></label>
+                </dd>
+            </dl>
+            <dl class="users-add_form__list">
+                <dt class="users-add_list-title__apartment-insurance">■保険３</dt>
+                <dd class="users-add_list-form__apartment-insurance">
+                    <label for="">保険名<input type="text" value="{{$apartment->insurances_array[2]['name']}}" name="insurance[3][name]"></label>
+                    <label for="">期日<input type="text" id="datepicker3" value="{{$apartment->insurances_array[2]['expired']}}" name="insurance[3][expired]"></label>
+                </dd>
+            </dl>
+            <dl class="users-add_form__list">
+                <dt class="users-add_list-title__apartment-insurance">■保険４</dt>
+                <dd class="users-add_list-form__apartment-insurance">
+                    <label for="">保険名<input type="text" id="datepicker4" value="{{$apartment->insurances_array[3]['name']}}" name="insurance[4][name]"></label>
+                    <label for="">期日<input type="text" value="{{$apartment->insurances_array[3]['expired']}}" name="insurance[4][expired]"></label>
+                </dd>
+            </dl>
+            <dl class="users-add_form__list">
+                <dt class="users-add_list-title__apartment-insurance">■保険５</dt>
+                <dd class="users-add_list-form__apartment-insurance">
+                    <label for="">保険名<input type="text" value="{{$apartment->insurances_array[4]['name']}}" name="insurance[5][name]"></label>
+                    <label for="">期日<input type="text" id="datepicker5" value="{{$apartment->insurances_array[4]['expired']}}" name="insurance[5][expired]"></label>
                 </dd>
             </dl>
             <dl class="users-add_form__list">
@@ -110,4 +137,15 @@
         </div>
     </form>
 </div>
+@endsection
+@section('scripts')
+<script>
+    $(function() {
+        $("#datepicker1").datepicker();
+        $("#datepicker2").datepicker();
+        $("#datepicker3").datepicker();
+        $("#datepicker4").datepicker();
+        $("#datepicker5").datepicker();
+    });
+</script>
 @endsection

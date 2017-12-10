@@ -498,6 +498,33 @@ nav.navbar {
 .trader-item-container{
   clear: both;
   overflow: hidden;
+  .trader-item-num{
+    float: left;
+    padding-top: 5px;
+  }
+  .trader-item-batch{
+    width:30px;
+    text-align: center;
+    color: white;
+    background: @light-blue;
+    border:5px solid @light-blue;
+    -webkit-border-radius:15px;
+    -moz-border-radius:15px;
+    border-radius:15px;
+    margin-top:10px;
+  }
+  .trader-item-title-rank{
+    float: left;
+    font-size: @font-middle;
+    width:50%;
+    padding: 20px 10px;
+    word-break: break-all;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    white-space: nowrap;
+  }
   .trader-item-title{
     float: left;
     font-size: @font-middle;
@@ -529,7 +556,7 @@ nav.navbar {
   }
   .trader-item-icon{
     float: right;
-    padding:10px 5px;
+    padding:15px 5px;
     width:60px;
   }
 }
@@ -1298,6 +1325,9 @@ nav.navbar {
 .c-fabstar-item.active{
   color:@pale-yellow;
 }
+.c-required{
+  color: red;
+}
 //.c-star-unit{
 //  margin: 0 10%;
 //}
@@ -1461,4 +1491,25 @@ table.calendar tbody tr th:nth-of-type(1) {
 table.calendar tbody td.sat,
 table.calendar tbody tr th:nth-of-type(7) {
   color: @saturday-blue;
+}
+
+#suggest {
+  position: absolute;
+  background-color: #FFFFFF;
+  border: 1px solid #CCCCFF;
+  font-size: 90%;
+  width: 200px;
+}
+#suggest div {
+  display: block;
+  width: 200px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+#suggest div.select{ /* キー上下で選択した場合のスタイル */
+  color: #FFFFFF;
+  background-color: #3366FF;
+}
+#suggest div.over{ /* マウスオーバ時のスタイル */
+  background-color: #99CCFF;
 }

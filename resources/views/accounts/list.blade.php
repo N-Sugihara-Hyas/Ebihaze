@@ -2,6 +2,11 @@
 
 @section('content')
 <div class="container hidden">
+    <div class="alert alert-danger">
+        <ul>
+            <li>{{ $accounts[0]->alert }}</li>
+        </ul>
+    </div>
     <ul class="accounts-list accounts-nav">
         <li class="accounts-nav__item accounts-nav__item--active tab" data-id="1">修繕積立金</li>
         <li class="accounts-nav__item accounts-nav__item--inactive tab" data-id="2">管理費</li>

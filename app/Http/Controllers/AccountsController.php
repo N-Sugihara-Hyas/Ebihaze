@@ -92,6 +92,23 @@ class AccountsController extends Controller
 		{
 			$ac3->amount = $diffs[$times];
 		}
+
+		// 積立残高レンジ判定(1:修繕積立金のみ)
+		$Apartment = \App\Apartment::find(session('apartment_id'));
+		$Apartment = $Apartment->scored($Apartment);
+		if($Account1->total/$Apartment->reserved >= 105)
+		{
+			$Account1->alert = \App\Account::$alert['A'];
+		}
+		elseif($Account1->total/$Apartment->reserved < 105 && $Account1->total/$Apartment->reserved > 95)
+		{
+			$Account1->alert = \App\Account::$alert['B'];
+		}
+		else
+		{
+			$Account1->alert = \App\Account::$alert['C'];
+		}
+
 		$Accounts = [$Account1, $Account2, $Account3];
 		return view('accounts.list', ['accounts' => $Accounts, 'route' => $route, 'title' => $title]);
 	}
