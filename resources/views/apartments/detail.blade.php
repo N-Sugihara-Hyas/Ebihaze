@@ -6,7 +6,7 @@
         <section class="apartments-detail__header">
             <div class="apartments-detail__header--top">
                 <figure class="apartments-detail__mv">
-                    <img class="c-circle" width="120px" height="120px" src="{{asset('img/resources/apartment/'.$apartment->id.'/icon')}}" alt="アパート登録画像">
+                    <img class="c-circle" width="120px" height="120px" src="{{asset('img/resources/apartment/'.$apartment->id.'/icon')}}" alt="">
                 </figure>
             </div>
             <div class="apartments-detail__header--bottom">
@@ -65,7 +65,7 @@
                 @if(Auth::user()->owned=='owner1' || Auth::user()->owned=='owner2')
                 <dl class="apartments-detail__content">
                     <dt class="apartments-detail__content">付帯設備</dt>
-                    <dd class="apartments-detail__content">{{implode(',', unserialize($apartment->facilities))}}</dd>
+                    <dd class="apartments-detail__content">{{($apartment->facilities) ? implode(',', unserialize($apartment->facilities)) : ''}}</dd>
                 </dl>
                 <dl class="apartments-detail__content">
                     <dt class="apartments-detail__content">保険情報</dt>

@@ -109,7 +109,7 @@ class ApartmentsController extends Controller
 //		$Apartment->insurance = unserialize($Apartment->insurance);
 		$Insurance = \App\Insurance::whereApartmentId($id)->get()->toArray();
 		$NewInsurance = ['name' => null, 'expired' => null];
-		$insurances = array_fill(1, 4, $NewInsurance);
+		$insurances = array_fill(0, 5, $NewInsurance);
 		$insurances = $Insurance + $insurances;
 		$Apartment->insurances_array = $insurances;
 
