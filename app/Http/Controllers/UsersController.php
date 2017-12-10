@@ -86,6 +86,7 @@ class UsersController extends Controller
 		$User = \App\User::find($id);
 		// suggest表示用
 		$Apartment = \App\Apartment::all();
+		$names = [];
 		foreach ($Apartment as $apart)
 		{
 			$names[] = "'".$apart->name."'";
