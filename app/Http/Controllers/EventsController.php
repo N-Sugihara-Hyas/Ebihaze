@@ -46,11 +46,11 @@ class EventsController extends Controller
 			// ユーザー権限
 			if(Auth::user()->type!='officer')$event->status = '';
 			/** カレンダー用付け **/
-			$calendar[] = $event->schedule;
+			$calendar[] = date('Y-m-d', strtotime($event->schedule));
 			$calendar = array_unique($calendar);
 		}
 		// 日付指定アリの場合
-		if(isset($_GET['schedule']))$Events = $Apartment->events()->where('schedule', 'LIKE', $_GET['schedule'])->get();
+		if(isset($_GET['schedule']))$Events = $Apartment->events()->where('schedule', 'LIKE', '%'.$_GET['schedule'].'%')->get();
 
 		$Event = new \App\Event;
 		// 業者選択用
@@ -94,14 +94,14 @@ class EventsController extends Controller
 				// ユーザー権限
 				if(Auth::user()->type!='officer')$event->status = '';
 				/** カレンダー用付け **/
-				$calendar[] = $event->schedule;
+				$calendar[] = date('Y-m-d', strtotime($event->schedule));
 				$calendar = array_unique($calendar);
 				// 表示用に格納
 				$join_events[] = $event;
 			}
 		}
 		// 日付指定アリの場合
-		if(isset($_GET['schedule']))$Events = $Apartment->events()->where('schedule', 'LIKE', $_GET['schedule'])->get();
+		if(isset($_GET['schedule']))$Events = $Apartment->events()->where('schedule', 'LIKE', '%'.$_GET['schedule'].'%')->get();
 
 		$Event = new \App\Event;
 		// 業者選択用
@@ -125,6 +125,7 @@ class EventsController extends Controller
 
 		$Events = $Apartment->events;
 		$calendar = [];
+		$join_events = [];
 		$watchEventsId = \App\EventUser::where('user_id', Auth::id())->pluck('event_id')->toArray();
 		foreach($Events as &$event)
 		{
@@ -145,14 +146,14 @@ class EventsController extends Controller
 				// ユーザー権限
 				if(Auth::user()->type!='officer')$event->status = '';
 				/** カレンダー用付け **/
-				$calendar[] = $event->schedule;
+				$calendar[] = date('Y-m-d', strtotime($event->schedule));
 				$calendar = array_unique($calendar);
 				// 表示用に格納
 				$join_events[] = $event;
 			}
 		}
 		// 日付指定アリの場合
-		if(isset($_GET['schedule']))$Events = $Apartment->events()->where('schedule', 'LIKE', $_GET['schedule'])->get();
+		if(isset($_GET['schedule']))$Events = $Apartment->events()->where('schedule', 'LIKE', '%'.$_GET['schedule'].'%')->get();
 
 		$Event = new \App\Event;
 		// 業者選択用

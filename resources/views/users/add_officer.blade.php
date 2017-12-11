@@ -202,8 +202,8 @@
             <dl class="users-add_form__list">
                 <dt class="users-add_list-title__apartment-insurance">■保険４</dt>
                 <dd class="users-add_list-form__apartment-insurance">
-                    <label for="">保険名<input type="text" id="datepicker4" value="{{old('insurance.4.name')}}" name="insurance[4][name]"></label>
-                    <label for="">期日<input type="text" value="{{old('insurance.4.expired')}}" name="insurance[4][expired]"></label>
+                    <label for="">保険名<input type="text" value="{{old('insurance.4.name')}}" name="insurance[4][name]"></label>
+                    <label for="">期日<input type="text" id="datepicker4" value="{{old('insurance.4.expired')}}" name="insurance[4][expired]"></label>
                 </dd>
             </dl>
             <dl class="users-add_form__list">
