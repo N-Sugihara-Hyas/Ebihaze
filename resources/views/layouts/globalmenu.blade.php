@@ -327,18 +327,16 @@
         function setEvent(){
 console.log('setEvent trig');
             var event_days = @json($calendar);
+            // オブジェクトから配列へ変換
+            event_days = Object.keys(event_days).map(function (key) {return event_days[key]})
             var year = $('table.calendar thead th').text().replace(/(.+)年.+/, '$1');
-console.log(year);
             var month = ('0'+$('table.calendar thead th').text().replace(/.+年(.+)月/, '$1')).slice(-2);
-console.log(month);
             var preg = new RegExp(year+'-'+month);
             var target_days = $.grep(event_days, function(elem, index){
                 return (elem.match(preg));
             });
-
             $('table.calendar tbody td').each(function(){
                 if($(this).text().match(/\d/)){
-console.log($(this).text())
                     var day = ('0'+$(this).text()).slice(-2);
                     $(this).html('<a class="'+year+'-'+month+'-'+day+'">'+$(this).text()+'</a>');
                 }

@@ -4,6 +4,7 @@
 <div class="container">
     <ul class="apartments-list c-list">
         @foreach($apartments as $num => $apart)
+        <a href="{{route('apartments-detail', $apart->id)}}">
         <li class="apartments-list__item c-list__item">
             <div class="apartments-item-container">
                 <section class="apartments-item-num">
@@ -27,6 +28,7 @@
                 </section>
             </div>
         </li>
+        </a>
         @endforeach
     </ul>
 </div>
