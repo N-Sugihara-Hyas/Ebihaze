@@ -92,8 +92,8 @@
             <dl class="users-add_form__list">
                 <dt class="users-add_list-title__apartment-insurance">■保険４</dt>
                 <dd class="users-add_list-form__apartment-insurance">
-                    <label for="">保険名<input type="text" id="datepicker4" value="{{$apartment->insurances_array[3]['name']}}" name="insurance[4][name]"></label>
-                    <label for="">期日<input type="text" value="{{$apartment->insurances_array[3]['expired']}}" name="insurance[4][expired]"></label>
+                    <label for="">保険名<input type="text" value="{{$apartment->insurances_array[3]['name']}}" name="insurance[4][name]"></label>
+                    <label for="">期日<input type="text" id="datepicker4" value="{{$apartment->insurances_array[3]['expired']}}" name="insurance[4][expired]"></label>
                 </dd>
             </dl>
             <dl class="users-add_form__list">
@@ -106,7 +106,16 @@
             <dl class="users-add_form__list">
                 <dt class="users-add_list-title__apartment-completion_date">竣工年月</dt>
                 <dd class="users-add_list-form__apartment-completion_date">
-                    <input type="text" name="apartment[completion_date]" value="{{$apartment->completion_date}}">
+                    <select name="apartment[completion_date--year]" id="">
+                        @foreach(range(date('Y', strtotime('-100 year')), date('Y')) as $year)
+                            <option value="{{$year}}年" {{($year==preg_replace('/(.+)年/', '$1', $apartment->completion_date)) ? 'selected' : ''}}>{{$year}}</option>
+                        @endforeach
+                    </select>年
+                    <select name="apartment[completion_date--month]" id="">
+                        @foreach(range(1, 12) as $month)
+                            <option value="{{$month}}月" {{($month==preg_replace('/.+年(.+)月/', '$1', $apartment->completion_date)) ? 'selected' : ''}}>{{$month}}</option>
+                        @endforeach
+                    </select>月
                 </dd>
             </dl>
             <dl class="users-add_form__list">

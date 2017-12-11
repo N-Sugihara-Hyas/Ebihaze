@@ -47,6 +47,10 @@ class ApartmentsController extends Controller
 		];
 		$request->validate($error_rules['formats'], $error_rules['messages']);
 		$apartment = $request->input('apartment');
+		// 竣工年月
+		$apartment['completion_date'] = $apartment['completion_date--year'].$apartment['completion_date--month'];
+		unset($apartment['completion_date--year']);
+		unset($apartment['completion_date--month']);
 		$Apartment = new \App\Apartment;
 		foreach($apartment as $name => $value)
 		{
@@ -69,6 +73,21 @@ class ApartmentsController extends Controller
 			}
 			$icon->save($dir.'/icon');
 		}
+		// 保険登録
+		$insurances = $request->input('insurance');
+		foreach($insurances as $num => $ins)
+		{
+//			if(!empty($ins['name']) && !empty($ins['expired']))
+//			{
+			$Insurance = \App\Insurance::where('sort_id', $num)->where('apartment_id', $Apartment->id)->first();
+			$Insurance = ($Insurance) ? $Insurance : new \App\Insurance;
+			$Insurance->name = $ins['name'];
+			$Insurance->expired = $ins['expired'];
+			$Insurance->apartment_id = $Apartment->id;
+			$Insurance->sort_id = $num;
+			$Insurance->save();
+//			}
+		}
 		return redirect()->route('apartments-list');
 	}
 	public function switch()
@@ -86,7 +105,7 @@ class ApartmentsController extends Controller
 	}
 	public function detail($id)
 	{
-		$title = 'マンション一覧';
+		$title = 'マンション詳細';
 		$route = ['url' => route('statics-menu'), 'title' => 'メニュー'];
 
 		$Apartment = \App\Apartment::find($id);
@@ -137,6 +156,10 @@ class ApartmentsController extends Controller
 		];
 		$request->validate($error_rules['formats'], $error_rules['messages']);
 		$apartment = $request->input('apartment');
+		// 竣工年月
+		$apartment['completion_date'] = $apartment['completion_date--year'].$apartment['completion_date--month'];
+		unset($apartment['completion_date--year']);
+		unset($apartment['completion_date--month']);
 		$Apartment = \App\Apartment::find($apartment['id']);
 		foreach($apartment as $name => $value)
 		{
