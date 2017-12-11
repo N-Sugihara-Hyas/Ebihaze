@@ -38,6 +38,7 @@ console.log(file);
                         }else{
                             $actioned.addClass('c-btn--select').html('-');
                         }
+                        $('[name=body]').val(file.name);
                         //未選択→選択の場合（.filenameが存在しない場合）はファイル名表示用の<div>タグを追加
                         // if(!($(this).parent().find('.filename').length)){
                         //     $actioned.parent().append('<div class="filename"></div>');
