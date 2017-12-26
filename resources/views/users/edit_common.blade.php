@@ -33,18 +33,33 @@
                     <input type="text" class="user-add_input" value="{{$user->nickname}}" name="user[nickname]">
                 </dd>
             </dl>
-            {{--<dl class="users-add_form__list">--}}
-                {{--<dt class="users-add_list-title__room-room_number">部屋番号 <span class="c-required">*</span></dt>--}}
-                {{--<dd class="users-add_list-form__room-room_number">--}}
-                    {{--<input type="text" value="{{old('room.room_number')}}" name="room[room_number]">--}}
-                {{--</dd>--}}
-            {{--</dl>--}}
-            {{--<dl class="users-add_form__list">--}}
-                {{--<dt class="users-add_list-title__room-floor">所在階</dt>--}}
-                {{--<dd class="users-add_list-form__room-floor">--}}
-                    {{--<input type="text" value="{{old('room.floor')}}" name="room[floor]">--}}
-                {{--</dd>--}}
-            {{--</dl>--}}
+            <dl class="users-add_form__list">
+                <dt class="users-add_list-title__room-room_number">部屋番号 <span class="c-required">*</span></dt>
+                <dd class="users-add_list-form__room-room_number">
+                    <input type="text" value="{{$room->room_number}}" name="room[room_number]">
+                </dd>
+            </dl>
+            <dl class="users-add_form__list">
+                <dt class="users-add_list-title__room-floor">所在階</dt>
+                <dd class="users-add_list-form__room-floor">
+                    <input type="text" value="{{$room->floor}}" name="room[floor]">
+                </dd>
+            </dl>
+            <dl class="users-add_form__list">
+                <dt class="users-add_list-title__room-floor_plan">間取り</dt>
+                <dd class="users-add_list-form__room-floor_plan">
+                    <select name="room[floor_plan--num]" id="">
+                        @foreach(range(1,9) as $num)
+                            <option value="{{$num}}" {{(preg_match('/'.$num.'[RKDKLDK]/', $room->floor_plan) ? 'selected' : '')}}>{{$num}}</option>
+                        @endforeach
+                    </select>
+                    <select name="room[floor_plan--type]" id="">
+                        @foreach(['R', 'K', 'DK', 'LDK'] as $type)
+                            <option value="{{$type}}" {{(preg_match('/[0-9]'.$type.'/', $room->floor_plan) ? 'selected' : '')}}>{{$type}}</option>
+                        @endforeach
+                    </select>
+                </dd>
+            </dl>
             <dl class="users-add_form__list">
                 <dt class="users-add_list-title__user-gender">性別</dt>
                 <dd class="users-add_list-form__user-gender">

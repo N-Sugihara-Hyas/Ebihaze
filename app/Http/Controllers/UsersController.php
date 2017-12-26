@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use League\Flysystem\Exception;
+use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image as Img;
 
 class UsersController extends Controller
@@ -295,6 +296,8 @@ class UsersController extends Controller
 		$route = ['url' => route('statics-menu'), 'title' => 'メニュー'];
 
 		$User = \App\User::find($id);
+		// 部屋取得
+		$Room = \App\Room::find(Auth()->user()->room_id);
 		// suggest表示用
 		$Apartment = \App\Apartment::all();
 		foreach ($Apartment as $apart)
@@ -306,19 +309,19 @@ class UsersController extends Controller
 		$Apartment->names = implode(',', $names);
 		switch ($User->type){
 			case 'officer':
-				return view('users.edit_officer', ['user' => $User, 'apartment' => $Apartment, 'title' => $title, 'route' => $route]);
+				return view('users.edit_officer', ['user' => $User, 'apartment' => $Apartment, 'room' => $Room, 'title' => $title, 'route' => $route]);
 				break;
 			case 'app':
-				return view('users.edit_officer', ['user' => $User, 'apartment' => $Apartment, 'title' => $title, 'route' => $route]);
+				return view('users.edit_officer', ['user' => $User, 'apartment' => $Apartment, 'room' => $Room, 'title' => $title, 'route' => $route]);
 				break;
 			case 'common':
-				return view('users.edit_common', ['user' => $User, 'apartment' => $Apartment, 'title' => $title, 'route' => $route]);
+				return view('users.edit_common', ['user' => $User, 'apartment' => $Apartment, 'room' => $Room, 'title' => $title, 'route' => $route]);
 				break;
 			default:
-				return view('users.edit_common', ['user' => $User, 'apartment' => $Apartment, 'title' => $title, 'route' => $route]);
+				return view('users.edit_common', ['user' => $User, 'apartment' => $Apartment, 'room' => $Room, 'title' => $title, 'route' => $route]);
 				break;
 		}
-		return view('users.edit_common', ['user' => $User, 'apartment' => $Apartment, 'title' => $title, 'route' => $route]);
+		return view('users.edit_common', ['user' => $User, 'apartment' => $Apartment, 'room' => $Room, 'title' => $title, 'route' => $route]);
 	}
 	public function postEdit(Request $request)
 	{
@@ -332,14 +335,16 @@ class UsersController extends Controller
 						'user.gender' => 'in:1,2,9',
 						'user.birthday' => 'numeric',
 						'user.job' => 'in:'.implode(',', \App\User::$job),
-						'user_icon' => 'image'
+						'user_icon' => 'image',
+						'room.room_number' => 'required'
 					],
 					'messages' => [
 						'user.nickname.required' => 'ニックネームを入力して下さい',
 						'user.gender.in' => '性別はいずれかをお選び下さい',
 						'user.birthday.numeric' => '生まれ年は半角数字で入力下さい',
 						'user.job.in' => '職業はいずれかをお選び下さい',
-						'user_icon.image' => 'ユーザー画像登録は画像のみとなります'
+						'user_icon.image' => 'ユーザー画像登録は画像のみとなります',
+						'room.room_number.required' => '部屋番号を入力して下さい',
 					]
 				];
 				break;
@@ -356,7 +361,8 @@ class UsersController extends Controller
 						'user.nickname.required' => 'ニックネームを入力して下さい',
 						'user.gender.in' => '性別はいずれかをお選び下さい',
 						'user.birthday.numeric' => '生まれ年は半角数字で入力下さい',
-						'user.job.in' => '職業はいずれかをお選び下さい'
+						'user.job.in' => '職業はいずれかをお選び下さい',
+						'room.room_number.required' => '部屋番号を入力して下さい',
 					]
 				];
 				break;
@@ -373,14 +379,21 @@ class UsersController extends Controller
 						'user.nickname.required' => 'ニックネームを入力して下さい',
 						'user.gender.in' => '性別はいずれかをお選び下さい',
 						'user.birthday.numeric' => '生まれ年は半角数字で入力下さい',
-						'user.job.in' => '職業はいずれかをお選び下さい'
+						'user.job.in' => '職業はいずれかをお選び下さい',
+						'room.room_number.required' => '部屋番号を入力して下さい',
 					]
 				];
 				break;
 		}
 		$request->validate($error_rules['formats'], $error_rules['messages']);
 		$all = $request->all();
+		// 間取り
+		$all['room']['floor_plan'] = $all['room']['floor_plan--num'].$all['room']['floor_plan--type'];
+		unset($all['room']['floor_plan--num']);
+		unset($all['room']['floor_plan--type']);
 		$User = \App\User::find($all['user']['id']);
+		// 部屋情報更新
+		$Room = \App\Room::find(Auth::user()->room_id);
 		foreach($all as $model => $attributes)
 		{
 			switch ($model){
@@ -388,6 +401,12 @@ class UsersController extends Controller
 					foreach($attributes as $attr => $val)
 					{
 						$User->{$attr} = $val;
+					}
+					break;
+				case 'room':
+					foreach($attributes as $attr => $val)
+					{
+						$Room->{$attr} = $val;
 					}
 					break;
 			}
@@ -407,6 +426,8 @@ class UsersController extends Controller
 		}
 		$User->approval = 1;
 		$User->save();
+		// 部屋保存
+		$Room->save();
 		return redirect()->route('statics-menu');
 	}
 
