@@ -33,7 +33,7 @@ class Apartment extends Model
 	}
 	public function insurances()
 	{
-		return $this->hasMany('App\Insurance')->orderBy('expired', 'asc');
+		return $this->hasMany('App\Insurance')->orderBy('sort_id', 'asc');
 	}
 
 	public function scored($Apartment)

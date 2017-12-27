@@ -60,7 +60,7 @@
                 </dl>
                 <dl class="apartments-detail__content">
                     <dt class="apartments-detail__address">ペット</dt>
-                    <dd class="apartments-detail__address">{{$apartment->total_units}}</dd>
+                    <dd class="apartments-detail__address">{{$apartment->pet}}</dd>
                 </dl>
                 @if(Auth::user()->owned=='owner1' || Auth::user()->owned=='owner2')
                 <dl class="apartments-detail__content">

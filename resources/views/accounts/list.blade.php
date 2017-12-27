@@ -13,18 +13,18 @@
         <li class="accounts-nav__item accounts-nav__item--inactive tab" data-id="3">その他</li>
     </ul>
     <section class="accounts-total" data-id="account1">
-        <p class="accounts-item-amount">残高</p>
+        <p class="accounts-item-amount">取引金額</p>
         <p class="accounts-item-price">¥{{number_format($accounts[0]->total)}}</p>
     </section>
     <section class="accounts-total" data-id="account2">
-        <p class="accounts-item-amount">残高</p>
+        <p class="accounts-item-amount">取引金額</p>
         <p class="accounts-item-price">¥{{number_format($accounts[1]->total)}}</p>
     </section>
     <section class="accounts-total" data-id="account3">
-        <p class="accounts-item-amount">残高</p>
+        <p class="accounts-item-amount">取引金額</p>
         <p class="accounts-item-price">¥{{number_format($accounts[2]->total)}}</p>
     </section>
-    <h2 class="accounts-history">残高履歴</h2>
+    <h2 class="accounts-history">取引金額履歴</h2>
     <ul class="accounts-list c-list" data-id="account1">
         @foreach($accounts[0] as $account)
         <a href="{{route('accounts-edit', $account->id)}}">

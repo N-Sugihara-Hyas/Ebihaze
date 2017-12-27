@@ -17,15 +17,15 @@
         <li class="accounts-nav__item accounts-nav__item--inactive tab" data-id="3">その他</li>
     </ul>
     <section class="accounts-total" data-id="account1">
-        <p class="accounts-item-amount">残高</p>
+        <p class="accounts-item-amount">取引金額</p>
         <p class="accounts-item-price">¥{{number_format($accounts[0]->total)}}</p>
     </section>
     <section class="accounts-total" data-id="account2">
-        <p class="accounts-item-amount">残高</p>
+        <p class="accounts-item-amount">取引金額</p>
         <p class="accounts-item-price">¥{{number_format($accounts[1]->total)}}</p>
     </section>
     <section class="accounts-total" data-id="account3">
-        <p class="accounts-item-amount">残高</p>
+        <p class="accounts-item-amount">取引金額</p>
         <p class="accounts-item-price">¥{{number_format($accounts[2]->total)}}</p>
     </section>
     <h2>コメント表示</h2>
@@ -36,7 +36,7 @@
         <li class="accounts-list__item c-list__item">
             <div class="accounts-item-container">
                 <section class="accounts-item__title">
-                    <p>残高</p>
+                    <p>取引金額</p>
                 </section>
                 <section class="accounts-item__category">
                     <input type="number" class="accounts-item__input" name="account_amount" value="{{old('account_amount')}}" placeholder="0">円
@@ -46,7 +46,7 @@
         <li class="accounts-list__item c-list__item">
             <div class="accounts-item-container">
                 <section class="accounts-item__title">
-                    <p>記帳する日付</p>
+                    <p>日付</p>
                 </section>
                 <section class="accounts-item__date">
                     <input type="text" id="datepicker" name="account_schedule" value="{{old('account_schedule')}}">
@@ -56,10 +56,17 @@
         <li class="accounts-list__item c-list__item">
             <div class="accounts-item-container">
                 <section class="accounts-item__title">
-                    <p>記帳する項目</p>
+                    <p>取引内容</p>
                 </section>
                 <section class="accounts-item__category">
-                    <input type="text" class="accounts-item__input" name="account_category" placeholder="タップして入力して下さい" value="{{old('account_category')}}">
+                    <select name="account_category" class="accounts-item__input" id="" style="background:transparent;">
+                        @foreach(["積立（まとめて入力可能）","大規模修繕実施","その他修繕実施"] as $category)
+                        <option value="{{$category}}" {{(old('account_category')==$category) ? 'selected' : ''}}>
+                            {{$category}}
+                        </option>
+                        @endforeach
+                    </select>
+                    {{--<input type="text" class="accounts-item__input" name="account_category" placeholder="タップして入力して下さい" value="{{old('account_category')}}">--}}
                 </section>
             </div>
         </li>

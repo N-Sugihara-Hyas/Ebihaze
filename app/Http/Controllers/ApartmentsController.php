@@ -124,6 +124,15 @@ class ApartmentsController extends Controller
 		$route = ['url' => route('apartments-detail', $id), 'title' => 'マンション詳細'];
 
 		$Apartment = \App\Apartment::find($id);
+		// suggest表示用
+		$Apartments = \App\Apartment::all();
+		$names = [];
+		foreach ($Apartments as $apart)
+		{
+			$names[] = "'".$apart->name."'";
+		}
+		// セレクト項目表示用
+		$Apartment->names = implode(',', $names);
 		$Apartment->facilities = unserialize($Apartment->facilities);
 //		$Apartment->insurance = unserialize($Apartment->insurance);
 		$Insurance = \App\Insurance::whereApartmentId($id)->get()->toArray();
