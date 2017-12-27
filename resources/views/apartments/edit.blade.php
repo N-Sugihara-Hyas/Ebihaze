@@ -22,16 +22,27 @@
         <input type="hidden" name="apartment[id]" value="{{$apartment->id}}">
         <div class="users-add_form__container">
             <dl class="users-add_form__list">
-                <dt class="users-add_list-title__apartment-name">マンション名</dt>
+                <dt class="users-add_list-title__apartment-name">マンション名 <span class="c-required">*</span></dt>
                 <dd class="users-add_list-form__apartment-name">
-                    <input type="text" name="apartment[name]" value="{{$apartment->name}}">
-                    {{--<button>検索</button>--}}
+                    {{--<input type="text" name="apartment[name]" value="{{$apartment->name}}">--}}
+                    <input id="text" type="text" name="apartment[name]" value="{{$apartment->name}}" autocomplete="off" size="10" style="display: block">
+                    <!-- 補完候補を表示するエリア -->
+                    <div id="suggest" style="display:none;"></div>                               {{--<button>検索</button>--}}
                 </dd>
             </dl>
             <dl class="users-add_form__list">
-                <dt class="users-add_list-title__apartment-address">マンション住所入力</dt>
+                <dt class="users-add_list-title__apartment-address">マンション住所入力 <span class="c-required">*</span></dt>
                 <dd class="users-add_list-form__apartment-address">
                     <input type="text" name="apartment[address]" value="{{$apartment->address}}">
+                </dd>
+            </dl>
+            <dl class="users-add_form__list">
+                <dt class="users-add_list-title__user-reside">コンタクト</dt>
+                <dd class="users-add_list-form__user-reside">
+                    <select name="apartment[contact]" id="">
+                       <option value="1" {{($apartment->contact==1) ? 'selected' : ''}}>可</option>
+                       <option value="0" {{($apartment->contact==0) ? 'selected' : ''}}>不可</option>
+                    </select>
                 </dd>
             </dl>
             <dl class="users-add_form__list">
@@ -108,20 +119,30 @@
                 <dd class="users-add_list-form__apartment-completion_date">
                     <select name="apartment[completion_date--year]" id="">
                         @foreach(range(date('Y', strtotime('-100 year')), date('Y')) as $year)
-                            <option value="{{$year}}年" {{($year==preg_replace('/(.+)年/', '$1', $apartment->completion_date)) ? 'selected' : ''}}>{{$year}}</option>
+                            <option value="{{$year}}年" {{($year==preg_replace('/(.+?)年.+?月/u', '$1', $apartment->completion_date)) ? 'selected' : ''}}>{{$year}}</option>
                         @endforeach
                     </select>年
                     <select name="apartment[completion_date--month]" id="">
                         @foreach(range(1, 12) as $month)
-                            <option value="{{$month}}月" {{($month==preg_replace('/.+年(.+)月/', '$1', $apartment->completion_date)) ? 'selected' : ''}}>{{$month}}</option>
+                            <option value="{{$month}}月" {{($month==preg_replace('/.+?年(.+?)月/u', '$1', $apartment->completion_date)) ? 'selected' : ''}}>{{$month}}</option>
                         @endforeach
                     </select>月
                 </dd>
             </dl>
             <dl class="users-add_form__list">
-                <dt class="users-add_list-title__apartment-total_units">総戸数</dt>
+                <dt class="users-add_list-title__apartment-total_units">総戸数 <span class="c-required">*</span></dt>
                 <dd class="users-add_list-form__apartment-total_units">
                     <input type="text" name="apartment[total_units]" value="{{$apartment->total_units}}">
+                </dd>
+            </dl>
+            <dl class="users-add_form__list">
+                <dt class="users-add_list-title__apartment-total_units">ペット</dt>
+                <dd class="users-add_list-form__apartment-total_units">
+                    <select name="apartment[pet]" id="">
+                        <option value="可" {{($apartment->pet=='可') ? 'selected' : ''}}>可</option>
+                        <option value="不可" {{($apartment->pet=='不可') ? 'selected' : ''}}>不可</option>
+                    </select>
+                    {{--<input type="text" name="apartment[pet]" value="{{$apartment->pet}}">--}}
                 </dd>
             </dl>
             <dl class="users-add_form__list">
@@ -155,6 +176,24 @@
         $("#datepicker3").datepicker();
         $("#datepicker4").datepicker();
         $("#datepicker5").datepicker();
+    });
+</script>
+<script src="{{asset('js/suggest.js')}}"></script>
+<script>
+    $(function(){
+        function startSuggest() {
+            var list = [{!! $apartment->names !!}];
+            new Suggest.Local(
+                    "text",    // 入力のエレメントID
+                    "suggest", // 補完候補を表示するエリアのID
+                    list,      // 補完候補の検索対象となる配列
+                    {dispMax: 10, interval: 1000}
+            ); // オプション
+        }
+
+        window.addEventListener ?
+                window.addEventListener('load', startSuggest, false) :
+                window.attachEvent('onload', startSuggest);
     });
 </script>
 @endsection
