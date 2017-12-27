@@ -244,7 +244,8 @@ class AccountsController extends Controller
 		$route = ['url' => route('accounts-list'), 'title' => '残高一覧'];
 
 		$Account = \App\Account::find($id);
-		$Account->total = \App\User::find(Auth::id())->accounts()->whereSubId($Account->sub_id)->sum('amount');
+		$Account->total = \App\User::find(Auth::id())->accounts()->whereSubId($Account->sub_id);
+		$Account->total = @$Account->amount;
 
 		return view('accounts.edit', ['account' => $Account, 'route' => $route, 'title' => $title]);
 	}

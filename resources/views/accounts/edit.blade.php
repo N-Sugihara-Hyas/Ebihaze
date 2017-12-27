@@ -17,8 +17,8 @@
         <li class="accounts-nav__item {{($account->sub_id==3) ? 'accounts-nav__item--active' : 'accounts-nav__item--inactive'}}">その他</li>
     </ul>
     <section class="accounts-total">
-        <p class="accounts-item-amount">残高</p>
-        <p class="accounts-item-price">¥{{$account->total}}</p>
+        <p class="accounts-item-amount">取引金額</p>
+        <p class="accounts-item-price">¥{{number_format($account->total)}}</p>
     </section>
     <h2>コメント表示</h2>
     <form action="{{route('post.accounts-edit')}}" method="post">
@@ -38,7 +38,7 @@
         <li class="accounts-list__item c-list__item">
             <div class="accounts-item-container">
                 <section class="accounts-item__title">
-                    <p>記帳する日付</p>
+                    <p>日付</p>
                 </section>
                 <section class="accounts-item__date">
                     <input type="text" id="datepicker" name="account_schedule" value="{{date('Y/m/d', strtotime($account->schedule))}}">
@@ -57,10 +57,17 @@
         <li class="accounts-list__item c-list__item">
             <div class="accounts-item-container">
                 <section class="accounts-item__title">
-                    <p>記帳する項目</p>
+                    <p>取引内容</p>
                 </section>
                 <section class="accounts-item__category">
-                    <input type="text" class="accounts-item__input" name="account_category" placeholder="タップして入力して下さい" value="{{$account->category}}">
+                    <select name="account_category" class="accounts-item__input" id="" style="background:transparent;">
+                        @foreach(["積立（まとめて入力可能）","大規模修繕実施","その他修繕実施"] as $category)
+                            <option value="{{$category}}" {{(old('account_category')==$category) ? 'selected' : ''}}>
+                                {{$category}}
+                            </option>
+                        @endforeach
+                    </select>
+                    {{--<input type="text" class="accounts-item__input" name="account_category" placeholder="タップして入力して下さい" value="{{$account->category}}">--}}
                 </section>
             </div>
         </li>
