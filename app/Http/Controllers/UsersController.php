@@ -33,17 +33,19 @@ class UsersController extends Controller
 
 		// SMS認証
 //		$twillioController = app()->make('\App\Http\Controllers\TwillioController');
-//		try{
+		$aossmsController = app()->make('\App\Http\Controllers\AossmsController');
+		try{
 //			$auth_token = $twillioController->create($tel, 'num');
-			$auth_token = '1234';
+			$auth_token = $aossmsController->create($tel, 'num');
+//			$auth_token = '1234';
 
 			$User = \App\User::updateOrCreate(
 				['tel' => $tel],
 				['tel' => $tel, 'auth_token' => $auth_token, 'password' => bcrypt('secret')]
 			);
-//		}catch (Exception $e){
-//			echo "エラーが発生しました。戻るボタンを押して下さい。";
-//		}
+		}catch (Exception $e){
+			echo "エラーが発生しました。戻るボタンを押して下さい。";
+		}
 
 		return redirect()->route('users-certificate', $User->id);
 	}
@@ -484,16 +486,18 @@ class UsersController extends Controller
 		);
 
 		// SMS認証
-		$twillioController = app()->make('\App\Http\Controllers\TwillioController');
-//		try{
+//		$twillioController = app()->make('\App\Http\Controllers\TwillioController');
+		$aossmsController = app()->make('\App\Http\Controllers\AossmsController');
+		try{
 //			$auth_token = $twillioController->invite($tel, 'str', $User->id);
-			$auth_token = '1234';
+			$auth_token = $aossmsController->invite($tel, 'str', $User->id);
+//			$auth_token = '1234';
 
 			$User->auth_token = $auth_token;
 			$User->save();
-//		}catch (Exception $e){
-//			echo "エラーが発生しました。戻るボタンを押して下さい。";
-//		}
+		}catch (Exception $e){
+			echo "エラーが発生しました。戻るボタンを押して下さい。";
+		}
 
 		return redirect()->route('users-invite-complete', $User->id);
 	}
