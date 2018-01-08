@@ -22,7 +22,17 @@ class ApartmentsController extends Controller
 		$title = 'マンション情報登録';
 		$route = ['url' => route('apartments-list'), 'title' => 'マンション一覧'];
 
+		// suggest表示用
+		$Apartment = \App\Apartment::all();
+		$names = [];
+		foreach ($Apartment as $apart)
+		{
+			$names[] = "'".$apart->name."'";
+		}
+		// セレクト項目表示用
 		$Apartment = new \App\Apartment;
+		$Apartment->names = implode(',', $names);
+
 		return view('apartments.add', ['apartment' => $Apartment, 'route' => $route, 'title' => $title]);
 	}
 	public function postAdd(Request $request)
@@ -51,7 +61,12 @@ class ApartmentsController extends Controller
 		$apartment['completion_date'] = $apartment['completion_date--year'].$apartment['completion_date--month'];
 		unset($apartment['completion_date--year']);
 		unset($apartment['completion_date--month']);
-		$Apartment = new \App\Apartment;
+
+		// 更新か上書きかを名前と住所で判断
+		$Apartment = \App\Apartment::where('name', 'LIKE', $apartment['name'])->where('address', 'LIKE', $apartment['address'])->first();
+		$Apartment = ($Apartment) ? $Apartment : new \App\Apartment;
+//		$Apartment = new \App\Apartment;
+
 		foreach($apartment as $name => $value)
 		{
 			if(is_array($value))$value = serialize($value);

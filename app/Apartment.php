@@ -23,9 +23,17 @@ class Apartment extends Model
 	{
 		return $this->hasMany('App\Building');
 	}
-	public function events()
+	public function events($membership=0)
 	{
-		return $this->hasMany('App\Event')->orderBy('schedule', 'desc');
+		if($membership==1)
+		{
+			$date = date('Y-m-d H:i:s', strtotime('-3 year'));
+		}
+		else
+		{
+			$date = date('Y-m-d H:i:s', strtotime('-6 month'));
+		}
+		return $this->hasMany('App\Event')->where('created_at', '>', $date)->orderBy('schedule', 'desc');
 	}
 	public function ranks()
 	{

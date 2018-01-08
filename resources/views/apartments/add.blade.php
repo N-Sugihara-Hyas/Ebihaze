@@ -23,7 +23,10 @@
             <dl class="users-add_form__list">
                 <dt class="users-add_list-title__apartment-name">マンション名 <span class="c-required">*</span></dt>
                 <dd class="users-add_list-form__apartment-name">
-                    <input type="text" name="apartment[name]" value="{{old('apartment.name')}}">
+                    {{--<input type="text" name="apartment[name]" value="{{old('apartment.name')}}">--}}
+                    <input id="text" type="text" name="apartment[name]" value="{{old('apartment.name')}}" autocomplete="off" size="10" style="display: block">
+                    <!-- 補完候補を表示するエリア -->
+                    <div id="suggest" style="display:none;"></div>                    {{--<button>検索</button>--}}
                     {{--<button>検索</button>--}}
                 </dd>
             </dl>
@@ -164,6 +167,24 @@
             $("#datepicker3").datepicker();
             $("#datepicker4").datepicker();
             $("#datepicker5").datepicker();
+        });
+    </script>
+    <script src="{{asset('js/suggest.js')}}"></script>
+    <script>
+        $(function(){
+            function startSuggest() {
+                var list = [{!! $apartment->names !!}];
+                new Suggest.Local(
+                        "text",    // 入力のエレメントID
+                        "suggest", // 補完候補を表示するエリアのID
+                        list,      // 補完候補の検索対象となる配列
+                        {dispMax: 10, interval: 1000}
+                ); // オプション
+            }
+
+            window.addEventListener ?
+                    window.addEventListener('load', startSuggest, false) :
+                    window.attachEvent('onload', startSuggest);
         });
     </script>
     <script src="{{asset('js/suggest.js')}}"></script>
