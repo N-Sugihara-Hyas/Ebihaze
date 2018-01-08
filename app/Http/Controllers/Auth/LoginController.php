@@ -47,6 +47,15 @@ class LoginController extends Controller
 
 	protected function redirectTo()
 	{
+		// 登録から１か月の仮権限判定
+		if(Auth()->user()->approval==9)
+		{
+			if(strtotime(Auth()->user()->created_at) < strtotime('-1 month'))
+			{
+				Auth()->user()->approval = 0;
+				Auth()->user()->save();
+			}
+		}
 		return '/events/list';
 	}
 }

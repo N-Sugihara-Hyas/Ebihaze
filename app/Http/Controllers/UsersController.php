@@ -270,7 +270,7 @@ class UsersController extends Controller
 		$Building->save();
 		$Room->building_id = $Building->id;
 		$Room->save();
-		$User->approval = 1;
+		$User->approval = 9;
 		$User->apartment_id = $Apartment->id;
 		$User->building_id = $Building->id;
 		$User->room_id = $Room->id;
@@ -426,7 +426,7 @@ class UsersController extends Controller
 			}
 			$icon->save($dir.'/icon');
 		}
-		$User->approval = 1;
+//		$User->approval = 9;
 		$User->save();
 		// 部屋保存
 		$Room->save();
@@ -498,6 +498,10 @@ class UsersController extends Controller
 		}catch (Exception $e){
 			echo "エラーが発生しました。戻るボタンを押して下さい。";
 		}
+
+		// 招待されたので本権限へ
+		Auth()->user()->approval = 1;
+		Auth()->user()->save();
 
 		return redirect()->route('users-invite-complete', $User->id);
 	}
