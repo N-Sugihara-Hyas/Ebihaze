@@ -27,7 +27,7 @@ class EventsController extends Controller
 		// マンション名表示
 		$title = $Apartment->name;
 
-		$Events = $Apartment->events;
+		$Events = $Apartment->events(Auth()->user()->membership)->get();
 		$calendar = [];
 		foreach($Events as &$event)
 		{
@@ -50,7 +50,7 @@ class EventsController extends Controller
 			$calendar = array_unique($calendar);
 		}
 		// 日付指定アリの場合
-		if(isset($_GET['schedule']))$Events = $Apartment->events()->where('schedule', 'LIKE', '%'.$_GET['schedule'].'%')->get();
+		if(isset($_GET['schedule']))$Events = $Apartment->events(Auth()->user()->membership)->where('schedule', 'LIKE', '%'.$_GET['schedule'].'%')->get();
 
 		$Event = new \App\Event;
 		// 業者選択用
@@ -72,7 +72,7 @@ class EventsController extends Controller
 		// マンション名表示
 		$title = $Apartment->name;
 
-		$Events = $Apartment->events;
+		$Events = $Apartment->events(Auth()->user()->membership)->get();
 		$calendar = [];
 		$join_events = [];
 		foreach($Events as &$event)
@@ -101,7 +101,7 @@ class EventsController extends Controller
 			}
 		}
 		// 日付指定アリの場合
-		if(isset($_GET['schedule']))$Events = $Apartment->events()->where('schedule', 'LIKE', '%'.$_GET['schedule'].'%')->get();
+		if(isset($_GET['schedule']))$Events = $Apartment->events(Auth()->user()->membership)->where('schedule', 'LIKE', '%'.$_GET['schedule'].'%')->get();
 
 		$Event = new \App\Event;
 		// 業者選択用
@@ -123,7 +123,7 @@ class EventsController extends Controller
 		// マンション名表示
 		$title = $Apartment->name;
 
-		$Events = $Apartment->events;
+		$Events = $Apartment->events(Auth()->user()->membership)->get();
 		$calendar = [];
 		$join_events = [];
 		$watchEventsId = \App\EventUser::where('user_id', Auth::id())->pluck('event_id')->toArray();
@@ -153,7 +153,7 @@ class EventsController extends Controller
 			}
 		}
 		// 日付指定アリの場合
-		if(isset($_GET['schedule']))$Events = $Apartment->events()->where('schedule', 'LIKE', '%'.$_GET['schedule'].'%')->get();
+		if(isset($_GET['schedule']))$Events = $Apartment->events(Auth()->user()->membership)->where('schedule', 'LIKE', '%'.$_GET['schedule'].'%')->get();
 
 		$Event = new \App\Event;
 		// 業者選択用
