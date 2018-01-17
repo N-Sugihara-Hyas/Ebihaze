@@ -59,7 +59,7 @@ class UsersController extends Controller
 		$response["result"] = $result;
 		$response["id"] = $id;
 
-		return response()->json($response);
+		return response()->json($response, 200);
 	}
 	public function certificate($id)
 	{
