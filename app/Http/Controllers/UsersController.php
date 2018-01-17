@@ -43,11 +43,23 @@ class UsersController extends Controller
 				['tel' => $tel],
 				['tel' => $tel, 'auth_token' => $auth_token, 'password' => bcrypt('secret')]
 			);
+			// アプリ用にjson返却
+			self::rtnJson(0, $User->id);
 		}catch (Exception $e){
 			echo "エラーが発生しました。戻るボタンを押して下さい。";
+			self::rtnJson(1);
 		}
 
 		return redirect()->route('users-certificate', $User->id);
+	}
+	public function rtnJson($result, $id=null)
+	{
+		$response = array();
+
+		$response["result"] = $result;
+		$response["id"] = $id;
+
+		return response()->json($response);
 	}
 	public function certificate($id)
 	{
@@ -75,10 +87,12 @@ class UsersController extends Controller
 
 		if($certification)
 		{
+			self::rtnJson(0);
 			return redirect()->route('users-add', $id);
 		}
 		else
 		{
+			self::rtnJson(1);
 			$request->session()->flash('error', '認証が取れませんでした。再度、認証コードを取得下さい。');
 			return redirect()->route('users-create');
 		}
