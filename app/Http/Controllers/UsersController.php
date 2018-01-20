@@ -81,17 +81,24 @@ class UsersController extends Controller
 		// authToken認証
 		$certification = ($User->auth_token===$auth_token && time()-strtotime($User->updated_at) <= 60*60*24);
 
-		$User->certification = $certification;
-		$User->type = $type;
-		$User->save();
+		try{
 
-		if($certification)
-		{
-			self::rtnJson(0);
-			return redirect()->route('users-add', $id);
-		}
-		else
-		{
+			$User->certification = $certification;
+			$User->type = $type;
+			$User->save();
+
+			if($certification)
+			{
+				self::rtnJson(0);
+				return redirect()->route('users-add', $id);
+			}
+			else
+			{
+				self::rtnJson(1);
+				$request->session()->flash('error', '認証が取れませんでした。再度、認証コードを取得下さい。');
+				return redirect()->route('users-create');
+			}
+		}catch (Exception $e){
 			self::rtnJson(1);
 			$request->session()->flash('error', '認証が取れませんでした。再度、認証コードを取得下さい。');
 			return redirect()->route('users-create');
