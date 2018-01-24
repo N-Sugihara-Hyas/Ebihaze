@@ -236,18 +236,23 @@ class UsersController extends Controller
 		}
 		$request->validate($error_rules['formats'], $error_rules['messages']);
 		$all = $request->all();
-		// 竣工年月
-		$all['apartment']['completion_date'] = $all['apartment']['completion_date--year'].$all['apartment']['completion_date--month'];
-		unset($all['apartment']['completion_date--year']);
-		unset($all['apartment']['completion_date--month']);
-		// 間取り
-		$all['room']['floor_plan'] = $all['room']['floor_plan--num'].$all['room']['floor_plan--type'];
-		unset($all['room']['floor_plan--num']);
-		unset($all['room']['floor_plan--type']);
+
 		$User = \App\User::find($all['user']['id']);
-		// 更新か上書きかを名前と住所で判断
-		$Apartment = \App\Apartment::where('name', 'LIKE', $all['apartment']['name'])->where('address', 'LIKE', $all['apartment']['address'])->first();
-		$Apartment = ($Apartment) ? $Apartment : new \App\Apartment;
+		// officerのみ登録のパート
+		if($type=='officer')
+		{
+			// 竣工年月
+			$all['apartment']['completion_date'] = $all['apartment']['completion_date--year'].$all['apartment']['completion_date--month'];
+			unset($all['apartment']['completion_date--year']);
+			unset($all['apartment']['completion_date--month']);
+			// 間取り
+			$all['room']['floor_plan'] = $all['room']['floor_plan--num'].$all['room']['floor_plan--type'];
+			unset($all['room']['floor_plan--num']);
+			unset($all['room']['floor_plan--type']);
+			// 更新か上書きかを名前と住所で判断
+			$Apartment = \App\Apartment::where('name', 'LIKE', $all['apartment']['name'])->where('address', 'LIKE', $all['apartment']['address'])->first();
+			$Apartment = ($Apartment) ? $Apartment : new \App\Apartment;
+		}
 		$Building = new \App\Building;
 		$Room = new \App\Room;
 
@@ -281,9 +286,49 @@ class UsersController extends Controller
 					break;
 			}
 		}
-		$Apartment->user_id = $User->id;
-		$Apartment->public = 1;
-		$Apartment->save();
+		// officerのみ登録のパート
+		if($type=='officer')
+		{
+			$Apartment->user_id = $User->id;
+			$Apartment->public = 1;
+			$Apartment->save();
+			$Building->apartment_id = $Apartment->id;
+			$Building->save();
+			$Room->building_id = $Building->id;
+			$Room->save();
+			$User->approval = 9;
+			$User->apartment_id = $Apartment->id;
+			$User->building_id = $Building->id;
+			$User->room_id = $Room->id;
+			$User->save();
+			// 保険登録
+			$insurances = $request->input('insurance');
+			foreach($insurances as $num => $ins)
+			{
+//			if(!empty($ins['name']) && !empty($ins['expired']))
+//			{
+				$Insurance = \App\Insurance::where('sort_id', $num)->where('apartment_id', $Apartment->id)->first();
+				$Insurance = ($Insurance) ? $Insurance : new \App\Insurance;
+				$Insurance->name = $ins['name'];
+				$Insurance->expired = $ins['expired'];
+				$Insurance->apartment_id = $Apartment->id;
+				$Insurance->sort_id = $num;
+				$Insurance->save();
+//			}
+			}
+		}
+		elseif ($type=="common")
+		{
+			$Building->apartment_id = $User->apartment_id;
+			$Building->save();
+			$Room->building_id = $Building->id;
+			$Room->save();
+			$User->approval = 9;
+//			$User->apartment_id = $Apartment->id;
+			$User->building_id = $Building->id;
+			$User->room_id = $Room->id;
+			$User->save();
+		}
 		if ($request->hasFile('apartment_icon'))
 		{
 			$icon = $request->file('apartment_icon');
@@ -309,30 +354,6 @@ class UsersController extends Controller
 				exec('chmod -R 777 img/resources');
 			}
 			$icon->save($dir.'/icon');
-		}
-		$Building->apartment_id = $Apartment->id;
-		$Building->save();
-		$Room->building_id = $Building->id;
-		$Room->save();
-		$User->approval = 9;
-		$User->apartment_id = $Apartment->id;
-		$User->building_id = $Building->id;
-		$User->room_id = $Room->id;
-		$User->save();
-		// 保険登録
-		$insurances = $request->input('insurance');
-		foreach($insurances as $num => $ins)
-		{
-//			if(!empty($ins['name']) && !empty($ins['expired']))
-//			{
-			$Insurance = \App\Insurance::where('sort_id', $num)->where('apartment_id', $Apartment->id)->first();
-			$Insurance = ($Insurance) ? $Insurance : new \App\Insurance;
-			$Insurance->name = $ins['name'];
-			$Insurance->expired = $ins['expired'];
-			$Insurance->apartment_id = $Apartment->id;
-			$Insurance->sort_id = $num;
-			$Insurance->save();
-//			}
 		}
 		return redirect()->route('users-add-complete');
 	}
@@ -524,9 +545,10 @@ class UsersController extends Controller
 		$request->validate($error_rules['formats'], $error_rules['messages']);
 
 		$tel = $request->input('user_tel');
+		// 選択中のアパート住人として登録
 		$User = \App\User::updateOrCreate(
 			['tel' => $tel],
-			['tel' => $tel, 'password' => bcrypt('secret')]
+			['tel' => $tel, 'password' => bcrypt('secret'), 'apartment_id' => session('apartment_id')]
 		);
 
 		// SMS認証
