@@ -18,7 +18,8 @@ class UsersController extends Controller
 	}
 	public function postCreate(Request $request)
 	{
-		$error_rules = [
+
+        $error_rules = [
 			'formats' => [
 				'user_tel' => 'required|numeric'
 			],
@@ -30,7 +31,8 @@ class UsersController extends Controller
 		$request->validate($error_rules['formats'], $error_rules['messages']);
 
 		$tel = $request->input('user_tel');
-
+		$api_flg = $request->input('api_flg');
+		
 		// SMS認証
 //		$twillioController = app()->make('\App\Http\Controllers\TwillioController');
 		$aossmsController = app()->make('\App\Http\Controllers\AossmsController');
@@ -43,14 +45,25 @@ class UsersController extends Controller
 				['tel' => $tel],
 				['tel' => $tel, 'auth_token' => $auth_token, 'password' => bcrypt('secret')]
 			);
-			// アプリ用にjson返却
-			self::rtnJson(0, $User->id);
+			if($api_flg !== null && $api_flg === 1){
+				// アプリ用にjson返却
+				return self::rtnJson(0, $User->id);
+			} else {
+				return redirect()->route('users-certificate', $User->id);
+			}
+
 		}catch (Exception $e){
 			echo "エラーが発生しました。戻るボタンを押して下さい。";
-			self::rtnJson(1);
+			
+			if($api_flg !== null && $api_flg === 1){
+				// アプリ用にjson返却
+				return self::rtnJson(1);
+			} else {
+				return redirect()->route('users-certificate', $User->id);
+			}
 		}
 
-		return redirect()->route('users-certificate', $User->id);
+		// return redirect()->route('users-certificate', $User->id);
 	}
 	public function rtnJson($result, $id=null)
 	{
@@ -71,6 +84,7 @@ class UsersController extends Controller
 	public function postCertificate(Request $request)
 	{
 		$id = $request->input('user_id');
+		$api_flg = $request->input('api_flg');
 		$auth_token = $request->input('user_auth_token');
 		$type = $request->input('user_type');
 		// 権限分け
@@ -89,14 +103,23 @@ class UsersController extends Controller
 
 			if($certification)
 			{
-				self::rtnJson(0);
-				return redirect()->route('users-add', $id);
+				if($api_flg !== null && $api_flg === 1){
+					// アプリ用にjson返却
+					return self::rtnJson(0);
+				} else {
+					return redirect()->route('users-add', $id);
+				}
 			}
 			else
 			{
-				self::rtnJson(1);
-				$request->session()->flash('error', '認証が取れませんでした。再度、認証コードを取得下さい。');
-				return redirect()->route('users-create');
+				if($api_flg !== null && $api_flg === 1){
+					// アプリ用にjson返却
+					return self::rtnJson(1);
+				} else {
+					$request->session()->flash('error', '認証が取れませんでした。再度、認証コードを取得下さい。');
+					return redirect()->route('users-create');
+
+				}
 			}
 		}catch (Exception $e){
 			self::rtnJson(1);
