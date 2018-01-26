@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class StaticsController extends Controller
 {
@@ -22,6 +23,11 @@ class StaticsController extends Controller
 	}
 	public function menu()
 	{
+		if(Auth::user()->type=='trader')
+		{
+			$Trader = \App\Trader::where('user_id', Auth::id())->first();
+			return view('statics.menu', ['trader' => $Trader]);
+		}
 		return view('statics.menu');
 	}
 }

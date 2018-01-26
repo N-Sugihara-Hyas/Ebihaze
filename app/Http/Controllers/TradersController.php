@@ -84,7 +84,7 @@ class TradersController extends Controller
 
 		$User = \App\User::updateOrCreate(
 			['tel' => $trader_tel],
-			['tel' => $trader_tel, 'name' => $trader_name, 'password' => bcrypt($password)]
+			['tel' => $trader_tel, 'name' => $trader_name, 'nickname' => $trader_name, 'password' => bcrypt($password)]
 		);
 		$User->type = 'trader';
 		$User->owned = 'trader';

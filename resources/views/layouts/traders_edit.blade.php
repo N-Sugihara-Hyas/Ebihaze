@@ -40,11 +40,13 @@
 
         <nav class="navbar navbar-default navbar-static-bottom">
             {{--<div class="container">--}}
+            @if(Auth::user()->type!='trader'||$trader->user_id==Auth::id())
             <div class="navbar-globalcomment">
                 <a href="{{route('traders-edit', $trader->id)}}">
                     <button class="c-btn--max c-btn--blue">情報編集</button>
                 </a>
             </div>
+            @endif
             {{--</div>--}}
         </nav>
     </div>

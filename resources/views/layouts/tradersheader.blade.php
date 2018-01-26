@@ -55,10 +55,12 @@
                     <a class="navbar-brand tradersheaderbar-brand" href="#">
                         {{ $title }}
                     </a>
+                    @if(Auth::user()->type!='trader')
                     <a class="navbar-right tradersheaderbar-right" href="{{route('traders-add') }}">
                         ＋<br>
                         <small>追加</small>
                     </a>
+                    @endif
                 </div>
             </div>
         </nav>

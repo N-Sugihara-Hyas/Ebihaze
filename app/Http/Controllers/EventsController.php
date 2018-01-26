@@ -14,43 +14,91 @@ class EventsController extends Controller
 	public function list()
 	{
 //		$title = '案件一覧';
-
-		if(session()->has('apartment_id'))
+		if(Auth::user()->type=='trader')
 		{
-			$Apartment = \App\Apartment::find(session('apartment_id'));
+			// マンション名表示
+			$title = '';
+			$date = date('Y-m-d H:i:s', strtotime('-3 year'));
+			$Events = \App\Event::whereRaw('`suppliers` LIKE "'.Auth::id().',%"')
+				->orWhereRaw('`suppliers` LIKE "%'.Auth::id().',%"')
+				->orWhereRaw('`suppliers` LIKE "%,'.Auth::id().'"')
+				->orWhereRaw('`suppliers` LIKE '.Auth::id())
+				->where('created_at', '>', $date)
+				->orderBy('schedule', 'desc')
+				->get();
+			$calendar = [];
+			foreach($Events as &$event)
+			{
+				$event->title = mb_strimwidth($event->title, 0, 15, '...');
+				/** 参加イベントフラグ */
+				if(in_array(Auth::id(), explode(',', $event->parties)))$event->join = true;
+				/** 業者 / 関係者 表示 */
+				$event->suppliers_id = $event->suppliers;
+				$event = $event->suppliersName($event);
+				$event = $event->partiesName($event);
+				/** イベントステータス付け **/
+				// 完了
+				if($event->approval==1 && strtotime($event->schedule)<time())$event->status = 'done';
+				elseif ($event->approval==0 && strtotime($event->schedule)<time())$event->status = 'required';
+				else $event->status = '';
+				// ユーザー権限
+				if(Auth::user()->type!='officer')$event->status = '';
+				/** カレンダー用付け **/
+				$calendar[] = date('Y-m-d', strtotime($event->schedule));
+				$calendar = array_unique($calendar);
+			}
+			// 日付指定アリの場合
+			if(isset($_GET['schedule']))
+			{
+				$Events = \App\Event::whereRaw('`suppliers` LIKE "'.Auth::id().',%"')
+					->orWhereRaw('`suppliers` LIKE "%'.Auth::id().',%"')
+					->orWhereRaw('`suppliers` LIKE "%,'.Auth::id().'"')
+					->orWhereRaw('`suppliers` LIKE '.Auth::id())
+//					->where('created_at', '>', $date)
+					->where('schedule', 'LIKE', '%'.$_GET['schedule'].'%')
+					->orderBy('schedule', 'desc')
+					->get();
+			}
 		}
 		else
 		{
-			$Apartments = \App\User::find(Auth::id())->apartments;
-			$Apartment = $Apartments[0];
-		}
-		// マンション名表示
-		$title = $Apartment->name;
+			if(session()->has('apartment_id'))
+			{
+				$Apartment = \App\Apartment::find(session('apartment_id'));
+			}
+			else
+			{
+				$Apartments = \App\User::find(Auth::id())->apartments;
+				$Apartment = $Apartments[0];
+			}
+			// マンション名表示
+			$title = $Apartment->name;
 
-		$Events = $Apartment->events(Auth()->user()->membership)->get();
-		$calendar = [];
-		foreach($Events as &$event)
-		{
-			$event->title = mb_strimwidth($event->title, 0, 15, '...');
-			/** 参加イベントフラグ */
-			if(in_array(Auth::id(), explode(',', $event->parties)))$event->join = true;
-			/** 業者 / 関係者 表示 */
-			$event->suppliers_id = $event->suppliers;
-			$event = $event->suppliersName($event);
-			$event = $event->partiesName($event);
-			/** イベントステータス付け **/
-			// 完了
-			if($event->approval==1 && strtotime($event->schedule)<time())$event->status = 'done';
-			elseif ($event->approval==0 && strtotime($event->schedule)<time())$event->status = 'required';
-			else $event->status = '';
-			// ユーザー権限
-			if(Auth::user()->type!='officer')$event->status = '';
-			/** カレンダー用付け **/
-			$calendar[] = date('Y-m-d', strtotime($event->schedule));
-			$calendar = array_unique($calendar);
+			$Events = $Apartment->events(Auth()->user()->membership)->get();
+			$calendar = [];
+			foreach($Events as &$event)
+			{
+				$event->title = mb_strimwidth($event->title, 0, 15, '...');
+				/** 参加イベントフラグ */
+				if(in_array(Auth::id(), explode(',', $event->parties)))$event->join = true;
+				/** 業者 / 関係者 表示 */
+				$event->suppliers_id = $event->suppliers;
+				$event = $event->suppliersName($event);
+				$event = $event->partiesName($event);
+				/** イベントステータス付け **/
+				// 完了
+				if($event->approval==1 && strtotime($event->schedule)<time())$event->status = 'done';
+				elseif ($event->approval==0 && strtotime($event->schedule)<time())$event->status = 'required';
+				else $event->status = '';
+				// ユーザー権限
+				if(Auth::user()->type!='officer')$event->status = '';
+				/** カレンダー用付け **/
+				$calendar[] = date('Y-m-d', strtotime($event->schedule));
+				$calendar = array_unique($calendar);
+			}
+			// 日付指定アリの場合
+			if(isset($_GET['schedule']))$Events = $Apartment->events(Auth()->user()->membership)->where('schedule', 'LIKE', '%'.$_GET['schedule'].'%')->get();
 		}
-		// 日付指定アリの場合
-		if(isset($_GET['schedule']))$Events = $Apartment->events(Auth()->user()->membership)->where('schedule', 'LIKE', '%'.$_GET['schedule'].'%')->get();
 
 		$Event = new \App\Event;
 		// 業者選択用

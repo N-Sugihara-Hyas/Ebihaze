@@ -21,25 +21,25 @@
             <input type="hidden" name="trader[id]" value="{{$trader->id}}">
             <div class="trader-add_form__container">
                 <dl class="trader-add_form__list">
-                    <dt class="trader-add_list-title__trader-name">業者名</dt>
+                    <dt class="trader-add_list-title__trader-name">業者名 <span class="c-required">*</span></dt>
                     <dd class="trader-add_list-form__trader-name">
                         <input type="text" class="trader-add_input" name="trader[name]" value="{{$trader->name}}">
                     </dd>
                 </dl>
                 <dl class="trader-add_form__list">
-                    <dt class="trader-add_list-title__trader-tel">電話番号</dt>
+                    <dt class="trader-add_list-title__trader-tel">電話番号 <span class="c-required">*</span></dt>
                     <dd class="trader-add_list-form__trader-tel">
                         <input type="text" class="trader-add_input" name="trader[tel]" value="{{$trader->tel}}">
                     </dd>
                 </dl>
                 <dl class="trader-add_form__list">
-                    <dt class="trader-add_list-title__trader-address">住所</dt>
+                    <dt class="trader-add_list-title__trader-address">住所 <span class="c-required">*</span></dt>
                     <dd class="trader-add_list-form__trader-address">
                         <input type="text" name="trader[address]" value="{{$trader->address}}">
                     </dd>
                 </dl>
                 <dl class="trader-add_form__list">
-                    <dt class="trader-add_list-title__trader-area">サービス提供エリア</dt>
+                    <dt class="trader-add_list-title__trader-area">サービス提供エリア <span class="c-required">*</span></dt>
                     <dd class="trader-add_list-form__trader-area">
                         <input type="text" name="trader[area]" value="{{$trader->area}}">
                     </dd>
@@ -47,7 +47,11 @@
                 <dl class="trader-add_form__list">
                     <dt class="trader-add_list-title__trader-introduction">業務内容</dt>
                     <dd class="trader-add_list-form__trader-introduction">
-                        <textarea name="trader[introduction]" id="" cols="30" rows="10">{{$trader->introduction}}</textarea>
+                        <select name="trader[introduction]" id="">
+                            @foreach($trader::$type as $t)
+                            <option value="{{$t}}" {{($trader->introduction==$t) ? 'selected' : ''}}>{{$t}}</option>
+                            @endforeach
+                        </select>
                     </dd>
                 </dl>
                 <dl class="trader-add_form__list">

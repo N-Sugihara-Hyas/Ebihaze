@@ -5,20 +5,35 @@
         <ul class="menu-list c-menu c-list">
             <li class="c-menu__item c-list__item">
                 <div class="menu-header">
+                    @if(Auth::user()->type!='trader')
                     <a href="{{route('users-edit', Auth::id())}}">
-                    <section class="menu-header__thumb">
-                        <figure>
-                            <img class="c-circle" src="{{asset('img/resources/user/'.Auth::id().'/icon')}}" alt="">
-                        </figure>
-                    </section>
-                    <section class="menu-header__title">
-                        <p>　{{Auth::user()->nickname}}</p>
-                    </section>
+                        <section class="menu-header__thumb">
+                            <figure>
+                                <img class="c-circle" src="{{asset('img/resources/user/'.Auth::id().'/icon')}}" alt="">
+                            </figure>
+                        </section>
+                        <section class="menu-header__title">
+                            <p>　{{Auth::user()->nickname}}</p>
+                        </section>
                     </a>
+                    @else
+                    <a href="{{route('traders-edit', $trader->id)}}">
+                        <section class="menu-header__thumb">
+                            <figure>
+                                <img class="c-circle" src="{{asset('img/resources/user/'.Auth::id().'/icon')}}" alt="">
+                            </figure>
+                        </section>
+                        <section class="menu-header__title">
+                            <p>　{{$trader->name}}</p>
+                        </section>
+                    </a>
+                    @endif
                 </div>
             </li>
         </ul>
 
+
+        @if(Auth::user()->type!='trader')
         <ul class="menu-list c-menu c-list">
             <a href="{{route('events-add')}}">
                 <li class="menu-list__item c-menu__item c-list__item">
@@ -32,8 +47,10 @@
                 </li>
             </a>
         </ul>
+        @endif
         <h2 class="menu-list__title">業者</h2>
         <ul class="menu-list c-menu c-list">
+            @if(Auth::user()->type!='trader')
             <a href="{{route('traders-add')}}">
                 <li class="menu-list__item c-menu__item c-list__item">
                     <div class="menu-item-container">
@@ -45,6 +62,7 @@
                     </div>
                 </li>
             </a>
+            @endif
             @if(Auth::user()->membership==1)
             <a href="{{route('traders-list')}}">
                 <li class="menu-list__item c-menu__item c-list__item">
@@ -71,6 +89,7 @@
             </a>
             @endif
         </ul>
+        @if(Auth::user()->type!='trader')
         <h2 class="menu-list__title">ユーザー</h2>
         <ul class="menu-list c-menu c-list">
             <a href="{{route('users-list',1)}}">
@@ -96,6 +115,7 @@
                 </li>
             </a>
         </ul>
+        @endif
         @if(Auth::user()->type=='officer')
         <h2 class="menu-list__title">マンション</h2>
         <ul class="menu-list c-menu c-list">

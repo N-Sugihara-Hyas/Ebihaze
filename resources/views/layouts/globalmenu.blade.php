@@ -246,11 +246,12 @@
       <nav class="navbar navbar-default navbar-static-top">
             <div class="container">
                 <div class="navbar-header">
-                    <!-- Branding Image -->
+                    @if(Auth::user()->type!='trader')
                     <a class="navbar-left" href="{{ route('events-add') }}" id="modal-open-add">
                         ＋<br>
                         <small>登録</small>
                     </a>
+                    @endif
                     <a class="navbar-brand" href="{{ url('/') }}">
                         {{$title}}
                     </a>
@@ -260,17 +261,25 @@
                     </a>
                 </div>
                 <div class="navbar-footer">
-                    <ul class="navbar-footer__list">
-                        <a class="navbar-footer__tab navbar-footer--list {{(preg_match('/list/',url()->current())) ? 'navbar-footer__tab--active' : ''}}" href="{{route('events-list')}}">
-                            <li>案件一覧</li>
-                        </a>
-                        <a class="navbar-footer__tab navbar-footer--join {{(preg_match('/join/',url()->current())) ? 'navbar-footer__tab--active' : ''}}" href="{{route('events-join')}}">
-                            <li>参加一覧</li>
-                        </a>
-                        <a class="navbar-footer__tab navbar-footer--watch {{(preg_match('/watch/',url()->current())) ? 'navbar-footer__tab--active' : ''}}" href="{{route('events-watch')}}">
-                            <li>ウォッチ一覧</li>
-                        </a>
-                    </ul>
+                    @if(Auth::user()->type=='trader')
+                        <ul class="navbar-footer__list">
+                            <a style="width:100%;" class="navbar-footer__tab navbar-footer--list {{(preg_match('/list/',url()->current())) ? 'navbar-footer__tab--active' : ''}}" href="{{route('events-list')}}">
+                                <li>案件一覧</li>
+                            </a>
+                        </ul>
+                    @else
+                        <ul class="navbar-footer__list">
+                            <a class="navbar-footer__tab navbar-footer--list {{(preg_match('/list/',url()->current())) ? 'navbar-footer__tab--active' : ''}}" href="{{route('events-list')}}">
+                                <li>案件一覧</li>
+                            </a>
+                            <a class="navbar-footer__tab navbar-footer--join {{(preg_match('/join/',url()->current())) ? 'navbar-footer__tab--active' : ''}}" href="{{route('events-join')}}">
+                                <li>参加一覧</li>
+                            </a>
+                            <a class="navbar-footer__tab navbar-footer--watch {{(preg_match('/watch/',url()->current())) ? 'navbar-footer__tab--active' : ''}}" href="{{route('events-watch')}}">
+                                <li>ウォッチ一覧</li>
+                            </a>
+                        </ul>
+                    @endif
                 </div>
             </div>
         </nav>
