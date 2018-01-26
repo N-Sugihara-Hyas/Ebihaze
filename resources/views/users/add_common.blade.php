@@ -29,6 +29,16 @@
                 </dd>
             </dl>
             <dl class="users-add_form__list">
+                <dt class="users-add_list-title__user-password">パスワード <span class="c-required">*</span></dt>
+                <dd class="users-add_list-form__user-password">
+                    <input type="password" class="user-add_input" value="" name="user[password]">
+                </dd>
+                <dt class="users-add_list-title__user-password_confirmation">パスワード（確認用） <span class="c-required">*</span></dt>
+                <dd class="users-add_list-form__user-password_confirmation">
+                    <input type="password" class="user-add_input" value="" name="user[password_confirmation]">
+                </dd>
+            </dl>
+            <dl class="users-add_form__list">
                 <dt class="users-add_list-title__user-nickname">ニックネーム <span class="c-required">*</span></dt>
                 <dd class="users-add_list-form__user-nickname">
                     <input type="text" class="user-add_input" value="{{old('user.nickname')}}" name="user[nickname]">
@@ -60,9 +70,9 @@
                 <dt class="users-add_list-title__user-birthday">生まれ年</dt>
                 <dd class="users-add_list-form__user-birthday">
                    <select name="user[birthday]" id="">
-                    @foreach(range(date('Y', strtotime('-100Year')), date('Y', strtotime('-100Year'))) as $year)
-                       <option value="{{$year}}" {{($year==date('Y', strtotime('-50Year'))) ? 'selected' : ''}}>{{$year}}</option>
-                    @endforeach
+                       @foreach(range(date('Y', strtotime('-100 year')), date('Y')) as $year)
+                           <option value="{{$year}}" {{($year==date('Y', strtotime('-50Year'))) ? 'selected' : ''}}>{{$year}}</option>
+                       @endforeach
                    </select>年
                     {{--<input type="text" value="{{old('user.birthday')}}" name="user[birthday]">年--}}
                 </dd>

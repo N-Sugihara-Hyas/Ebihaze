@@ -167,6 +167,7 @@ class UsersController extends Controller
 				$error_rules = [
 					'formats' => [
 						'user.nickname' => 'required',
+						'user.password' => 'required|confirmed',
 						'room.room_number' => 'required',
 						'user.owned' => 'in:'.implode(',', array_keys(\App\User::$owned)),
 						'user.gender' => 'in:1,2,9',
@@ -182,6 +183,8 @@ class UsersController extends Controller
 					],
 					'messages' => [
 						'user.nickname.required' => 'ニックネームを入力して下さい',
+						'user.password.required' => 'パスワードを入力して下さい',
+						'user.password.confirmed' => 'パスワードが一致しません',
 						'room.room_number.required' => '部屋番号を入力して下さい',
 						'user.owned.in' => '所有形態はいずれかをお選び下さい',
 						'user.gender.in' => '性別はいずれかをお選び下さい',
@@ -201,6 +204,7 @@ class UsersController extends Controller
 				$error_rules = [
 					'formats' => [
 						'user.nickname' => 'required',
+						'user.password' => 'required|confirmed',
 						'room.room_number' => 'required',
 						'user.gender' => 'in:1,2,9',
 						'user.birthday' => 'numeric',
@@ -208,6 +212,8 @@ class UsersController extends Controller
 					],
 					'messages' => [
 						'user.nickname.required' => 'ニックネームを入力して下さい',
+						'user.password.required' => 'パスワードを入力して下さい',
+						'user.password.confirmed' => 'パスワードが一致しません',
 						'room.room_number.required' => '部屋番号を入力して下さい',
 						'user.gender.in' => '性別はいずれかをお選び下さい',
 						'user.birthday.numeric' => '生まれ年は半角数字で入力下さい',
@@ -236,6 +242,9 @@ class UsersController extends Controller
 		}
 		$request->validate($error_rules['formats'], $error_rules['messages']);
 		$all = $request->all();
+		// 確認用を破棄と暗号化
+		unset($all['user']['password_confirmation']);
+		$all['user']['password'] = bcrypt($all['user']['password']);
 
 		$User = \App\User::find($all['user']['id']);
 		// officerのみ登録のパート

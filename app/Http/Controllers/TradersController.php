@@ -49,6 +49,7 @@ class TradersController extends Controller
 		$error_rules = [
 			'formats' => [
 				'trader.name' => 'required',
+				'trader.password' => 'required|confirmed',
 				'trader.tel' => 'required|regex:/^[0-9]+$/',
 				'trader.address' => 'required',
 				'trader.area' => 'required',
@@ -56,6 +57,8 @@ class TradersController extends Controller
 			],
 			'messages' => [
 				'trader.name.required' => '業者名を入力して下さい',
+				'trader.password.required' => 'パスワードを入力して下さい',
+				'trader.password.confirmed' => 'パスワードが一致しません',
 				'trader.tel.required' => '電話番号を入力して下さい',
 				'trader.tel.regex' => '電話番号は数字のみで入力して下さい',
 				'trader.address.required' => '住所を入力して下さい',
@@ -69,6 +72,8 @@ class TradersController extends Controller
 		$trader_address = $request->input('trader.address');
 		$trader_area = $request->input('trader.area');
 		$trader_introduction = $request->input('trader.introduction');
+		// パスワード登録
+		$password = $request->input('trader.password');
 
 		$Trader = new \App\Trader;
 		$Trader->name = $trader_name;
@@ -79,7 +84,7 @@ class TradersController extends Controller
 
 		$User = \App\User::updateOrCreate(
 			['tel' => $trader_tel],
-			['tel' => $trader_tel, 'name' => $trader_name, 'password' => bcrypt('secret')]
+			['tel' => $trader_tel, 'name' => $trader_name, 'password' => bcrypt($password)]
 		);
 		$User->type = 'trader';
 		$User->owned = 'trader';

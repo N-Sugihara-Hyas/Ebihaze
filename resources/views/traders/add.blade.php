@@ -20,19 +20,29 @@
             {{ csrf_field() }}
             <div class="trader-add_form__container">
                 <dl class="trader-add_form__list">
-                    <dt class="trader-add_list-title__trader-name">業者名</dt>
+                    <dt class="trader-add_list-title__trader-name">業者名 <span class="c-required">*</span></dt>
                     <dd class="trader-add_list-form__trader-name">
                         <input type="text" class="trader-add_input" name="trader[name]" value="{{old('trader.name')}}">
                     </dd>
                 </dl>
                 <dl class="trader-add_form__list">
-                    <dt class="trader-add_list-title__trader-tel">電話番号</dt>
+                    <dt class="trader-add_list-title__trader-tel">電話番号 <span class="c-required">*</span></dt>
                     <dd class="trader-add_list-form__trader-tel">
                         <input type="text" class="trader-add_input" name="trader[tel]" value="{{old('trader.tel')}}">
                     </dd>
                 </dl>
                 <dl class="trader-add_form__list">
-                    <dt class="trader-add_list-title__trader-address">住所</dt>
+                    <dt class="trader-add_list-title__trader-password">パスワード <span class="c-required">*</span></dt>
+                    <dd class="trader-add_list-form__trader-password">
+                        <input type="password" class="trader-add_input" value="" name="trader[password]">
+                    </dd>
+                    <dt class="trader-add_list-title__trader-password_confirmation">パスワード（確認用） <span class="c-required">*</span></dt>
+                    <dd class="trader-add_list-form__trader-password_confirmation">
+                        <input type="password" class="trader-add_input" value="" name="trader[password_confirmation]">
+                    </dd>
+                </dl>
+                <dl class="trader-add_form__list">
+                    <dt class="trader-add_list-title__trader-address">住所 <span class="c-required">*</span></dt>
                     <dd class="trader-add_list-form__trader-address">
                         <select name="trader[address]" id="">
                             @foreach($trader::$prefecture as $pre)
@@ -42,7 +52,7 @@
                     </dd>
                 </dl>
                 <dl class="trader-add_form__list">
-                    <dt class="trader-add_list-title__trader-area">サービス提供エリア</dt>
+                    <dt class="trader-add_list-title__trader-area">サービス提供エリア <span class="c-required">*</span></dt>
                     <dd class="trader-add_list-form__trader-area">
                         <input type="text" name="trader[area]" value="{{old('trader.area')}}">
                     </dd>
