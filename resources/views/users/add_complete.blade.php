@@ -9,9 +9,9 @@
                 </p>
             </div>
             <div class="users-invite_form__submit">
-                <a href="{{route('events-list')}}">
-                    <button class="c-btn c-btn--large c-btn--orange">トップへ</button>
-                </a>
+                {{--<a href="{{route('events-list')}}">--}}
+                    {{--<button class="c-btn c-btn--large c-btn--orange">トップへ</button>--}}
+                {{--</a>--}}
             </div>
         </div>
     </div>

@@ -69,33 +69,7 @@ class AossmsController extends Controller
 			'smsCode' => self::$smsCode,
 			'charset' => self::$charset,
 			'phoneNumber' => $to,
-			'message' => "このメールはEbihazeから送信されています。認証コード： ".$token."",
-		);
-		$curl=curl_init(self::$url);
-		curl_setopt($curl,CURLOPT_POST, TRUE);
-// ↓はmultipartリクエストを許可していないサーバの場合はダメっぽいです
-// @DrunkenDad_KOBAさん、Thanks
-//curl_setopt($curl,CURLOPT_POSTFIELDS, $POST_DATA);
-		curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($POST_DATA));
-		curl_setopt($curl,CURLOPT_SSL_VERIFYPEER, FALSE);  // オレオレ証明書対策
-		curl_setopt($curl,CURLOPT_SSL_VERIFYHOST, FALSE);  //
-		curl_setopt($curl,CURLOPT_RETURNTRANSFER, TRUE);
-		curl_setopt($curl,CURLOPT_COOKIEJAR,      'cookie');
-		curl_setopt($curl,CURLOPT_COOKIEFILE,     'tmp');
-		curl_setopt($curl,CURLOPT_FOLLOWLOCATION, TRUE); // Locationヘッダを追跡
-//curl_setopt($curl,CURLOPT_REFERER,        "REFERER");
-//curl_setopt($curl,CURLOPT_USERAGENT,      "USER_AGENT");
-
-		$output= curl_exec($curl);
-
-		// ２通目
-		$POST_DATA = array(
-			'token' => self::$token,
-			'clientId' => self::$clientId,
-			'smsCode' => self::$smsCode,
-			'charset' => self::$charset,
-			'phoneNumber' => $to,
-			'message' => "こちらをクリック下さい。\r$url",
+			'message' => "このメールはEbihazeから送信されています。\r\n認証ID: $user_id\r\n認証コード: $token",
 		);
 		$curl=curl_init(self::$url);
 		curl_setopt($curl,CURLOPT_POST, TRUE);
