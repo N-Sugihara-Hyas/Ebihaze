@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -21,8 +22,24 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+	    // アプリ用にログイン済みの時はレスポンスを返す
+	    if(Auth::check())
+	    {
+		    return self::rtnJson(0, Auth::id());
+	    }
         return view('home');
     }
+
+	public function rtnJson($result, $id=null)
+	{
+		$response = array();
+
+		$response["result"] = $result;
+		$response["id"] = $id;
+
+		return response()->json($response, 200);
+	}
+
 }
