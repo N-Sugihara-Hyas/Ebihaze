@@ -364,7 +364,14 @@ class UsersController extends Controller
 			}
 			$icon->save($dir.'/icon');
 		}
-		return redirect()->route('users-add-complete');
+		// for app 180203
+		$api_flg = $request->input('api_flg');
+		if($api_flg !== null && $api_flg === 1){
+			// アプリ用にjson返却
+			return self::rtnJson(0);
+		} else {
+			return redirect()->route('users-add-complete');
+		}
 	}
 	public function edit($id)
 	{
