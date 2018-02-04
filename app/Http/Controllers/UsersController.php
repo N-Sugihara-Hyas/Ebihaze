@@ -338,32 +338,68 @@ class UsersController extends Controller
 			$User->room_id = $Room->id;
 			$User->save();
 		}
-		if ($request->hasFile('apartment_icon'))
+
+		if($_FILES["apartment_icon"]["tmp_name"])
 		{
-			$icon = $request->file('apartment_icon');
-			$icon = Img::make($icon);
-			$icon->fit(240,240);
+			$file_tmp  = $_FILES["apartment_icon"]["tmp_name"];
+			// 正式保存先ファイルパス
+//			$file_save = "/var/www/html/save/" . $_FILES["file_1"]["name"];
 			$dir = public_path('img/resources/apartment/'.$Apartment->id);
 			if(!is_dir($dir))
 			{
 				exec('mkdir -p '.$dir);
 				exec('chmod -R 777 img/resources');
 			}
-			$icon->save($dir.'/icon');
+
+			// ファイル移動
+			$result = @move_uploaded_file($file_tmp, $dir.'/icon');
 		}
-		if ($request->hasFile('user_icon'))
+
+
+//		if ($request->hasFile('apartment_icon'))
+//		{
+//			$icon = $request->file('apartment_icon');
+//			$icon = Img::make($icon);
+//			$icon->fit(240,240);
+//			$dir = public_path('img/resources/apartment/'.$Apartment->id);
+//			if(!is_dir($dir))
+//			{
+//				exec('mkdir -p '.$dir);
+//				exec('chmod -R 777 img/resources');
+//			}
+//			$icon->save($dir.'/icon');
+//		}
+
+		if($_FILES["user_icon"]["tmp_name"])
 		{
-			$icon = $request->file('user_icon');
-			$icon = Img::make($icon);
-			$icon->fit(240,240);
+			$file_tmp  = $_FILES["user_icon"]["tmp_name"];
+			// 正式保存先ファイルパス
+//			$file_save = "/var/www/html/save/" . $_FILES["file_1"]["name"];
 			$dir = public_path('img/resources/user/'.$User->id);
 			if(!is_dir($dir))
 			{
 				exec('mkdir -p '.$dir);
 				exec('chmod -R 777 img/resources');
 			}
-			$icon->save($dir.'/icon');
+
+			// ファイル移動
+			$result = @move_uploaded_file($file_tmp, $dir.'/icon');
 		}
+
+//		if ($request->hasFile('user_icon'))
+//		{
+//			$icon = $request->file('user_icon');
+//			$icon = Img::make($icon);
+//			$icon->fit(240,240);
+//			$dir = public_path('img/resources/user/'.$User->id);
+//			if(!is_dir($dir))
+//			{
+//				exec('mkdir -p '.$dir);
+//				exec('chmod -R 777 img/resources');
+//			}
+//			$icon->save($dir.'/icon');
+//		}
+
 		// for app 180203
 		$api_flg = $request->input('api_flg');
 		if($api_flg !== null && $api_flg === 1){
