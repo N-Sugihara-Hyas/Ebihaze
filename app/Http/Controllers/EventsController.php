@@ -493,6 +493,8 @@ class EventsController extends Controller
 		if(!is_null($_FILES[$model_name."_thumb"]["tmp_name"]))
 		{
 			$file_tmp  = $_FILES[$model_name."_thumb"]["tmp_name"];
+			$file_tmp = Img::make($file_tmp);
+			$file_tmp->fit(240,240);
 			// 正式保存先ファイルパス
 			$dir = public_path("img/resources/$model_name/$model_id");
 			if(!is_dir($dir))
@@ -501,7 +503,7 @@ class EventsController extends Controller
 				exec('chmod -R 777 img/resources');
 			}
 			// ファイル移動
-			$result = @move_uploaded_file($file_tmp, $dir.'/thumb');
+			$result = @$file_tmp->save($dir.'/thumb');
 		}
 	}
 
