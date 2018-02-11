@@ -96,19 +96,20 @@ class TradersController extends Controller
 		$Trader->user_id = $User->id;
 		$Trader->save();
 
-		if ($request->hasFile('trader_icon'))
-		{
-			$icon = $request->file('trader_icon');
-			$icon = Img::make($icon);
-			$icon->fit(240,240);
-			$dir = public_path('img/resources/trader/'.$Trader->id);
-			if(!is_dir($dir))
-			{
-				exec('mkdir -p '.$dir);
-				exec('chmod -R 777 img/resources');
-			}
-			$icon->save($dir.'/icon');
-		}
+		$this->saveImage('trader', $Trader->id);
+//		if ($request->hasFile('trader_icon'))
+//		{
+//			$icon = $request->file('trader_icon');
+//			$icon = Img::make($icon);
+//			$icon->fit(240,240);
+//			$dir = public_path('img/resources/trader/'.$Trader->id);
+//			if(!is_dir($dir))
+//			{
+//				exec('mkdir -p '.$dir);
+//				exec('chmod -R 777 img/resources');
+//			}
+//			$icon->save($dir.'/icon');
+//		}
 
 		return redirect()->route('traders-list');
 	}
@@ -202,20 +203,42 @@ class TradersController extends Controller
 
 		$Trader->save();
 
-		if ($request->hasFile('trader_icon'))
+		$this->saveImage('trader', $Trader->id);
+//		if ($request->hasFile('trader_icon'))
+//		{
+//			$icon = $request->file('trader_icon');
+//			$icon = Img::make($icon);
+//			$icon->fit(240,240);
+//			$dir = public_path('img/resources/trader/'.$Trader->id);
+//			if(!is_dir($dir))
+//			{
+//				exec('mkdir -p '.$dir);
+//				exec('chmod -R 777 img/resources');
+//			}
+//			$icon->save($dir.'/icon');
+//		}
+
+		return redirect()->route('traders-list');
+	}
+
+	/*
+	 * $model_name : str : アイコン名
+	 * $model_id : int : {Model}Id
+	 */
+	public function saveImage($model_name, $model_id)
+	{
+		if(!is_null($_FILES[$model_name."_icon"]["tmp_name"]))
 		{
-			$icon = $request->file('trader_icon');
-			$icon = Img::make($icon);
-			$icon->fit(240,240);
-			$dir = public_path('img/resources/trader/'.$Trader->id);
+			$file_tmp  = $_FILES[$model_name."_icon"]["tmp_name"];
+			// 正式保存先ファイルパス
+			$dir = public_path("img/resources/$model_name/$model_id");
 			if(!is_dir($dir))
 			{
 				exec('mkdir -p '.$dir);
 				exec('chmod -R 777 img/resources');
 			}
-			$icon->save($dir.'/icon');
+			// ファイル移動
+			$result = @move_uploaded_file($file_tmp, $dir.'/icon');
 		}
-
-		return redirect()->route('traders-list');
 	}
 }

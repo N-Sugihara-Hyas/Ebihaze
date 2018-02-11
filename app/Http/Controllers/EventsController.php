@@ -286,24 +286,20 @@ class EventsController extends Controller
 
 		if($Event->save())
 		{
-			if ($request->hasFile('event_thumb'))
-			{
-				$thumb = $request->file('event_thumb');
-				$thumb = Img::make($thumb);
-				$thumb->fit(240,240);
-//				$dir = asset('img/resources/event/'.$Event->id);
-				$dir = '/home/vagrant/ebihaze/public/img/resources/event/'.$Event->id;
-				$dir = public_path('img/resources/event/'.$Event->id);
-				if(!is_dir($dir))
-				{
-//					mkdir($dir, 0777);
-					exec('mkdir -p '.$dir);
-					exec('chmod -R 777 img/resources');
-//					exec('install -d -m=777 '.$dir);
-				}
-				$thumb->save($dir.'/thumb');
-//				$thumb->save(asset('img/resources/event/'.$Event->id.'/thumb.'.$thumb->getClientOriginalExtension()));
-			}
+			$this->saveImage('event', $Event->id);
+//			if ($request->hasFile('event_thumb'))
+//			{
+//				$thumb = $request->file('event_thumb');
+//				$thumb = Img::make($thumb);
+//				$thumb->fit(240,240);
+//				$dir = public_path('img/resources/event/'.$Event->id);
+//				if(!is_dir($dir))
+//				{
+//					exec('mkdir -p '.$dir);
+//					exec('chmod -R 777 img/resources');
+//				}
+//				$thumb->save($dir.'/thumb');
+//			}
 			return redirect()->route('events-list');
 		}
 		else
@@ -356,22 +352,20 @@ class EventsController extends Controller
 
 		if($Event->save())
 		{
-			if ($request->hasFile('event_thumb'))
-			{
-				$thumb = $request->file('event_thumb');
-				$thumb = Img::make($thumb);
-				$thumb->fit(240,240);
-				$dir = public_path('img/resources/event/'.$Event->id);
-				if(!is_dir($dir))
-				{
-//					mkdir($dir, 0777);
-					exec('mkdir -p '.$dir);
-					exec('chmod -R 777 img/resources');
-//					exec('install -d -m=777 '.$dir);
-				}
-				$thumb->save($dir.'/thumb');
-//				$thumb->save(asset('img/resources/event/'.$Event->id.'/thumb.'.$thumb->getClientOriginalExtension()));
-			}
+			$this->saveImage('event', $Event->id);
+//			if ($request->hasFile('event_thumb'))
+//			{
+//				$thumb = $request->file('event_thumb');
+//				$thumb = Img::make($thumb);
+//				$thumb->fit(240,240);
+//				$dir = public_path('img/resources/event/'.$Event->id);
+//				if(!is_dir($dir))
+//				{
+//					exec('mkdir -p '.$dir);
+//					exec('chmod -R 777 img/resources');
+//				}
+//				$thumb->save($dir.'/thumb');
+//			}
 			return redirect()->route('events-list');
 		}
 		else
@@ -489,4 +483,26 @@ class EventsController extends Controller
 			JSON_UNESCAPED_UNICODE
 		);
 	}
+
+	/*
+	 * $model_name : str : アイコン名
+	 * $model_id : int : {Model}Id
+	 */
+	public function saveImage($model_name, $model_id)
+	{
+		if(!is_null($_FILES[$model_name."_thumb"]["tmp_name"]))
+		{
+			$file_tmp  = $_FILES[$model_name."_thumb"]["tmp_name"];
+			// 正式保存先ファイルパス
+			$dir = public_path("img/resources/$model_name/$model_id");
+			if(!is_dir($dir))
+			{
+				exec('mkdir -p '.$dir);
+				exec('chmod -R 777 img/resources');
+			}
+			// ファイル移動
+			$result = @move_uploaded_file($file_tmp, $dir.'/thumb');
+		}
+	}
+
 }

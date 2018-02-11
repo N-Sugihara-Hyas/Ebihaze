@@ -75,19 +75,20 @@ class ApartmentsController extends Controller
 		// ユーザーID登録
 		$Apartment->user_id = Auth::id();
 		$Apartment->save();
-		if ($request->hasFile('apartment_icon'))
-		{
-			$icon = $request->file('apartment_icon');
-			$icon = Img::make($icon);
-			$icon->fit(240,240);
-			$dir = public_path('img/resources/apartment/'.$Apartment->id);
-			if(!is_dir($dir))
-			{
-				exec('mkdir -p '.$dir);
-				exec('chmod -R 777 img/resources');
-			}
-			$icon->save($dir.'/icon');
-		}
+		$this->saveImage('apartment', $Apartment->id);
+//		if ($request->hasFile('apartment_icon'))
+//		{
+//			$icon = $request->file('apartment_icon');
+//			$icon = Img::make($icon);
+//			$icon->fit(240,240);
+//			$dir = public_path('img/resources/apartment/'.$Apartment->id);
+//			if(!is_dir($dir))
+//			{
+//				exec('mkdir -p '.$dir);
+//				exec('chmod -R 777 img/resources');
+//			}
+//			$icon->save($dir.'/icon');
+//		}
 		// 保険登録
 		$insurances = $request->input('insurance');
 		foreach($insurances as $num => $ins)
@@ -191,19 +192,20 @@ class ApartmentsController extends Controller
 			$Apartment->{$name} = $value;
 		}
 		$Apartment->save();
-		if ($request->hasFile('apartment_icon'))
-		{
-			$icon = $request->file('apartment_icon');
-			$icon = Img::make($icon);
-			$icon->fit(240,240);
-			$dir = public_path('img/resources/apartment/'.$Apartment->id);
-			if(!is_dir($dir))
-			{
-				exec('mkdir -p '.$dir);
-				exec('chmod -R 777 img/resources');
-			}
-			$icon->save($dir.'/icon');
-		}
+		$this->saveImage('apartment', $Apartment->id);
+//		if ($request->hasFile('apartment_icon'))
+//		{
+//			$icon = $request->file('apartment_icon');
+//			$icon = Img::make($icon);
+//			$icon->fit(240,240);
+//			$dir = public_path('img/resources/apartment/'.$Apartment->id);
+//			if(!is_dir($dir))
+//			{
+//				exec('mkdir -p '.$dir);
+//				exec('chmod -R 777 img/resources');
+//			}
+//			$icon->save($dir.'/icon');
+//		}
 		// 保険登録
 		$insurances = $request->input('insurance');
 		foreach($insurances as $num => $ins)
@@ -232,5 +234,26 @@ class ApartmentsController extends Controller
 			$Apart->rank = $Apart->ranks()->avg('rate');
 		}
 		return view('apartments.rank', ['apartments' => $Apartments, 'route' => $route, 'title' => $title]);
+	}
+
+	/*
+	 * $model_name : str : アイコン名
+	 * $model_id : int : {Model}Id
+	 */
+	public function saveImage($model_name, $model_id)
+	{
+		if(!is_null($_FILES[$model_name."_icon"]["tmp_name"]))
+		{
+			$file_tmp  = $_FILES[$model_name."_icon"]["tmp_name"];
+			// 正式保存先ファイルパス
+			$dir = public_path("img/resources/$model_name/$model_id");
+			if(!is_dir($dir))
+			{
+				exec('mkdir -p '.$dir);
+				exec('chmod -R 777 img/resources');
+			}
+			// ファイル移動
+			$result = @move_uploaded_file($file_tmp, $dir.'/icon');
+		}
 	}
 }
