@@ -33,6 +33,7 @@
         </ul>
 
 
+        <h2 class="menu-list__title">案件</h2>
         @if(Auth::user()->type!='trader')
         <ul class="menu-list c-menu c-list">
             <a href="{{route('events-add')}}">
@@ -41,6 +42,17 @@
                         <section class="menu-item-title">
                             <p>
                                 案件登録
+                            </p>
+                        </section>
+                    </div>
+                </li>
+            </a>
+            <a href="{{route('events-list')}}">
+                <li class="menu-list__item c-menu__item c-list__item">
+                    <div class="menu-item-container">
+                        <section class="menu-item-title">
+                            <p>
+                                案件一覧
                             </p>
                         </section>
                     </div>
